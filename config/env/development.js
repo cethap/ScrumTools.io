@@ -6,8 +6,8 @@ module.exports = {
 		title: 'ScrumTools.io - Development Environment'
 	},
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || 'APP_ID',
-		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
+		clientID: process.env.FACEBOOK_ID || '391928577635539',
+		clientSecret: process.env.FACEBOOK_SECRET || '05abbf5aff101a683d08fd600ad4e2f9',
 		callbackURL: '/auth/facebook/callback'
 	},
 	twitter: {
@@ -16,8 +16,8 @@ module.exports = {
 		callbackURL: '/auth/twitter/callback'
 	},
 	google: {
-		clientID: process.env.GOOGLE_ID || 'APP_ID',
-		clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
+		clientID: process.env.GOOGLE_ID || '206773603697-m1qp8fa0hlh4ifa3thmaamblkko2tq0q.apps.googleusercontent.com',
+		clientSecret: process.env.GOOGLE_SECRET || 'MKFygFR9_fdQv0xSAYaUST7F',
 		callbackURL: '/auth/google/callback'
 	},
 	linkedin: {
@@ -26,17 +26,17 @@ module.exports = {
 		callbackURL: '/auth/linkedin/callback'
 	},
 	github: {
-		clientID: process.env.GITHUB_ID || 'APP_ID',
-		clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
+		clientID: process.env.GITHUB_ID || '954e52c0a6de38d93c1f',
+		clientSecret: process.env.GITHUB_SECRET || '0740a2224161a4c2dcf9339611b2bee9a6c58b86',
 		callbackURL: '/auth/github/callback'
 	},
 	mailer: {
-		from: process.env.MAILER_FROM || 'MAILER_FROM',
+		from: process.env.MAILER_FROM || 'scrumtools@outlook.com',
 		options: {
-			service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
+			service: process.env.MAILER_SERVICE_PROVIDER || 'hotmail',
 			auth: {
-				user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
-				pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
+				user: process.env.MAILER_EMAIL_ID || 'scrumtools@outlook.com',
+				pass: process.env.MAILER_PASSWORD || 'SScrrumtoools123'
 			}
 		}
 	}

@@ -69,7 +69,7 @@ exports.forgot = function(req, res, next) {
 			var mailOptions = {
 				to: user.email,
 				from: config.mailer.from,
-				subject: 'Password Reset',
+				subject: 'Cambio de Password',
 				html: emailHTML
 			};
 			smtpTransport.sendMail(mailOptions, function(err) {
@@ -171,7 +171,7 @@ exports.reset = function(req, res, next) {
 			var mailOptions = {
 				to: user.email,
 				from: config.mailer.from,
-				subject: 'Your password has been changed',
+				subject: 'Su password ha sido cambiado',
 				html: emailHTML
 			};
 
