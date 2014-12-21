@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/scrumtoolsio-dev',
+	db: 'mongodb://​scrumtools:​scrumtools@kahana.mongohq.com:10003/meanio',
 	app: {
 		title: 'ScrumTools.io - Development Environment'
 	},
