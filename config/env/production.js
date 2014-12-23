@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/scrumtoolsio',
+	db: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools' || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/scrumtoolsio',
 	assets: {
 		lib: {
 			css: [
@@ -24,8 +24,8 @@ module.exports = {
 		js: 'public/dist/application.min.js'
 	},
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || 'APP_ID',
-		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
+		clientID: process.env.FACEBOOK_ID || '391928577635539',
+		clientSecret: process.env.FACEBOOK_SECRET || '05abbf5aff101a683d08fd600ad4e2f9',
 		callbackURL: '/auth/facebook/callback'
 	},
 	twitter: {
@@ -34,8 +34,8 @@ module.exports = {
 		callbackURL: '/auth/twitter/callback'
 	},
 	google: {
-		clientID: process.env.GOOGLE_ID || 'APP_ID',
-		clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
+		clientID: process.env.GOOGLE_ID || '206773603697-d90dkt7832b5guc9d5u38oq6nuartlh1.apps.googleusercontent.com',
+		clientSecret: process.env.GOOGLE_SECRET || '_SBk6hsn-ttdSwUv6isWKNSu',
 		callbackURL: '/auth/google/callback'
 	},
 	linkedin: {
