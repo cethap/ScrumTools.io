@@ -46,7 +46,17 @@
 <body class="ng-cloak">
 	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-inverse"></header>
 	<section class="content">
-		<section class="container">
+
+		<section class="col-md-2 sidebar" role="navigation">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">Link 1</a></li>
+              <li><a href="#">Link 2</a></li>
+              <li><a href="#">Link 3</a></li>              
+            </ul>
+		</section>
+
+		<section class="col-md-10 realContent">
 			{% block content %}{% endblock %}
 		</section>
 	</section>

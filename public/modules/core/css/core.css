@@ -1,6 +1,18 @@
-.content {
-	margin-top: 50px;
+html, body{
+	height: 100%;
+	overflow: hidden;
 }
+
+.content {
+	margin-top: 0;
+	height: calc(100% - 50px);
+}
+
+.realContent{
+	height: 100%;
+	overflow: auto;
+}
+
 .undecorated-link:hover {
 	text-decoration: none;
 }
@@ -19,7 +31,7 @@ hr.dashed {
 }
 hr {
 	clear: both;
-    margin: 20px 0px;
+    margin: 20px 0;
     border: medium none;
     height: 1px;
     width: 100%;
@@ -29,4 +41,41 @@ hr {
 	height: 0;
 	position: relative;
 	top: 52px;	
+	font-size: 3em !important;
+}
+
+.sidebar {
+    height: 100%;
+    padding: 0;
+    background: #434A54;
+}
+
+.sidebar li {
+    border-width: 0 0 1px;
+    border-style: dashed;
+    border-color: #8C8C86;
+}
+
+.sidebar li a{
+	color: #fff;
+}
+
+.sidebar li a:hover{
+	color: #FFF;
+	background-color: #656D78;
+	outline: 0 none;
+}
+
+.navbar{
+	border-radius: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+.navbar-inverse{
+	background-color: #434A54 !important;
+	border-bottom: #8C8C86 dashed 1px;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-link, .navbar-inverse .btn-link, .navbar-inverse .navbar-text, .navbar-inverse .navbar-nav > li > a{
+	color:#fff !important;
 }
