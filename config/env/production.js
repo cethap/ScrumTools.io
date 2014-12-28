@@ -6,6 +6,7 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
+				'public/lib/Bootflat/bootflat/css/bootflat.min.css',
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],
 			js: [

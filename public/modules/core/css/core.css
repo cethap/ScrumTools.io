@@ -13,3 +13,20 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+
+hr.dashed {
+    border-top: 1px dashed #CCC;
+}
+hr {
+	clear: both;
+    margin: 20px 0px;
+    border: medium none;
+    height: 1px;
+    width: 100%;
+}
+
+.ttApp{
+	height: 0;
+	position: relative;
+	top: 52px;	
+}
