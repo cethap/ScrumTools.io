@@ -43,12 +43,136 @@ angular.element(document).ready(function() {
 });
 'use strict';
 
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('admncnvans');
+'use strict';
+
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('escritorio');
+
+'use strict';
+
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('users');
+'use strict';
+
+// Configuring the Articles module
+angular.module('admncnvans').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('sidebar', 'Administrador Canvan', 'admncnvans', 'dropdown', '/admncnvans(/create)?');
+		Menus.addSubMenuItem('sidebar', 'admncnvans', 'Listar Canvans', 'admncnvans');
+		Menus.addSubMenuItem('sidebar', 'admncnvans', 'Nuevo Canvan', 'admncnvans/create');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('admncnvans').config(['$stateProvider',
+	function($stateProvider) {
+		// Admncnvans state routing
+		$stateProvider.
+		state('listAdmncnvans', {
+			url: '/admncnvans',
+			templateUrl: 'modules/admncnvans/views/list-admncnvans.client.view.html'
+		}).
+		state('createAdmncnvan', {
+			url: '/admncnvans/create',
+			templateUrl: 'modules/admncnvans/views/create-admncnvan.client.view.html'
+		}).
+		state('viewAdmncnvan', {
+			url: '/admncnvans/:admncnvanId',
+			templateUrl: 'modules/admncnvans/views/view-admncnvan.client.view.html'
+		}).
+		state('editAdmncnvan', {
+			url: '/admncnvans/:admncnvanId/edit',
+			templateUrl: 'modules/admncnvans/views/edit-admncnvan.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// Admncnvans controller
+angular.module('admncnvans').controller('AdmncnvansController', ['$scope', '$stateParams', '$location', 'Authentication', 'Admncnvans',
+	function($scope, $stateParams, $location, Authentication, Admncnvans) {
+		$scope.authentication = Authentication;
+
+		// Create new Admncnvan
+		$scope.create = function() {
+			// Create new Admncnvan object
+			var admncnvan = new Admncnvans ({
+				name: this.name
+			});
+
+			// Redirect after save
+			admncnvan.$save(function(response) {
+				$location.path('admncnvans/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing Admncnvan
+		$scope.remove = function(admncnvan) {
+			if ( admncnvan ) { 
+				admncnvan.$remove();
+
+				for (var i in $scope.admncnvans) {
+					if ($scope.admncnvans [i] === admncnvan) {
+						$scope.admncnvans.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.admncnvan.$remove(function() {
+					$location.path('admncnvans');
+				});
+			}
+		};
+
+		// Update existing Admncnvan
+		$scope.update = function() {
+			var admncnvan = $scope.admncnvan;
+
+			admncnvan.$update(function() {
+				$location.path('admncnvans/' + admncnvan._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Admncnvans
+		$scope.find = function() {
+			$scope.admncnvans = Admncnvans.query();
+		};
+
+		// Find existing Admncnvan
+		$scope.findOne = function() {
+			$scope.admncnvan = Admncnvans.get({ 
+				admncnvanId: $stateParams.admncnvanId
+			});
+		};
+	}
+]);
+'use strict';
+
+//Admncnvans service used to communicate Admncnvans REST endpoints
+angular.module('admncnvans').factory('Admncnvans', ['$resource',
+	function($resource) {
+		return $resource('admncnvans/:admncnvanId', { admncnvanId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
 'use strict';
 
 // Setting up route
@@ -82,14 +206,51 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			$scope.isCollapsed = false;
 		});
 	}
+]).controller('SideBarController', ['$scope', 'Authentication', 'Menus',
+	function($scope, Authentication, Menus) {
+		//console.log(Menus.getMenu('sidebar'));
+		$scope.authentication = Authentication;
+		$scope.isCollapsed = false;
+		$scope.menu = Menus.getMenu('sidebar');
+
+		$scope.realClass = function(item){
+			return (item.menuItemClass === 'dropdown')?'dropdown-submenu':item.menuItemClass;
+		};
+
+		$scope.toggleCollapsibleMenu = function() {
+			$scope.isCollapsed = !$scope.isCollapsed;
+		};
+
+		// Collapsing the menu after navigation
+		$scope.$on('$stateChangeSuccess', function() {
+			$scope.isCollapsed = false;
+		});
+	}
+])
+
+.controller('offCnvas', ['$scope', 'Authentication', 'Menus',
+	function($scope, Authentication, Menus) {
+		var Menu = Menus.getMenu('sidebar');
+		$scope.sttus = Menu.shouldRender(Authentication.user);
+		if(!$scope.sttus){
+			$scope.ClassSdebar = 'hide';
+			$scope.ClassCntent = 'col-md-12 realContent';
+		}else{
+			$scope.ClassSdebar = 'totalH col-md-2 hidden-xs hidden-sm';
+			$scope.ClassCntent = 'col-md-10 realContent';			
+		}
+	}
 ]);
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication',
-	function($scope, Authentication) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication','$location',
+	function($scope, Authentication,$location) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
+		if(Authentication.user){
+			$location.path('/escritorio');
+		}
 	}
 ]);
 'use strict';
@@ -256,6 +417,69 @@ angular.module('core').service('Menus', [
 
 		//Adding the topbar menu
 		this.addMenu('topbar');
+		//Adding the sidebar menu
+		this.addMenu('sidebar');
+	}
+]);
+'use strict';
+
+// Escritorio module config
+angular.module('escritorio').run(['Menus',
+	function(Menus) {
+		Menus.addMenuItem('sidebar', 'Escritorio', 'escritorio', 'item', '/');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('escritorio').config(['$stateProvider',
+	function($stateProvider) {
+		// Escritorio state routing
+		$stateProvider.
+		state('escritorio', {
+			url: '/escritorio',
+			templateUrl: 'modules/escritorio/views/escritorio.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+angular.module('escritorio').controller('EscritorioController', ['$scope','Authentication','$location',
+	function($scope,Authentication,$location) {
+		if(Authentication.user === ''){
+			$location.path('/');
+		}
+	}
+]);
+'use strict';
+
+angular.module('escritorio').directive('escritorio', [
+	function() {
+		return {
+			template: '<div></div>',
+			restrict: 'E',
+			link: function postLink(scope, element, attrs) {
+				// Escritorio directive logic
+				// ...
+
+				element.text('this is the escritorio directive');
+			}
+		};
+	}
+]);
+'use strict';
+
+angular.module('escritorio').factory('Escritorio', [
+	function() {
+		// Escritorio service logic
+		// ...
+
+		// Public API
+		return {
+			someMethod: function() {
+				return true;
+			}
+		};
 	}
 ]);
 'use strict';

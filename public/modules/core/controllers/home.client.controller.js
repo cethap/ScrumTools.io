@@ -6,7 +6,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		if(Authentication.user){
-			$location.path('/escritorio')
+			$location.path('/escritorio');
 		}
 	}
 ]);
