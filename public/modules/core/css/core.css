@@ -79,3 +79,12 @@ hr {
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-link, .navbar-inverse .btn-link, .navbar-inverse .navbar-text, .navbar-inverse .navbar-nav > li > a{
 	color:#fff !important;
 }
+
+.nav > li > a:hover, .nav > li > a:focus{
+	background-color: #333 !important;
+}
+
+.totalH{
+	height: 100%;
+	padding: 0;
+}

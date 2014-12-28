@@ -1,0 +1,19 @@
+<section data-ng-controller="AdmncnvansController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Admncnvans</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="admncnvan in admncnvans" data-ng-href="#!/admncnvans/{{admncnvan._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="admncnvan.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="admncnvan.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="admncnvan.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!admncnvans.$resolved || admncnvans.length">
+    	No Admncnvans yet, why don't you <a href="/#!/admncnvans/create">create one</a>?
+    </div>
+</section>
