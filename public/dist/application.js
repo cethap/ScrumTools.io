@@ -101,6 +101,9 @@ angular.module('admncnvans').controller('AdmncnvansController', ['$scope', '$sta
 	function($scope, $stateParams, $location, Authentication, Admncnvans) {
 		$scope.authentication = Authentication;
 
+		//If user is signed in then redirect back home
+		if (!$scope.authentication.user) $location.path('/');
+
 		// Create new Admncnvan
 		$scope.create = function() {
 			// Create new Admncnvan object
@@ -236,8 +239,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			$scope.ClassSdebar = 'hide';
 			$scope.ClassCntent = 'col-md-12 realContent';
 		}else{
-			$scope.ClassSdebar = 'totalH col-md-2 hidden-xs hidden-sm';
-			$scope.ClassCntent = 'col-md-10 realContent';			
+			$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
+			$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';			
 		}
 	}
 ]);
@@ -450,7 +453,43 @@ angular.module('escritorio').controller('EscritorioController', ['$scope','Authe
 			$location.path('/');
 		}
 	}
-]);
+])
+
+.controller('DatepickerDemoCtrl', ["$scope", function ($scope) {
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
+  $scope.today();
+
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
+
+  // Disable weekend selection
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
+
+  $scope.toggleMin = function() {
+    $scope.minDate = $scope.minDate ? null : new Date();
+  };
+  $scope.toggleMin();
+
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = true;
+  };
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[0];
+}]);
 'use strict';
 
 angular.module('escritorio').directive('escritorio', [

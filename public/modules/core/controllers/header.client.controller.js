@@ -45,8 +45,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			$scope.ClassSdebar = 'hide';
 			$scope.ClassCntent = 'col-md-12 realContent';
 		}else{
-			$scope.ClassSdebar = 'totalH col-md-2 hidden-xs hidden-sm';
-			$scope.ClassCntent = 'col-md-10 realContent';			
+			$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
+			$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';			
 		}
 	}
 ]);

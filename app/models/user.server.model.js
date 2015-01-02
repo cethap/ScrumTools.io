@@ -29,13 +29,13 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+		validate: [validateLocalStrategyProperty, 'Porfavor llene el campo de su nombre']
 	},
 	lastName: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+		validate: [validateLocalStrategyProperty, 'Porfavor llene el campo del apellido']
 	},
 	displayName: {
 		type: String,
@@ -45,13 +45,13 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
-		match: [/.+\@.+\..+/, 'Please fill a valid email address']
+		validate: [validateLocalStrategyProperty, 'Porfavor llene el campo del email'],
+		match: [/.+\@.+\..+/, 'Porfavor lleve email valido']
 	},
 	username: {
 		type: String,
-		unique: 'testing error message',
-		required: 'Please fill in a username',
+		unique: 'Mensahe de testeo de error',
+		required: 'Porfavor llene el campo del usuario',
 		trim: true
 	},
 	password: {
@@ -64,7 +64,7 @@ var UserSchema = new Schema({
 	},
 	provider: {
 		type: String,
-		required: 'Provider is required'
+		required: 'Proveedor es requerido'
 	},
 	providerData: {},
 	additionalProvidersData: {},

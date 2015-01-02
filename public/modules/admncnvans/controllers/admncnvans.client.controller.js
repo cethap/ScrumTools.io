@@ -5,6 +5,9 @@ angular.module('admncnvans').controller('AdmncnvansController', ['$scope', '$sta
 	function($scope, $stateParams, $location, Authentication, Admncnvans) {
 		$scope.authentication = Authentication;
 
+		//If user is signed in then redirect back home
+		if (!$scope.authentication.user) $location.path('/');
+
 		// Create new Admncnvan
 		$scope.create = function() {
 			// Create new Admncnvan object

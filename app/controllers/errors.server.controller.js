@@ -11,7 +11,7 @@ var getUniqueErrorMessage = function(err) {
 		output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' already exists';
 
 	} catch (ex) {
-		output = 'Unique field already exists';
+		output = 'Campo unico realmente existe';
 	}
 
 	return output;
@@ -30,7 +30,7 @@ exports.getErrorMessage = function(err) {
 				message = getUniqueErrorMessage(err);
 				break;
 			default:
-				message = 'Something went wrong';
+				message = 'Algo salio mal';
 		}
 	} else {
 		for (var errName in err.errors) {

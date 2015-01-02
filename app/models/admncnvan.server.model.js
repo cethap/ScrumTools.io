@@ -13,7 +13,7 @@ var AdmncnvanSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Admncnvan name',
+		required: 'Porfavor llene nombre del canvan',
 		trim: true
 	},
 	created: {
