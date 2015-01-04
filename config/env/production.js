@@ -1,15 +1,39 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools' || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/scrumtoolsio',
+	//db: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools' || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/scrumtoolsio',
+
+    db: {
+        //uri: 'mongodb://localhost/scrum',
+        uri: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools',
+        options: {
+            user: 'st',
+            pass: 'st'
+        }
+    },
+
+    log: {
+        // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
+        format: 'dev',
+        // Stream defaults to process.stdout
+        // Uncomment to enable logging to a log on the file system
+        options: {
+            //stream: 'access.log'
+        }
+    },
+
 	assets: {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
 				'public/lib/Bootflat/bootflat/css/bootflat.min.css',
+				'public/lib/angular-xeditable/dist/css/xeditable.css',
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],
 			js: [
+                'public/lib/jquery/dist/jquery.min.js',
+                'public/lib/jquery-ui/jquery-ui.min.js',
+
 				'public/lib/angular/angular.min.js',
 				'public/lib/angular-resource/angular-resource.min.js', 
 				'public/lib/angular-cookies/angular-cookies.min.js', 
@@ -18,7 +42,16 @@ module.exports = {
 				'public/lib/angular-sanitize/angular-sanitize.min.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/angular-ui-utils/ui-utils.min.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+
+				'public/lib/angular-socket-io/socket.min.js',
+				'public/lib/socket.io-client/socket.io.js',
+				'public/lib/angular-xeditable/dist/js/xeditable.min.js',
+				'public/lib/checklist-model/checklist-model.js',
+				'public/lib/angular-dragdrop/src/angular-dragdrop.min.js',
+				'public/lib/highcharts-ng/dist/highcharts-ng.min.js',
+				'public/lib/highstock/js/highstock.src.js'
+
 			]
 		},
 		css: 'public/dist/application.min.css',
