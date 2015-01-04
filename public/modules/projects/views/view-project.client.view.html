@@ -1,0 +1,44 @@
+<section data-ng-controller="ProjectsViewController">
+
+    <!--div class="col-md-2 navbar-inverse nav-menu">
+        <h5>
+            <ul class="sidebar-nav nav navbar-nav nav-stacked" role="tablist">
+
+                <li><a href="" ui-sref=".listStories">Product Backlog</a></li>
+                <li class="dropdown">
+                    <a href="#" ng-click="getSprints(project)" data-toggle="dropdown">Sprints<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-ng-repeat="sprint in sprints"><a href="" ui-sref=".viewSprint({sprintId: sprint._id})">{{sprint.sprintName}}</a></li>
+                        <li class="divider"></li>
+                        <li><a href="" ui-sref=".createSprint">New Sprint</a></li>
+                    </ul>
+                </li>
+                <li><a href="" ng-click="sprintBurnDownChart('lg', project)">Project Burndown Chart</a></li>
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown">Settings<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="" ng-click="modalViewMembers('', project)">View members</a></li>
+                        <li><a href="" ng-click="modalAddMembers('', project)">Add members</a></li>
+                        <li><a href="" ng-click="leave(project)">Leave project</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </h5>
+    </div-->
+
+
+
+
+
+
+    <div class="col-md-10 wrapper">
+        <h3 class="project-name">
+            {{project.projectName}}
+            <a href="" ng-click="modal('', project)">
+                <i popover="{{project.descriptionName}}" popover-placement="bottom" popover-title="Description" popover-trigger="mouseenter" class="glyphicon glyphicon-info-sign"></i>
+            </a>
+        </h3>
+        <div ui-view></div>
+    </div>
+
+</section>

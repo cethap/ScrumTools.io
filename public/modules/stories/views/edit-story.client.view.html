@@ -1,0 +1,64 @@
+<section data-ng-controller="StoriesEditController">
+    <div class="modal-header">
+        <h3 class="modal-title">Edit Story</h3>
+    </div>
+
+    <div class="modal-body">
+        <form name="updateStoryForm">
+            <fieldset>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div data-ng-show="error" class="text-center text-danger">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong data-ng-bind="error"></strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="storyTitle">Title</label>
+                            <div class="controls">
+                                <input name="storyTitle" type="text" data-ng-model="story.storyTitle" id="storyTitle" class="form-control" placeholder="Title" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="storyDescription">Description</label>
+                            <div class="controls">
+                                <textarea name="storyDescription" data-ng-model="story.storyDescription" id="storyDescription" class="form-control" cols="30" rows="5" placeholder="Description" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <label class="control-label" for="storyValue">Value: </label>
+                                <input name="input" type="number" data-ng-model="story.storyValue" id="storyValue" class="" min="0" max="100" required>
+
+                                <label class="control-label" for="storyPoint">Story Points: </label>
+                                <input name="input" type="number" data-ng-model="story.storyPoint" id="storyPoint" class="" min="0" max="100" required>
+
+                                <label class="control-label" for="storyPriority">Story Priority: </label>
+                                <select data-ng-model="story.storyPriority" ng-options="priority for priority in priorities" id="storyPriority"></select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="storyFinished">Finished:</label>
+                            <input type="checkbox" name="storyFinished" data-ng-model="story.storyFinished" id="storyFinished"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class="form-group">
+            <label class="control-label" for="users">Users</label>
+            <div class="controls">
+                <a href="" editable-checklist="story.users" e-ng-options="m._id as m.username for m in members" id="users">
+                    <p>{{ showMembers(story) }}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="update(story); ok()" ng-disabled="updateStoryForm.$invalid">Update</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</section>

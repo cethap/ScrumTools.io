@@ -1,0 +1,15 @@
+<section data-ng-controller="StoriesController">
+
+    <div class="containment-wrapper">
+        <button ng-click="createStory()" class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span></button>
+
+        <div sticky-note ng-repeat="story in stories" story="story" class="alert sticky-note">
+            <button type="button" class="close" ng-click="deleteStory(story)"><span class="btn-xs glyphicon glyphicon-trash"></span></button>
+            <button type="button" class="close" ng-click="moveToSprint('sm',story)"><span class="btn-xs glyphicon glyphicon-share-alt"></span></button>
+            <input ng-model="story.storyTitle" ng-change="updateStory(story)" type="text" class="title" >
+            <button type="button" class="close" ng-click="editStory('', story)"><span class="btn-xs glyphicon glyphicon-pencil"></span></button>
+            <textarea ng-model="story.storyDescription" ng-change="updateStory(story)" class="body"></textarea>
+        </div>
+
+    </div>
+</section>

@@ -1,7 +1,27 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools',
+
+    db: {
+        //uri: 'mongodb://localhost/scrum',
+        uri: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools',
+        options: {
+            user: 'st',
+            pass: 'st'
+        }
+    },
+    log: {
+        // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
+        format: 'dev',
+        // Stream defaults to process.stdout
+        // Uncomment to enable logging to a log on the file system
+        options: {
+            //stream: 'access.log'
+        }
+    },
+
+	//db: 'mongodb://localhost/scrum',
+	//db: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools',
 	//db: 'mongodb://​scrumtools:​scrumtools@kahana.mongohq.com:10003/meanio',
 	app: {
 		title: 'ScrumTools.io - Development Environment'

@@ -1,0 +1,44 @@
+.phase {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.phase-size {
+    width: 25%;
+    vertical-align: top;
+}
+
+.page-content-wrapper {
+    margin-top: 30px;
+    white-space: nowrap;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.no-bot-padding {
+    margin-bottom: 0;
+}
+
+.sprint {
+    position: fixed;
+    top: 6.5%;
+    left: 50%;
+}
+
+.sprint-meetings {
+    position: fixed;
+    top: 9%;
+    right: 2%;
+}
+
+.menu-left {
+    left: 26%;
+    z-index: -1;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
