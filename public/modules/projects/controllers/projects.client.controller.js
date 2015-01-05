@@ -22,7 +22,7 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
     function($scope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
         $scope.authentication = Authentication;
 
-        if(Menus.getMenu('sidebar').items.length === 1){        
+        if(Menus.getMenu('sidebar').items.length === 2){        
             Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
             Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
             Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');

@@ -134,6 +134,7 @@ exports.delete = function (req, res) {
  */
 exports.hasAuthorization = function (req, res, next) {
     var user = req.user;
+    user = (JSON.parse(JSON.stringify(user)));
     var query = { _id: req.params.storyId, projectId: { $in: user.projects } };
 
     Story.findOne(query).count().exec(function(err, amount) {

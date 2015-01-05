@@ -85,6 +85,13 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
     }
 ]);
 
+sprintsApp.controller('SprintslistController', ['$scope', '$stateParams','Sprints',
+    function($scope,$stateParams,Sprints){
+        $scope.sprints = Sprints.query({ projectId: $stateParams.projectId });
+    }
+]);
+
+
 sprintsApp.controller('SprintsViewController', ['$scope', '$stateParams', 'Authentication', 'Sprints', 'Phases', 'Tasks', 'Stories', '$http', '$location', '$modal', 'SocketSprint', '$log',
     function ($scope, $stateParams, Authentication, Sprints, Phases, Tasks, Stories, $http, $location, $modal, SocketSprint, $log) {
 

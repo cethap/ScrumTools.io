@@ -1,6 +1,6 @@
 <section data-ng-controller="SprintsCreateUpdateController">
     <div class="page-header">
-        <h1>Create Sprint</h1>
+        <h1>Crear Sprint</h1>
     </div>
 
     <div class="col-md-12">
@@ -16,19 +16,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="sprintName">Title</label>
+                            <label class="control-label" for="sprintName">Titulo</label>
                             <div class="controls">
-                                <input name="sprintName" type="text" data-ng-model="sprintName" id="sprintName" class="form-control" placeholder="Title" required>
+                                <input name="sprintName" type="text" data-ng-model="sprintName" id="sprintName" class="form-control" placeholder="Titulo" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="sprintDescription">Description</label>
+                            <label class="control-label" for="sprintDescription">Descripción</label>
                             <div class="controls">
-                                <textarea name="sprintDescription" data-ng-model="sprintDescription" id="sprintDescription" class="form-control" cols="30" rows="5" placeholder="Description"></textarea>
+                                <textarea name="sprintDescription" data-ng-model="sprintDescription" id="sprintDescription" class="form-control" cols="30" rows="5" placeholder="Descripción"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="sprintStartTime">Start Time</label>
+                            <label class="control-label" for="sprintStartTime">Inicio de tiempo</label>
                             <p class="input-group">
                                 <input name="sprintStartTime" type="text" id="sprintStartTime" class="form-control" datepicker-popup="{{format}}" ng-model="sprintStartTime" is-open="openedStartDT" datepicker-options="dateOptions" required close-text="Close" />
                                 <span class="input-group-btn">
@@ -37,7 +37,7 @@
                             </p>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="sprintEndTime">End Time</label>
+                            <label class="control-label" for="sprintEndTime">Fin del tiempo</label>
                             <p class="input-group">
                                 <input name="sprintEndTime" type="text" id="sprintEndTime" class="form-control" datepicker-popup="{{format}}" ng-model="sprintEndTime" is-open="openedEndDT" datepicker-options="dateOptions" required close-text="Close" />
                                 <span class="input-group-btn">
@@ -46,7 +46,7 @@
                             </p>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-group btn-success">Create</button>
+                            <button type="submit" class="btn btn-group btn-success">Crear</button>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 <section data-ng-controller="StoriesEditController">
     <div class="modal-header">
-        <h3 class="modal-title">Edit Story</h3>
+        <h3 class="modal-title">Editar Historia</h3>
     </div>
 
     <div class="modal-body">
@@ -16,32 +16,32 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="storyTitle">Title</label>
+                            <label class="control-label" for="storyTitle">Titulo</label>
                             <div class="controls">
                                 <input name="storyTitle" type="text" data-ng-model="story.storyTitle" id="storyTitle" class="form-control" placeholder="Title" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="storyDescription">Description</label>
+                            <label class="control-label" for="storyDescription">Descripción</label>
                             <div class="controls">
                                 <textarea name="storyDescription" data-ng-model="story.storyDescription" id="storyDescription" class="form-control" cols="30" rows="5" placeholder="Description" required></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="controls">
-                                <label class="control-label" for="storyValue">Value: </label>
+                                <label class="control-label" for="storyValue">Valor: </label>
                                 <input name="input" type="number" data-ng-model="story.storyValue" id="storyValue" class="" min="0" max="100" required>
 
-                                <label class="control-label" for="storyPoint">Story Points: </label>
+                                <label class="control-label" for="storyPoint">Puntos de la historia: </label>
                                 <input name="input" type="number" data-ng-model="story.storyPoint" id="storyPoint" class="" min="0" max="100" required>
 
-                                <label class="control-label" for="storyPriority">Story Priority: </label>
+                                <label class="control-label" for="storyPriority">Prioridad de la historia: </label>
                                 <select data-ng-model="story.storyPriority" ng-options="priority for priority in priorities" id="storyPriority"></select>
 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="storyFinished">Finished:</label>
+                            <label class="control-label" for="storyFinished">Finalizado:</label>
                             <input type="checkbox" name="storyFinished" data-ng-model="story.storyFinished" id="storyFinished"/>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
             </fieldset>
         </form>
         <div class="form-group">
-            <label class="control-label" for="users">Users</label>
+            <label class="control-label" for="users">Usuarios</label>
             <div class="controls">
                 <a href="" editable-checklist="story.users" e-ng-options="m._id as m.username for m in members" id="users">
                     <p>{{ showMembers(story) }}</p>
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="update(story); ok()" ng-disabled="updateStoryForm.$invalid">Update</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-success" ng-click="update(story); ok()" ng-disabled="updateStoryForm.$invalid">Actualizar</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancelars</button>
     </div>
 </section>

@@ -1,19 +1,17 @@
 <section data-ng-controller="SprintsViewController">
     <div class="sprint">
         <h3>
-            <div>
-                <button href="" class="btn btn-danger" ng-click="editSprint('', sprint)">
+            <div class="sprint-meetings">
+                <button href="" class="btn btn-danger NmbreSprint" ng-click="editSprint('', sprint)">
                     {{sprint.sprintName}}
                 </button>
-            </div>
-            <div class="sprint-meetings">
-                <button href="" ui-sref=".dashboard" class="btn btn-primary">Dashboard</button>
-                <button href="" ng-click="sprintBurnDownChart('lg', sprint, stories, tasks)" class="btn btn-primary">Burndown Chart</button>
-                <button href="" data-toggle="dropdown" class="btn btn-info">Meetings<span class="caret"></span></button>
+                <button href="" ui-sref=".dashboard" class="btn btn-primary">Tablero</button>
+                <button href="" ng-click="sprintBurnDownChart('lg', sprint, stories, tasks)" class="btn btn-primary">Burndown</button>
+                <button href="" data-toggle="dropdown" class="btn btn-info">Reuniones<span class="caret"></span></button>
                 <ul class="dropdown-menu menu-left" role="menu">
                     <li><a href="" ui-sref=".listDailies">DailyScrum</a></li>
-                    <li><a href="" ng-click="sprintReview('', sprint, stories)">Sprint Review</a></li>
-                    <li><a href="" ng-click="sprintRestrospective('', sprint)">Sprint Retrospective</a></li>
+                    <li><a href="" ng-click="sprintReview('', sprint, stories)">Revisión Sprint</a></li>
+                    <li><a href="" ng-click="sprintRestrospective('', sprint)">Retrospectiva Sprint</a></li>
                 </ul>
             </div>
         </h3>

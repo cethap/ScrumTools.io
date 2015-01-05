@@ -21,15 +21,12 @@
 }
 
 .sprint {
-    position: fixed;
-    top: 6.5%;
-    left: 50%;
+    position: relative;
 }
 
 .sprint-meetings {
-    position: fixed;
-    top: 9%;
-    right: 2%;
+    position: relative;
+    right: 0;
 }
 
 .menu-left {
@@ -41,4 +38,8 @@
     margin-left: auto;
     margin-right: auto;
     width: 70%;
+}
+
+.NmbreSprint{
+    margin-left: 15px;    
 }

@@ -3,12 +3,12 @@
  */
 'use strict';
 
-// Configuring the Projects module
+// Configuring the Proyectos module
 angular.module('projects').run(['Menus',
     function(Menus) {
         // Set top bar menu items
-        Menus.addMenuItem('topbar', 'Projects', 'projects', 'dropdown', '/projects(/create)?');
-        Menus.addSubMenuItem('topbar', 'projects', 'List Projects', 'projects');
-        Menus.addSubMenuItem('topbar', 'projects', 'New Project', 'projects/create');
+        Menus.addMenuItem('sidebar', 'Proyectos', 'proyectos', 'dropdown', '/projects(/create)?');
+        Menus.addSubMenuItem('sidebar', 'proyectos', 'Listar Proyectos', 'projects');
+        Menus.addSubMenuItem('sidebar', 'proyectos', 'Nuevo Project', 'projects/create');
     }
 ]);

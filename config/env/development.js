@@ -3,8 +3,8 @@
 module.exports = {
 
     db: {
-        //uri: 'mongodb://localhost/scrum',
-        uri: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools',
+        uri: 'mongodb://localhost/scrum',
+        //uri: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools',
         options: {
             user: 'st',
             pass: 'st'

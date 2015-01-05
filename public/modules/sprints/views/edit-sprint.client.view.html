@@ -17,20 +17,20 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="sprintName">Title</label>
+                            <label class="control-label" for="sprintName">Titulo</label>
                             <div class="controls">
                                 <input name="sprintName" type="text" data-ng-model="sprint.sprintName" id="sprintName" class="form-control" placeholder="Title" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="sprintDescription">Description</label>
+                            <label class="control-label" for="sprintDescription">Descripción</label>
                             <div class="controls">
                                 <textarea name="sprintDescription" data-ng-model="sprint.sprintDescription" id="sprintDescription" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" for="sprintStartTime">Start Time</label>
+                            <label class="control-label" for="sprintStartTime">Inicio de tiempo</label>
                             <p class="input-group">
                                 <input name="sprintStartTime" type="text" id="sprintStartTime" class="form-control" datepicker-popup="{{format}}" data-ng-model="sprint.sprintStartTime" is-open="openedStartDT" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                                 <span class="input-group-btn">
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" for="sprintEndTime">End Time</label>
+                            <label class="control-label" for="sprintEndTime">Fin del tiempo</label>
                             <p class="input-group">
                                 <input name="sprintEndTime" type="text" id="sprintEndTime" class="form-control" datepicker-popup="{{format}}" data-ng-model="sprint.sprintEndTime" is-open="openedEndDT" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                                 <span class="input-group-btn">
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" for="sprintFinished">Finished:</label>
+                            <label class="control-label" for="sprintFinished">Finalizado:</label>
                             <input type="checkbox" name="sprintFinished" data-ng-model="sprint.sprintFinished" id="sprintFinished"/>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="update(sprint); ok()" ng-disabled="updateSprintForm.$invalid">Update</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-success" ng-click="update(sprint); ok()" ng-disabled="updateSprintForm.$invalid">Actualizar</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
     </div>
 </section>

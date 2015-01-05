@@ -3,7 +3,7 @@
         <!-- Sprint Backlog -->
         <div class="phase phase-size">
             <div class="panel panel-default" data-drop="true" ng-model="toggler">
-                <h3 class="panel-heading panel-title">Sprint Backlog</h3>
+                <h3 class="panel-heading panel-title">Atrasos de Sprint</h3>
                 <div class="panel-body">
                     <ul class="list-group no-bot-padding">
                         <li class="list-group-item list-group-item-warning" ng-repeat="story in stories" ng-model="story">
@@ -45,14 +45,14 @@
         </div>
         <!-- Add new Phase -->
         <div class="phase phase-size">
-            <button class="btn btn-link" ng-hide="creatingPhase" ng-click="creatingPhase = true;">Add a phase&hellip;</button>
+            <button class="btn btn-link" ng-hide="creatingPhase" ng-click="creatingPhase = true;">Añadir fase&hellip;</button>
             <div class="panel panel-default" ng-show="creatingPhase">
                 <div class="panel-body">
                     <form role="form">
                         <div class="form-group">
                             <input type="text" class="form-control" id="PhaseName" placeholder="Title&hellip;" required ng-model="phaseName">
                         </div>
-                        <button type="submit" class="btn btn-info" ng-click="createPhase(phaseName); creatingPhase = false; phaseName = '';">Save</button>
+                        <button type="submit" class="btn btn-info" ng-click="createPhase(phaseName); creatingPhase = false; phaseName = '';">Guardar</button>
                         <button type="reset" ng-click="creatingPhase = false" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
                     </form>
                 </div>

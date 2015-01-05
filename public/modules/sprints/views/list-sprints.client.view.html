@@ -1,0 +1,20 @@
+<section data-ng-controller="SprintslistController">
+
+    <div class="list-group">
+        <div class="col-xs-6 col-sm-3 extra-space" data-ng-repeat="sprint in sprints">
+            <a class="list-group-item" href="" ui-sref="viewProject.viewSprint({sprintId: sprint._id})">
+                <div class="panel panel-default clickable">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            {{sprint.sprintName}}
+                            <span class="pull-right glyphicon glyphicon-tasks"></span>
+                        </h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+</section>
+

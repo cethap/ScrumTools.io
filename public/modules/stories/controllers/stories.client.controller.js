@@ -98,8 +98,8 @@ storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Au
         // Outgoing
         $scope.createStory = function() {
             var s = new Stories({
-                storyTitle: 'New Story',
-                storyDescription: 'Description',
+                storyTitle: 'Nueva Historia',
+                storyDescription: 'Descripción',
                 storyValue: 1,
                 storyPoint: 1,
                 storyPosX: 70,
