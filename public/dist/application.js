@@ -575,13 +575,13 @@ angular.module('phases').factory('Phases', ['$resource',
  */
 'use strict';
 
-// Configuring the Projects module
+// Configuring the Proyectos module
 angular.module('projects').run(['Menus',
     function(Menus) {
         // Set top bar menu items
-        Menus.addMenuItem('topbar', 'Projects', 'projects', 'dropdown', '/projects(/create)?');
-        Menus.addSubMenuItem('topbar', 'projects', 'List Projects', 'projects');
-        Menus.addSubMenuItem('topbar', 'projects', 'New Project', 'projects/create');
+        Menus.addMenuItem('sidebar', 'Proyectos', 'proyectos', 'dropdown', '/projects(/create)?');
+        Menus.addSubMenuItem('sidebar', 'proyectos', 'Listar Proyectos', 'projects');
+        Menus.addSubMenuItem('sidebar', 'proyectos', 'Nuevo Project', 'projects/create');
     }
 ]);
 /**
@@ -652,7 +652,7 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
     function($scope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
         $scope.authentication = Authentication;
 
-        if(Menus.getMenu('sidebar').items.length === 1){        
+        if(Menus.getMenu('sidebar').items.length === 2){        
             Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
             Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
             Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
@@ -1028,6 +1028,22 @@ angular.module('projects').factory('Projects', ['$resource', '$http',
     }
 ]);
 /**
+ * Created by J. Ricardo de Juan Cajide on 10/16/14.
+ */
+'use strict';
+
+// Setting up route
+angular.module('sprints').config(['$stateProvider',
+    function($stateProvider) {
+        // Articles state routing
+        $stateProvider.
+            state('viewProject.listSprint', {
+                url: '/sprints',
+                templateUrl: 'modules/sprints/views/list-sprints.client.view.html'
+            });
+    }
+]);
+/**
  * Created by J. Ricardo de Juan Cajide on 11/16/14.
  */
 'use strict';
@@ -1113,6 +1129,13 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
         };
     }
 ]);
+
+sprintsApp.controller('SprintslistController', ['$scope', '$stateParams','Sprints',
+    function($scope,$stateParams,Sprints){
+        $scope.sprints = Sprints.query({ projectId: $stateParams.projectId });
+    }
+]);
+
 
 sprintsApp.controller('SprintsViewController', ['$scope', '$stateParams', 'Authentication', 'Sprints', 'Phases', 'Tasks', 'Stories', '$http', '$location', '$modal', 'SocketSprint', '$log',
     function ($scope, $stateParams, Authentication, Sprints, Phases, Tasks, Stories, $http, $location, $modal, SocketSprint, $log) {
@@ -1822,8 +1845,8 @@ storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Au
         // Outgoing
         $scope.createStory = function() {
             var s = new Stories({
-                storyTitle: 'New Story',
-                storyDescription: 'Description',
+                storyTitle: 'Nueva Historia',
+                storyDescription: 'Descripción',
                 storyValue: 1,
                 storyPoint: 1,
                 storyPosX: 70,
