@@ -1,6 +1,6 @@
 <section data-ng-controller="ProjectsCrUpController">
     <div class="page-header">
-        <h1>Create Project</h1>
+        <h2>Crear Proyecto</h2>
     </div>
     <div class="col-md-12">
         <form name="projectCreateForm" class="form-horizontal" data-ng-submit="create()" novalidate>
@@ -15,19 +15,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="projectName">Title</label>
+                            <label class="control-label" for="projectName">Titulo</label>
                             <div class="controls">
-                                <input name="projectName" type="text" data-ng-model="projectName" id="projectName" class="form-control" placeholder="Title" required>
+                                <input name="projectName" type="text" data-ng-model="projectName" id="projectName" class="form-control" placeholder="Titulo" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="descriptionName">Description</label>
+                            <label class="control-label" for="descriptionName">Descripción</label>
                             <div class="controls">
-                                <textarea name="descriptionName" data-ng-model="descriptionName" id="descriptionName" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
+                                <textarea name="descriptionName" data-ng-model="descriptionName" id="descriptionName" class="form-control" cols="30" rows="10" placeholder="Descripción"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="startTime">Start Time</label>
+                            <label class="control-label" for="startTime">Inicio Tiempo</label>
                             <p class="input-group">
                                 <input name="startTime" type="text" id="startTime" class="form-control" datepicker-popup="{{format}}" ng-model="startTime" is-open="openedStartDT" datepicker-options="dateOptions" required close-text="Close" />
                                 <span class="input-group-btn">
@@ -36,7 +36,7 @@
                             </p>
                         </div>
                        <div class="form-group">
-                            <label class="control-label" for="endTime">End Time</label>
+                            <label class="control-label" for="endTime">Fin Tiempo</label>
                             <p class="input-group">
                                 <input name="endTime" type="text" id="endTime" class="form-control" datepicker-popup="{{format}}" ng-model="endTime" is-open="openedEndDT" datepicker-options="dateOptions" required close-text="Close" />
                                 <span class="input-group-btn">

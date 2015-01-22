@@ -40,18 +40,18 @@ describe('User Model Unit Tests:', function() {
 	});
 
 	describe('Method Save', function() {
-		it('should begin with no users', function(done) {
+		it('Debe iniciar sin usuarios', function(done) {
 			User.find({}, function(err, users) {
 				users.should.have.length(0);
 				done();
 			});
 		});
 
-		it('should be able to save without problems', function(done) {
+		it('Debe guardar sin problemas el proyecto', function(done) {
 			user.save(done);
 		});
 
-		it('should fail to save an existing user again', function(done) {
+		it('Debe fallar si se intenta guardar un usuario existente', function(done) {
 			user.save();
 			return user2.save(function(err) {
 				should.exist(err);
@@ -59,7 +59,7 @@ describe('User Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without first name', function(done) {
+		it('Debe mostrar error cuanto intenta guardar sin el atributo firts name', function(done) {
 			user.firstName = '';
 			return user.save(function(err) {
 				should.exist(err);

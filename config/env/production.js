@@ -31,8 +31,8 @@ module.exports = {
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],
 			js: [
-                'public/lib/jquery/dist/jquery.min.js',
-                'public/lib/jquery-ui/jquery-ui.min.js',
+                //'public/lib/jquery/dist/jquery.min.js',
+                //'public/lib/jquery-ui/jquery-ui.min.js',
 
 				'public/lib/angular/angular.min.js',
 				'public/lib/angular-resource/angular-resource.min.js', 
@@ -49,8 +49,8 @@ module.exports = {
 				'public/lib/angular-xeditable/dist/js/xeditable.min.js',
 				'public/lib/checklist-model/checklist-model.js',
 				'public/lib/angular-dragdrop/src/angular-dragdrop.min.js',
-				'public/lib/highcharts-ng/dist/highcharts-ng.min.js',
-				'public/lib/highstock/js/highstock.src.js'
+				//'public/lib/highcharts-ng/dist/highcharts-ng.min.js',
+				//'public/lib/highstock/js/highstock.src.js'
 
 			]
 		},

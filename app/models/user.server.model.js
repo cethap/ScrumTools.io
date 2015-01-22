@@ -50,7 +50,7 @@ var UserSchema = new Schema({
 	},
 	username: {
 		type: String,
-		unique: 'Mensahe de testeo de error',
+		unique: 'Mensage de testeo error',
 		required: 'Porfavor llene el campo del usuario',
 		trim: true
 	},
@@ -88,7 +88,11 @@ var UserSchema = new Schema({
 	},
 	resetPasswordExpires: {
 		type: Date
-	}
+	},
+    projects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
+    }]	
 });
 
 /**

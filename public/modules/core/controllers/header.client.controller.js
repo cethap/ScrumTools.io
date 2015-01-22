@@ -39,14 +39,21 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 
 .controller('offCnvas', ['$scope', 'Authentication', 'Menus',
 	function($scope, Authentication, Menus) {
+
 		var Menu = Menus.getMenu('sidebar');
+		function showSideBar (){
+			$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
+			$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';	
+		}
+
+		$scope.$on('FullInitSession', showSideBar);
+
 		$scope.sttus = Menu.shouldRender(Authentication.user);
 		if(!$scope.sttus){
 			$scope.ClassSdebar = 'hide';
 			$scope.ClassCntent = 'col-md-12 realContent';
 		}else{
-			$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
-			$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';			
+			showSideBar();
 		}
 	}
 ]);

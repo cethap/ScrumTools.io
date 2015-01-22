@@ -45,8 +45,7 @@
 			});
 		}));
 
-
-		it('$scope.signin() should login with a correct user and password', function() {
+		it('$scope.signin() debe logear con un usuario y password correcto', function() {
 			// Test expected GET request
 			$httpBackend.when('POST', '/auth/signin').respond(200, 'Fred');
 
@@ -58,7 +57,8 @@
 			expect($location.url()).toEqual('/');
 		});
 
-		it('$scope.signin() should fail to log in with nothing', function() {
+
+		it('$scope.signin() deberia fallar al loguearse sin ningun dato', function() {
 			// Test expected POST request
 			$httpBackend.expectPOST('/auth/signin').respond(400, {
 				'message': 'Missing credentials'
@@ -71,7 +71,8 @@
 			expect(scope.error).toEqual('Missing credentials');
 		});
 
-		it('$scope.signin() should fail to log in with wrong credentials', function() {
+
+		it('$scope.signin() Debe fallar al loguearse con credenciales erroneas', function() {
 			// Foo/Bar combo assumed to not exist
 			scope.authentication.user = 'Foo';
 			scope.credentials = 'Bar';
@@ -88,7 +89,7 @@
 			expect(scope.error).toEqual('Unknown user');
 		});
 
-		it('$scope.signup() should register with correct data', function() {
+		it('$scope.signup() Se debe registrar con datos correctos', function() {
 			// Test expected GET request
 			scope.authentication.user = 'Fred';
 			$httpBackend.when('POST', '/auth/signup').respond(200, 'Fred');
@@ -102,7 +103,7 @@
 			expect($location.url()).toBe('/');
 		});
 
-		it('$scope.signup() should fail to register with duplicate Username', function() {
+		it('$scope.signup() Debe fallar al registrar un usuario repetido', function() {
 			// Test expected POST request
 			$httpBackend.when('POST', '/auth/signup').respond(400, {
 				'message': 'Username already exists'

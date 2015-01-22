@@ -4,7 +4,9 @@ angular.module('escritorio').controller('EscritorioController', ['$scope','Authe
 	function($scope,Authentication,$location) {
 		if(Authentication.user === ''){
 			$location.path('/');
-		}
+		}else{
+      $scope.$emit('FullInitSession', {});
+    }
 	}
 ])
 

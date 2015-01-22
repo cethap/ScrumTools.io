@@ -1,6 +1,23 @@
 <section data-ng-controller="SprintslistController">
 
-    <div class="list-group">
+
+    <table class="table col-xs-12 table-hover TblPryctos">
+      <caption>Listado de sprints.</caption>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="sprint in sprints" ui-sref="viewProject.viewSprint.dashboard({sprintId: sprint._id})">
+          <td><span><i class="glyphicon glyphicon-tasks"></i></span> {{sprint.sprintName}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <!--div class="list-group">
         <div class="col-xs-6 col-sm-3 extra-space" data-ng-repeat="sprint in sprints">
             <a class="list-group-item" href="" ui-sref="viewProject.viewSprint({sprintId: sprint._id})">
                 <div class="panel panel-default clickable">
@@ -13,7 +30,7 @@
                 </div>
             </a>
         </div>
-    </div>
+    </div-->
 
 
 </section>

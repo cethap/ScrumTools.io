@@ -1,8 +1,24 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/scrumtoolsio-test',
-	port: 3001,
+    db: {
+        uri: 'mongodb://localhost/scrum',
+        //uri: 'mongodb://st:st@ds027761.mongolab.com:27761/srumtools',
+        options: {
+            user: 'st',
+            pass: 'st'
+        }
+    },
+    log: {
+        // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
+        format: 'dev',
+        // Stream defaults to process.stdout
+        // Uncomment to enable logging to a log on the file system
+        options: {
+            //stream: 'access.log'
+        }
+    },
+
 	app: {
 		title: 'ScrumTools.io - Test Environment'
 	},

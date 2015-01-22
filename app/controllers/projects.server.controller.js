@@ -25,6 +25,8 @@ exports.create = function(req, res) {
     var project = new Project(data);
     var user = req.user;
 
+console.log(user);
+
     project.users.push(
         { userId: user._id, admin: true, role: 'TEAM' }
     );

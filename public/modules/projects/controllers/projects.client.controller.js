@@ -14,6 +14,9 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
 
         // Find a list  of projects
         $scope.projects = Projects.query();
+        $scope.goToProject = function(p){
+            $location.path('/projects/'+p);
+        };
 
     }
 ]);
@@ -37,10 +40,12 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
-        // Get a project
-        $scope.project =  Projects.get({
-            projectId: $stateParams.projectId
-        });
+        if($stateParams.projectId){        
+            // Get a project
+            $scope.project =  Projects.get({
+                projectId: $stateParams.projectId
+            });
+        }
 
         // Open a modal window
         $scope.modal = function (size, selectedProject) {
@@ -107,11 +112,13 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
                 resolve: {
                     users: function () {
                         return members.then(function (response) {
+                            $scope.r = response.data;
                             return response.data;
                         });
                     }
                 }
             });
+
         };
 
         // Open a modal window to add members
