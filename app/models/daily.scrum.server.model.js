@@ -9,6 +9,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+//nuevo
 
 var DailyScrumSchema = new Schema({
     did: {
