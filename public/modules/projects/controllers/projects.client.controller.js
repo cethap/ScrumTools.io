@@ -25,17 +25,16 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
     function($scope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
         $scope.authentication = Authentication;
 
-        if(Menus.getMenu('sidebar').items.length === 2){        
-            Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
-            Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
-            Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
-            Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
-            Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'burndown', 'item', 'projects/'+$stateParams.projectId+'/burndown');
-            Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
-            Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
-            Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
-            Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');
-        }
+        Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
+        Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
+        Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
+        Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
+        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'burndown', 'item', 'projects/'+$stateParams.projectId+'/burndown');
+        Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');
+
 
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');

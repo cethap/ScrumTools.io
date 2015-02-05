@@ -82,20 +82,31 @@ angular.module('core').service('Menus', [
 		this.addMenuItem = function(menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position) {
 			// Validate that the menu exists
 			this.validateMenuExistance(menuId);
+			var ExistItem = false;
 
-			// Push new menu item
-			this.menus[menuId].items.push({
-				title: menuItemTitle,
-				link: menuItemURL,
-				menuItemType: menuItemType || 'item',
-				menuItemClass: menuItemType,
-				uiRoute: menuItemUIRoute || ('/' + menuItemURL),
-				isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].isPublic : isPublic),
-				roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
-				position: position || 0,
-				items: [],
-				shouldRender: shouldRender
-			});
+			for (var i = 0; i < this.menus[menuId].items.length; i++) {
+				if (menuItemTitle === this.menus[menuId].items[i].title){
+					this.menus[menuId].items[i].uiRoute = menuItemUIRoute || ('/' + menuItemURL);
+					this.menus[menuId].items[i].link = menuItemURL;
+					ExistItem = true;
+				}
+			}
+
+			if(!ExistItem){			
+				// Push new menu item
+				this.menus[menuId].items.push({
+					title: menuItemTitle,
+					link: menuItemURL,
+					menuItemType: menuItemType || 'item',
+					menuItemClass: menuItemType,
+					uiRoute: menuItemUIRoute || ('/' + menuItemURL),
+					isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].isPublic : isPublic),
+					roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
+					position: position || 0,
+					items: [],
+					shouldRender: shouldRender
+				});
+			}
 
 			// Return the menu object
 			return this.menus[menuId];
@@ -109,16 +120,30 @@ angular.module('core').service('Menus', [
 			// Search for menu item
 			for (var itemIndex in this.menus[menuId].items) {
 				if (this.menus[menuId].items[itemIndex].link === rootMenuItemURL) {
-					// Push new submenu item
-					this.menus[menuId].items[itemIndex].items.push({
-						title: menuItemTitle,
-						link: menuItemURL,
-						uiRoute: menuItemUIRoute || ('/' + menuItemURL),
-						isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
-						roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
-						position: position || 0,
-						shouldRender: shouldRender
-					});
+
+
+					var ExistItem = false;
+
+					for (var i = 0; i < this.menus[menuId].items[itemIndex].items.length; i++) {
+						if (menuItemTitle === this.menus[menuId].items[itemIndex].items[i].title){
+							this.menus[menuId].items[itemIndex].items[i].uiRoute = menuItemUIRoute || ('/' + menuItemURL);
+							this.menus[menuId].items[itemIndex].items[i].link = menuItemURL;
+							ExistItem = true;
+						}
+					}
+
+					if(!ExistItem){	
+						// Push new submenu item
+						this.menus[menuId].items[itemIndex].items.push({
+							title: menuItemTitle,
+							link: menuItemURL,
+							uiRoute: menuItemUIRoute || ('/' + menuItemURL),
+							isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
+							roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
+							position: position || 0,
+							shouldRender: shouldRender
+						});
+					}
 				}
 			}
 
