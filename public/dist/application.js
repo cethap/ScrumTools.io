@@ -153,14 +153,21 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 
 .controller('offCnvas', ['$scope', 'Authentication', 'Menus',
 	function($scope, Authentication, Menus) {
+
 		var Menu = Menus.getMenu('sidebar');
+		function showSideBar (){
+			$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
+			$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';	
+		}
+
+		$scope.$on('FullInitSession', showSideBar);
+
 		$scope.sttus = Menu.shouldRender(Authentication.user);
 		if(!$scope.sttus){
 			$scope.ClassSdebar = 'hide';
 			$scope.ClassCntent = 'col-md-12 realContent';
 		}else{
-			$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
-			$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';			
+			showSideBar();
 		}
 	}
 ]);
@@ -260,20 +267,31 @@ angular.module('core').service('Menus', [
 		this.addMenuItem = function(menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position) {
 			// Validate that the menu exists
 			this.validateMenuExistance(menuId);
+			var ExistItem = false;
 
-			// Push new menu item
-			this.menus[menuId].items.push({
-				title: menuItemTitle,
-				link: menuItemURL,
-				menuItemType: menuItemType || 'item',
-				menuItemClass: menuItemType,
-				uiRoute: menuItemUIRoute || ('/' + menuItemURL),
-				isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].isPublic : isPublic),
-				roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
-				position: position || 0,
-				items: [],
-				shouldRender: shouldRender
-			});
+			for (var i = 0; i < this.menus[menuId].items.length; i++) {
+				if (menuItemTitle === this.menus[menuId].items[i].title){
+					this.menus[menuId].items[i].uiRoute = menuItemUIRoute || ('/' + menuItemURL);
+					this.menus[menuId].items[i].link = menuItemURL;
+					ExistItem = true;
+				}
+			}
+
+			if(!ExistItem){			
+				// Push new menu item
+				this.menus[menuId].items.push({
+					title: menuItemTitle,
+					link: menuItemURL,
+					menuItemType: menuItemType || 'item',
+					menuItemClass: menuItemType,
+					uiRoute: menuItemUIRoute || ('/' + menuItemURL),
+					isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].isPublic : isPublic),
+					roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
+					position: position || 0,
+					items: [],
+					shouldRender: shouldRender
+				});
+			}
 
 			// Return the menu object
 			return this.menus[menuId];
@@ -287,16 +305,30 @@ angular.module('core').service('Menus', [
 			// Search for menu item
 			for (var itemIndex in this.menus[menuId].items) {
 				if (this.menus[menuId].items[itemIndex].link === rootMenuItemURL) {
-					// Push new submenu item
-					this.menus[menuId].items[itemIndex].items.push({
-						title: menuItemTitle,
-						link: menuItemURL,
-						uiRoute: menuItemUIRoute || ('/' + menuItemURL),
-						isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
-						roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
-						position: position || 0,
-						shouldRender: shouldRender
-					});
+
+
+					var ExistItem = false;
+
+					for (var i = 0; i < this.menus[menuId].items[itemIndex].items.length; i++) {
+						if (menuItemTitle === this.menus[menuId].items[itemIndex].items[i].title){
+							this.menus[menuId].items[itemIndex].items[i].uiRoute = menuItemUIRoute || ('/' + menuItemURL);
+							this.menus[menuId].items[itemIndex].items[i].link = menuItemURL;
+							ExistItem = true;
+						}
+					}
+
+					if(!ExistItem){	
+						// Push new submenu item
+						this.menus[menuId].items[itemIndex].items.push({
+							title: menuItemTitle,
+							link: menuItemURL,
+							uiRoute: menuItemUIRoute || ('/' + menuItemURL),
+							isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
+							roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
+							position: position || 0,
+							shouldRender: shouldRender
+						});
+					}
 				}
 			}
 
@@ -485,7 +517,9 @@ angular.module('escritorio').controller('EscritorioController', ['$scope','Authe
 	function($scope,Authentication,$location) {
 		if(Authentication.user === ''){
 			$location.path('/');
-		}
+		}else{
+      $scope.$emit('FullInitSession', {});
+    }
 	}
 ])
 
@@ -644,6 +678,9 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
 
         // Find a list  of projects
         $scope.projects = Projects.query();
+        $scope.goToProject = function(p){
+            $location.path('/projects/'+p);
+        };
 
     }
 ]);
@@ -652,25 +689,26 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
     function($scope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
         $scope.authentication = Authentication;
 
-        if(Menus.getMenu('sidebar').items.length === 2){        
-            Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
-            Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
-            Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
-            Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
-            Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'burndown', 'item', 'projects/'+$stateParams.projectId+'/burndown');
-            Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
-            Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
-            Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
-            Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');
-        }
+        Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
+        Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
+        Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
+        Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
+        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'burndown', 'item', 'projects/'+$stateParams.projectId+'/burndown');
+        Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');
+
 
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
-        // Get a project
-        $scope.project =  Projects.get({
-            projectId: $stateParams.projectId
-        });
+        if($stateParams.projectId){        
+            // Get a project
+            $scope.project =  Projects.get({
+                projectId: $stateParams.projectId
+            });
+        }
 
         // Open a modal window
         $scope.modal = function (size, selectedProject) {
@@ -737,11 +775,13 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
                 resolve: {
                     users: function () {
                         return members.then(function (response) {
+                            $scope.r = response.data;
                             return response.data;
                         });
                     }
                 }
             });
+
         };
 
         // Open a modal window to add members
