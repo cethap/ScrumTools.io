@@ -15,7 +15,7 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
         // Find a list  of projects
         $scope.projects = Projects.query();
         $scope.goToProject = function(p){
-            $location.path('/projects/'+p);
+            $location.path('/projects/'+p+'/escritorio');
         };
 
     }

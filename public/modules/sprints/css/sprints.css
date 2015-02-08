@@ -27,6 +27,7 @@
 .sprint-meetings {
     position: relative;
     right: 0;
+    z-index: 30;
 }
 
 .menu-left {
@@ -43,3 +44,8 @@
 .NmbreSprint{
     margin-left: 15px;    
 }
+.fechaSelect .dropdown-menu{
+    background-color: #fff;
+}
+
+

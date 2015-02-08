@@ -23,6 +23,15 @@
 	cursor: pointer;
 }
 
+.IconModulo{
+    text-align: center;
+    display: block;
+}
+
+.IconModulo i{
+    font-size: 13em;
+}
+
 /*.TblPryctos tbody tr{
     -webkit-touch-callout: none;
     -webkit-user-select: none;

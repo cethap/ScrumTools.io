@@ -17,20 +17,20 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="projectName">Title</label>
+                            <label class="control-label" for="projectName">Titulo</label>
                             <div class="controls">
-                                <input name="projectName" type="text" data-ng-model="project.projectName" id="projectName" class="form-control" placeholder="Title" required>
+                                <input name="projectName" type="text" data-ng-model="project.projectName" id="projectName" class="form-control" placeholder="Titulo" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="descriptionName">Description</label>
+                            <label class="control-label" for="descriptionName">Descripción</label>
                             <div class="controls">
-                                <textarea name="descriptionName" data-ng-model="project.descriptionName" id="descriptionName" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
+                                <textarea name="descriptionName" data-ng-model="project.descriptionName" id="descriptionName" class="form-control" cols="30" rows="10" placeholder="Descripción"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" for="startTime">Start Time</label>
+                            <label class="control-label" for="startTime">Inicio de tiempo</label>
                             <p class="input-group">
                                 <input name="startTime" type="text" id="startTime" class="form-control" datepicker-popup="{{format}}" data-ng-model="project.startTime" is-open="openedStartDT" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                                 <span class="input-group-btn">
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" for="endTime">End Time</label>
+                            <label class="control-label" for="endTime">Fin de tiempo</label>
                             <p class="input-group">
                                 <input name="endTime" type="text" id="endTime" class="form-control" datepicker-popup="{{format}}" data-ng-model="project.endTime" is-open="openedEndDT" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                                 <span class="input-group-btn">
@@ -54,7 +54,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="update(project); ok()" ng-disabled="updateProjectForm.$invalid">Update</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-success" ng-click="update(project); ok()" ng-disabled="updateProjectForm.$invalid">Actualizar</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
     </div>
 </section>

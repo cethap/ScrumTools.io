@@ -1,12 +1,12 @@
 <section class="container" data-ng-controller="DailyScrumController">
     <div class="page-header">
         <h3>
-            Daily Scrum
+            Diario de Scrum
         </h3>
     </div>
     <div class="list-group">
         <div class="col-xs-6 col-sm-3 extra-space" data-ng-repeat="daily in dailies">
-            <a class="list-group-item" ng-click="editDaily('', daily)">
+            <a class="list-group-item" href="#!" ng-click="editDaily('', daily)">
                 <div class="panel panel-default clickable">
                     <div class="panel-heading">
                         <h3 class="panel-title">
@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 extra-space">
-            <button class="btn btn-link" ng-click="createDaily('')">Create daily scrum&hellip;</button>
+            <button class="btn btn-link" ng-click="createDaily('')">Crear diario de scrum&hellip;</button>
         </div>
     </div>
 </section>
