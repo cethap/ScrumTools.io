@@ -640,6 +640,10 @@ angular.module('projects').config(['$stateProvider',
                 url: '/projects/:projectId',
                 templateUrl: 'modules/projects/views/view-project.client.view.html'
             }).
+            state('viewProject.escritorio', {
+                url: '/escritorio',
+                templateUrl: 'modules/projects/views/desktop-project.cliente.view.html'
+            }).            
             state('viewProject.listStories', {
                 url: '/stories',
                 templateUrl: 'modules/stories/views/list-stories.client.view.html'
@@ -679,7 +683,7 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
         // Find a list  of projects
         $scope.projects = Projects.query();
         $scope.goToProject = function(p){
-            $location.path('/projects/'+p);
+            $location.path('/projects/'+p+'/escritorio');
         };
 
     }
