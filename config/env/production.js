@@ -31,8 +31,10 @@ module.exports = {
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],
 			js: [
-                //'public/lib/jquery/dist/jquery.min.js',
-                //'public/lib/jquery-ui/jquery-ui.min.js',
+                'public/lib/jquery/dist/jquery.min.js',
+                'public/lib/jquery-ui/jquery-ui.min.js',
+                'public/lib/bootstrap/dist/js/bootstrap.min.js',
+
 
 				'public/lib/angular/angular.min.js',
 				'public/lib/angular-resource/angular-resource.min.js', 
