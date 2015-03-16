@@ -264,6 +264,16 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
 projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams', 'Authentication', 'ProjectsNonMembers', '$timeout', '$log', '$http', '$location',
     function($scope, $stateParams, Authentication, ProjectsNonMembers, $timeout, $log, $http, $location) {
         $scope.authentication = Authentication;
+
+
+
+        $scope.project = $stateParams.projectId;
+
+        // $scope.cancel = function () {
+        //     $modalInstance.dismiss('cancel');
+        // };
+
+        
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
@@ -299,6 +309,49 @@ projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams'
         };
     }
 ]);
+
+
+projectsApp.controller('MembersController', ['$scope', 'Projects', 'Authentication', '$location','$modal','$http', '$stateParams',
+    function($scope, Projects, Authentication, $location, $modal, $http,$stateParams) {
+
+            var members = $http.get('/projects/'+$stateParams.projectId+'/members');
+
+            members.then(function (response) {
+                $scope.users = response.data;
+                //$scope.$apply();
+            });
+
+
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+
+            // $modal.open({
+            //     templateUrl: 'modules/projects/views/members-project.client.view.html',
+            //     controller: function ($scope, $modalInstance, users) {
+
+            //         $scope.users = users;
+
+            //         $scope.cancel = function () {
+            //             $modalInstance.dismiss('cancel');
+            //         };
+            //     },
+            //     size: 5,
+            //     resolve: {
+            //         users: function () {
+            //             return members.then(function (response) {
+            //                 $scope.r = response.data;
+            //                 return response.data;
+            //             });
+            //         }
+            //     }
+            // });
+
+    }
+]);
+
+
+
 
 projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authentication', '$location',
     function($scope, Projects, Authentication, $location) {

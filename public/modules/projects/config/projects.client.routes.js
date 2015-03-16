@@ -40,6 +40,19 @@ angular.module('projects').config(['$stateProvider',
                 url: '/dashboard',
                 templateUrl: 'modules/sprints/views/sprint-dashboard.client.view.html'
             }).
+
+            state('miembros', {
+                url: '/projects/:projectId/miembros',
+                templateUrl: 'modules/projects/views/members-project.client.view.html'
+            }).
+
+
+            state('addMiembros', {
+                url: '/projects/:projectId/addMiembros',
+                templateUrl: 'modules/projects/views/add-members-project.client.view.html'
+            }).
+
+
             state('viewProject.viewSprint.listDailies', {
                 url: '/dailies',
                 templateUrl: 'modules/dailies/views/list-dailies.client.view.html'

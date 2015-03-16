@@ -4,7 +4,8 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'scrumtoolsio';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils'];
+	//var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils', 'btford.socket-io', 'xeditable', 'checklist-model', 'ngDragDrop', 'highcharts-ng'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
