@@ -4,7 +4,8 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'scrumtoolsio';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils'];
+	//var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils', 'btford.socket-io', 'xeditable', 'checklist-model', 'ngDragDrop', 'highcharts-ng'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
@@ -660,6 +661,19 @@ angular.module('projects').config(['$stateProvider',
                 url: '/dashboard',
                 templateUrl: 'modules/sprints/views/sprint-dashboard.client.view.html'
             }).
+
+            state('miembros', {
+                url: '/projects/:projectId/miembros',
+                templateUrl: 'modules/projects/views/members-project.client.view.html'
+            }).
+
+
+            state('addMiembros', {
+                url: '/projects/:projectId/addMiembros',
+                templateUrl: 'modules/projects/views/add-members-project.client.view.html'
+            }).
+
+
             state('viewProject.viewSprint.listDailies', {
                 url: '/dailies',
                 templateUrl: 'modules/dailies/views/list-dailies.client.view.html'
@@ -932,6 +946,16 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
 projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams', 'Authentication', 'ProjectsNonMembers', '$timeout', '$log', '$http', '$location',
     function($scope, $stateParams, Authentication, ProjectsNonMembers, $timeout, $log, $http, $location) {
         $scope.authentication = Authentication;
+
+
+
+        $scope.project = $stateParams.projectId;
+
+        // $scope.cancel = function () {
+        //     $modalInstance.dismiss('cancel');
+        // };
+
+        
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
@@ -967,6 +991,49 @@ projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams'
         };
     }
 ]);
+
+
+projectsApp.controller('MembersController', ['$scope', 'Projects', 'Authentication', '$location','$modal','$http', '$stateParams',
+    function($scope, Projects, Authentication, $location, $modal, $http,$stateParams) {
+
+            var members = $http.get('/projects/'+$stateParams.projectId+'/members');
+
+            members.then(function (response) {
+                $scope.users = response.data;
+                //$scope.$apply();
+            });
+
+
+            // $scope.cancel = function () {
+            //     $modalInstance.dismiss('cancel');
+            // };
+
+            // $modal.open({
+            //     templateUrl: 'modules/projects/views/members-project.client.view.html',
+            //     controller: function ($scope, $modalInstance, users) {
+
+            //         $scope.users = users;
+
+            //         $scope.cancel = function () {
+            //             $modalInstance.dismiss('cancel');
+            //         };
+            //     },
+            //     size: 5,
+            //     resolve: {
+            //         users: function () {
+            //             return members.then(function (response) {
+            //                 $scope.r = response.data;
+            //                 return response.data;
+            //             });
+            //         }
+            //     }
+            // });
+
+    }
+]);
+
+
+
 
 projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authentication', '$location',
     function($scope, Projects, Authentication, $location) {

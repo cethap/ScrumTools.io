@@ -322,9 +322,9 @@ projectsApp.controller('MembersController', ['$scope', 'Projects', 'Authenticati
             });
 
 
-            $scope.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            };
+            // $scope.cancel = function () {
+            //     $modalInstance.dismiss('cancel');
+            // };
 
             // $modal.open({
             //     templateUrl: 'modules/projects/views/members-project.client.view.html',
