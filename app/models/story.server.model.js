@@ -1,5 +1,5 @@
 /**
- * Created by J. Ricardo de Juan Cajide on 10/4/14.
+ * Created by ScrumTools on 10/4/14.
  */
 'use strict';
 
@@ -39,6 +39,7 @@ var StorySchema = new Schema({
     storyPriority: {
         type: String,
         enum: ['MUST', 'SHOULD', 'COULD', 'WON\'T']
+        //enum: ['TENDRIA', 'DEBERIA', 'PODRIA', 'NO SERA']
     },
     storyRuleValidation: [{
         type: String

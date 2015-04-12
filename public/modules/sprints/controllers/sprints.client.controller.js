@@ -1,5 +1,5 @@
 /**
- * Created by J. Ricardo de Juan Cajide on 11/16/14.
+ * Created by ScrumTools on 11/16/14.
  */
 'use strict';
 
@@ -307,6 +307,18 @@ sprintsApp.controller('SprintsViewController', ['$scope', '$stateParams', 'Authe
 
 sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', 'Authentication', 'Sprints', 'Phases', 'Tasks', 'Stories', '$http', '$location', '$modal', 'SocketSprint', '$log',
     function ($scope, $stateParams, Authentication, Sprints, Phases, Tasks, Stories, $http, $location, $modal, SocketSprint, $log) {
+
+        var div = angular.element('.page-content-wrapper'),
+            wrapScreenWidth = div.width(),
+            wrapWidth = div.outerWidth(),
+            listWidth = div.find('.innerwrap').outerWidth()+900;
+            
+        div.on('mousemove', function(e) {
+            var cPointX = e.pageX,
+                dP = ((cPointX / wrapWidth));
+            div.scrollLeft((listWidth * dP) - wrapScreenWidth);
+
+        });
 
         $scope.authentication = Authentication;
 

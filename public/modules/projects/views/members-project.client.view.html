@@ -1,6 +1,6 @@
 <section data-ng-controller="MembersController">
     <div class="modal-header">
-        <h3 class="modal-title">Miembros</h3>
+        <h2 class="modal-title">Miembros</h2>
     </div>
 
     <div class="modal-body">
@@ -8,10 +8,10 @@
             <div data-ng-repeat="user in users">
                 <li>
                     <a href="">
-                        <h4 class="text-left">
-                            <i class="glyphicon glyphicon-user"></i>
+                        <h3 class="text-left">
+                            <i class="icon-contacts-social"></i>
                             {{user.displayName}} - ( {{user.username}} )
-                        </h4>
+                        </h3>
                     </a>
                 </li>
             </div>

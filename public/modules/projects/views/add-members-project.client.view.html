@@ -1,12 +1,12 @@
 <section data-ng-controller="ProjectsAddMembersController">
     <div class="modal-header">
-        <h3 class="modal-title">Añadir miembros</h3>
+        <h2 class="modal-title">Añadir miembros</h2>
     </div>
 
     <div class="modal-body">
         <ul class="nav nav-list">
             <label for="username">Usuario: </label>
-            <input type="text" name="username" id="username" ng-model="username" placeholder="Enter an username" class="form-control" autofocus=""/>
+            <input type="text" name="username" id="username" ng-model="username" placeholder="Digite nombre de usuario" class="form-control" autofocus=""/>
             </br>
 
             <div ng-show="username" data-ng-repeat="user in users">

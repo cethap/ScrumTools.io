@@ -15,8 +15,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			$scope.isCollapsed = false;
 		});
 	}
-]).controller('SideBarController', ['$scope', 'Authentication', 'Menus',
-	function($scope, Authentication, Menus) {
+]).controller('SideBarController', ['$scope', '$rootScope', 'Authentication', 'Menus',
+	function($scope, $rootScope, Authentication, Menus) {
 		//console.log(Menus.getMenu('sidebar'));
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
@@ -29,6 +29,13 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.toggleCollapsibleMenu = function() {
 			$scope.isCollapsed = !$scope.isCollapsed;
 		};
+
+		$scope.EmitEventFromMenu = function(evnt) {
+			if(evnt.trim() !== ''){
+				$rootScope.$broadcast(evnt, []);
+			}
+		};
+
 
 		// Collapsing the menu after navigation
 		$scope.$on('$stateChangeSuccess', function() {

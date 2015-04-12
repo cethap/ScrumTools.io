@@ -28,6 +28,7 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
 				'public/lib/Bootflat/bootflat/css/bootflat.min.css',
 				'public/lib/angular-xeditable/dist/css/xeditable.css',
+				'public/icons/styles.css',
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],
 			js: [

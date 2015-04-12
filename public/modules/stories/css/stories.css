@@ -25,3 +25,8 @@
     /* background: url(../images/bg_corkboard.jpg) top repeat fixed; */
     background-color: #d3d1ce;
 }
+
+.sinBordes{
+    border: none;
+    background-color: transparent !important;
+}

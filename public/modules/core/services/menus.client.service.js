@@ -79,10 +79,11 @@ angular.module('core').service('Menus', [
 		};
 
 		// Add menu item object
-		this.addMenuItem = function(menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position) {
+		this.addMenuItem = function(menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position, opts) {
 			// Validate that the menu exists
 			this.validateMenuExistance(menuId);
 			var ExistItem = false;
+			opts = opts||{};
 
 			for (var i = 0; i < this.menus[menuId].items.length; i++) {
 				if (menuItemTitle === this.menus[menuId].items[i].title){
@@ -104,7 +105,8 @@ angular.module('core').service('Menus', [
 					roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
 					position: position || 0,
 					items: [],
-					shouldRender: shouldRender
+					shouldRender: shouldRender,
+					EventSend: opts.EventSend||''
 				});
 			}
 
@@ -113,10 +115,10 @@ angular.module('core').service('Menus', [
 		};
 
 		// Add submenu item object
-		this.addSubMenuItem = function(menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute, isPublic, roles, position) {
+		this.addSubMenuItem = function(menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute, isPublic, roles, position, opts) {
 			// Validate that the menu exists
 			this.validateMenuExistance(menuId);
-
+			opts = opts||{};
 			// Search for menu item
 			for (var itemIndex in this.menus[menuId].items) {
 				if (this.menus[menuId].items[itemIndex].link === rootMenuItemURL) {
@@ -141,7 +143,8 @@ angular.module('core').service('Menus', [
 							isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
 							roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
 							position: position || 0,
-							shouldRender: shouldRender
+							shouldRender: shouldRender,
+							EventSend: opts.EventSend||''
 						});
 					}
 				}

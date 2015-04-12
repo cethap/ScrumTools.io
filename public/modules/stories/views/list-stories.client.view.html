@@ -1,7 +1,35 @@
 <section data-ng-controller="StoriesController">
+    <table class="table col-xs-12 table-hover TblPryctos">
+      <h3>Historias de usuario <i class="icon-speech-streamline-talk-user"></i></h3>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>
+            <button type="button" class="btn btn-default btn-xs" ng-click="createStory()"><span class="glyphicon glyphicon-plus"></span></button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="story in stories">
+          <td>
+            <span><i class="icon-speech-streamline-talk-user"></i></span> 
+            <input ng-model="story.storyTitle" ng-change="updateStory(story)" type="text" class="sinBordes" >
+          </td>
+          <td>
+            <input ng-model="story.storyDescription" ng-change="updateStory(story)" type="text" class="sinBordes" >
+          </td>
+          <td>
+            <button type="button" class="btn btn-default btn-xs" ng-click="editStory('', story)"><span class="btn-xs glyphicon glyphicon-pencil"></span></button>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteStory(story)"><span class="btn-xs glyphicon glyphicon-trash"></span></button>
+            <button type="button" class="btn btn-primary btn-xs" ng-click="moveToSprint('sm',story)"><span class="btn-xs glyphicon glyphicon-share-alt"></span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-    <div class="containment-wrapper">
-        <button ng-click="createStory()" class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span></button>
+    <!--div class="containment-wrapper">
+        <!--button ng-click="createStory()" class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span></button>
 
         <div sticky-note ng-repeat="story in stories" story="story" class="alert sticky-note">
             <button type="button" class="close" ng-click="deleteStory(story)"><span class="btn-xs glyphicon glyphicon-trash"></span></button>
@@ -11,5 +39,5 @@
             <textarea ng-model="story.storyDescription" ng-change="updateStory(story)" class="body"></textarea>
         </div>
 
-    </div>
+    </div-->
 </section>

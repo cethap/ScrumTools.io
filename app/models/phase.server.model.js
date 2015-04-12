@@ -1,5 +1,5 @@
 /**
- * Created by J. Ricardo de Juan Cajide on 10/7/14.
+ * Created by ScrumTools on 10/7/14.
  */
 'use strict';
 
@@ -21,7 +21,7 @@ var PhaseSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        validate: [validateProperty, 'Phase Title must be between 0 and 16 characters']
+        validate: [validateProperty, 'El titulo de la fase debe estar entre 0 y 16 caracteres']
     },
     position: {
         type: Number,

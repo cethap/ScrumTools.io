@@ -2,10 +2,14 @@
     <div class="sprint">
         <h3>
             <div class="sprint-meetings">
-                <button href="" class="btn btn-danger NmbreSprint" ng-click="editSprint('', sprint)">
+                <button href="" class="btn btn-default NmbreSprint" ng-click="editSprint('', sprint)">
+                    <i class="icon-flash-electric-2"></i>
                     {{sprint.sprintName}}
                 </button>
-                <button href="" ui-sref=".dashboard" class="btn btn-primary">Tablero</button>
+                <button href="" ui-sref=".dashboard" class="btn btn-primary">
+                    <i class="icon-window-list"></i>
+                    Tablero
+                </button>
                 <button href="" ng-click="sprintBurnDownChart('lg', sprint, stories, tasks)" class="btn btn-primary">Burndown</button>
                 <button href="" data-toggle="dropdown" class="btn btn-info">Reuniones<span class="caret"></span></button>
                 <ul class="dropdown-menu menu-left" role="menu">

@@ -2,7 +2,7 @@
 
 
     <table class="table col-xs-12 table-hover TblPryctos">
-      <caption>Listado de sprints.</caption>
+      <h3>Sprints <i class="icon-flash-electric-2"></i></h3>
       <thead>
         <tr>
           <th>Nombre</th>
@@ -10,7 +10,7 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="sprint in sprints" ui-sref="viewProject.viewSprint.dashboard({sprintId: sprint._id})">
-          <td><span><i class="glyphicon glyphicon-tasks"></i></span> {{sprint.sprintName}}</td>
+          <td><span><i class="icon-flash-electric-2"></i></span> {{sprint.sprintName}}</td>
         </tr>
       </tbody>
     </table>

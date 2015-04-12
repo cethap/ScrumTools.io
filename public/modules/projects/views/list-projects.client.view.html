@@ -1,6 +1,7 @@
+
 <section data-ng-controller="ProjectsController">
     <div class="page-header">
-        <h2>Proyectos</h2>
+        <h3>Proyectos</h3>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -15,7 +16,6 @@
     </br>
 
     <table class="table col-xs-12 table-hover TblPryctos" data-ng-if="projects.$resolved && projects.length">
-      <caption>Listado de proyectos.</caption>
       <thead>
         <tr>
           <th>Nombre</th>
@@ -23,26 +23,11 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="project in projects | filter:searchText" ng-click="goToProject(project._id)">
-          <td><span><i class="glyphicon glyphicon-tasks"></i></span> {{project.projectName}}</td>
+          <td><span><i class="icon-repo"></i></span> {{project.projectName}}</td>
         </tr>
       </tbody>
     </table>
-<div class="clearfix"></div>
-    <!--div class="list-group">
-        <div class="col-xs-6 col-sm-3 extra-space" data-ng-repeat="project in projects | filter:searchText">
-            <a class="list-group-item" data-ng-href="#!/projects/{{project._id}}">
-                <div class="panel panel-default clickable">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            {{project.projectName}}
-                            <span class="pull-right glyphicon glyphicon-tasks"></span>
-                        </h3>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div-->
-
+    <div class="clearfix"></div>
     <div class="alert alert-warning text-center" data-ng-if="projects.$resolved && !projects.length">
         No hay proyectos, por que no crear uno? <a href="/#!/projects/create">Crear uno</a>?
     </div>

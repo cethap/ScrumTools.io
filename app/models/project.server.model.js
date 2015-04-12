@@ -1,5 +1,5 @@
 /**
- * Created by J. Ricardo de Juan Cajide on 9/17/14.
+ * Created by ScrumTools on 9/17/14.
  */
 'use strict';
 
@@ -25,7 +25,7 @@ var ProjectSchema = new Schema({
         type: String,
         required: [true, 'Title is required'],
         trim: true,
-        validate: [validateProperty, 'Project Name must be between 1 and 16 characters']
+        validate: [validateProperty, 'El nombre del rpoyecto debe tener entre 1 y 16 caracteres']
     },
     descriptionName: {
         type: String,

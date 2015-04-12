@@ -1,5 +1,5 @@
 /**
- * Created by J. Ricardo de Juan Cajide on 9/22/14.
+ * Created by ScrumTools on 9/22/14.
  */
 'use strict';
 

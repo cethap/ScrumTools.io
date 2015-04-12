@@ -1,5 +1,5 @@
 /**
- * Created by J. Ricardo de Juan Cajide on 10/16/14.
+ * Created by ScrumTools on 10/16/14.
  */
 'use strict';
 
@@ -9,6 +9,6 @@ angular.module('projects').run(['Menus',
         // Set top bar menu items
         Menus.addMenuItem('sidebar', 'Proyectos', 'proyectos', 'dropdown', '/projects(/create)?');
         Menus.addSubMenuItem('sidebar', 'proyectos', 'Listar Proyectos', 'projects');
-        Menus.addSubMenuItem('sidebar', 'proyectos', 'Nuevo Project', 'projects/create');
+        Menus.addSubMenuItem('sidebar', 'proyectos', 'Nuevo Proyecto', 'projects/create');
     }
 ]);

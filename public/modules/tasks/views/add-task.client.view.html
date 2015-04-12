@@ -1,7 +1,7 @@
 <section data-ng-controller="TasksCreateUpdateController" xmlns="http://www.w3.org/1999/html">
 
     <div class="modal-header">
-        <h3 class="modal-title">Add Task</h3>
+        <h3 class="modal-title">Nueva tarea</h3>
     </div>
 
     <div class="modal-body">
@@ -10,37 +10,37 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label class="control-label" for="taskName">Title</label>
+                            <label class="control-label" for="taskName">Titulo</label>
                             <div class="controls">
                                 <input name="taskName" type="text" data-ng-model="taskName" id="taskName" class="form-control" placeholder="Title" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="taskDescription">Description</label>
+                            <label class="control-label" for="taskDescription">Descripción</label>
                             <div class="controls">
                                 <textarea name="taskDescription" data-ng-model="taskDescription" id="taskDescription" class="form-control" cols="30" rows="4" placeholder="Description"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="taskPriority">Priority</label>
+                            <label class="control-label" for="taskPriority">Prioridad</label>
                             <div class="controls">
                                 <select data-ng-model="taskPriority" ng-options="priority for priority in priorities" id="taskPriority" class="form-control"></select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="taskHours">Hours</label>
+                            <label class="control-label" for="taskHours">Horas</label>
                             <div class="controls">
                                 <input name="input" type="number" data-ng-model="taskHours" id="taskHours" class="form-control" min="0" max="100" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="taskRemark">Task Remarks: </label>
+                            <label class="control-label" for="taskRemark">Comentario de la tarea: </label>
                             <div class="controls">
                                 <textarea name="taskRemark" data-ng-model="taskRemark" id="taskRemark" class="form-control" cols="30" rows="4" placeholder="Remarks"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="taskRuleValidation">Task Validations: </label>
+                            <label class="control-label" for="taskRuleValidation">Validaciones de la tarea: </label>
                             <div class="controls">
                                 <textarea name="taskRuleValidation" data-ng-model="taskRuleValidation" id="taskRuleValidation" class="form-control" cols="30" rows="4" placeholder="Rule validations"></textarea>
                             </div>
@@ -50,10 +50,10 @@
             </fieldset>
         </form>
         <div class="form-group">
-            <button class="btn btn-info" ng-click="createTask(story);" ng-disabled="taskForm.$invalid">Create</button>
+            <button class="btn btn-info" ng-click="createTask(story);" ng-disabled="taskForm.$invalid">Crear</button>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-default" ng-click="ok()">Close</button>
+        <button class="btn btn-default" ng-click="ok()">Cerrar</button>
     </div>
 </section>

@@ -1,5 +1,5 @@
 /**
- * Created by J. Ricardo de Juan Cajide on 10/19/14.
+ * Created by ScrumTools on 10/19/14.
  */
 'use strict';
 
@@ -21,15 +21,16 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
     }
 ]);
 
-projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Authentication', 'Projects', 'Sprints','$modal', '$log', '$http', '$location','Menus',
-    function($scope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
+projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stateParams', 'Authentication', 'Projects', 'Sprints','$modal', '$log', '$http', '$location','Menus',
+    function($scope, $rootScope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
         $scope.authentication = Authentication;
 
+        Menus.addMenuItem('sidebar', 'Panel principal', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio');
         Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
         Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
         Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
         Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
-        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'burndown', 'item', 'projects/'+$stateParams.projectId+'/burndown');
+        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio',null,null,0,{EventSend:'sprintBurnDownChartGeneral'});
         Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
@@ -167,6 +168,12 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
                 }
             });
         };
+
+
+        $rootScope.$on('sprintBurnDownChartGeneral', function(event, mass){
+            $scope.sprintBurnDownChart('lg',$scope.project);
+        });
+
 
         var ProjectBurnDownChartController = function ($scope, $modalInstance, project, stories) {
             $scope.authentication = Authentication;

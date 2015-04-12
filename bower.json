@@ -22,7 +22,7 @@
 		"socket.io-client": "~1.2.0",
 		"highcharts-ng": "~0.0.7",
 		"highstock": "~3.0.1",
-		"angular-xeditable": "~0.1.8",
+		"angular-xeditable": "~0.1.9",
 		"checklist-model": "~0.1.3"		
 	}
 }

@@ -25,7 +25,11 @@ var ApplicationConfiguration = (function() {
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
-angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
+angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies)
+
+.run(["editableOptions", function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+}]);
 
 // Setting HTML5 Location Mode
 angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
@@ -47,7 +51,7 @@ angular.element(document).ready(function() {
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');
 /**
- * Created by J. Ricardo de Juan Cajide on 11/25/14.
+ * Created by ScrumTools on 11/25/14.
  */
 'use strict';
 
@@ -59,35 +63,35 @@ ApplicationConfiguration.registerModule('dailies');
 ApplicationConfiguration.registerModule('escritorio');
 
 /**
- * Created by J. Ricardo de Juan Cajide on 11/17/14.
+ * Created by ScrumTools on 11/17/14.
  */
 'use strict';
 
 // Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('phases');
 /**
- * Created by J. Ricardo de Juan Cajide on 10/16/14.
+ * Created by ScrumTools on 10/16/14.
  */
 'use strict';
 
 // Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('projects');
 /**
- * Created by J. Ricardo de Juan Cajide on 11/16/14.
+ * Created by ScrumTools on 11/16/14.
  */
 'use strict';
 
 // Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('sprints');
 /**
- * Created by J. Ricardo de Juan Cajide on 11/8/14.
+ * Created by ScrumTools on 11/8/14.
  */
 'use strict';
 
 // Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('stories');
 /**
- * Created by J. Ricardo de Juan Cajide on 11/18/14.
+ * Created by ScrumTools on 11/18/14.
  */
 'use strict';
 
@@ -130,8 +134,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 			$scope.isCollapsed = false;
 		});
 	}
-]).controller('SideBarController', ['$scope', 'Authentication', 'Menus',
-	function($scope, Authentication, Menus) {
+]).controller('SideBarController', ['$scope', '$rootScope', 'Authentication', 'Menus',
+	function($scope, $rootScope, Authentication, Menus) {
 		//console.log(Menus.getMenu('sidebar'));
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
@@ -144,6 +148,13 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.toggleCollapsibleMenu = function() {
 			$scope.isCollapsed = !$scope.isCollapsed;
 		};
+
+		$scope.EmitEventFromMenu = function(evnt) {
+			if(evnt.trim() !== ''){
+				$rootScope.$broadcast(evnt, []);
+			}
+		};
+
 
 		// Collapsing the menu after navigation
 		$scope.$on('$stateChangeSuccess', function() {
@@ -265,10 +276,11 @@ angular.module('core').service('Menus', [
 		};
 
 		// Add menu item object
-		this.addMenuItem = function(menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position) {
+		this.addMenuItem = function(menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position, opts) {
 			// Validate that the menu exists
 			this.validateMenuExistance(menuId);
 			var ExistItem = false;
+			opts = opts||{};
 
 			for (var i = 0; i < this.menus[menuId].items.length; i++) {
 				if (menuItemTitle === this.menus[menuId].items[i].title){
@@ -290,7 +302,8 @@ angular.module('core').service('Menus', [
 					roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
 					position: position || 0,
 					items: [],
-					shouldRender: shouldRender
+					shouldRender: shouldRender,
+					EventSend: opts.EventSend||''
 				});
 			}
 
@@ -299,10 +312,10 @@ angular.module('core').service('Menus', [
 		};
 
 		// Add submenu item object
-		this.addSubMenuItem = function(menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute, isPublic, roles, position) {
+		this.addSubMenuItem = function(menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute, isPublic, roles, position, opts) {
 			// Validate that the menu exists
 			this.validateMenuExistance(menuId);
-
+			opts = opts||{};
 			// Search for menu item
 			for (var itemIndex in this.menus[menuId].items) {
 				if (this.menus[menuId].items[itemIndex].link === rootMenuItemURL) {
@@ -327,7 +340,8 @@ angular.module('core').service('Menus', [
 							isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
 							roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
 							position: position || 0,
-							shouldRender: shouldRender
+							shouldRender: shouldRender,
+							EventSend: opts.EventSend||''
 						});
 					}
 				}
@@ -378,7 +392,7 @@ angular.module('core').service('Menus', [
 	}
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/25/14.
+ * Created by ScrumTools on 11/25/14.
  */
 'use strict';
 
@@ -477,7 +491,7 @@ dailiesApp.controller('DailyScrumUpdateController', ['$scope', '$stateParams', '
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/25/14.
+ * Created by ScrumTools on 11/25/14.
  */
 'use strict';
 
@@ -591,7 +605,7 @@ angular.module('escritorio').factory('Escritorio', [
 	}
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/17/14.
+ * Created by ScrumTools on 11/17/14.
  */
 'use strict';
 
@@ -606,7 +620,7 @@ angular.module('phases').factory('Phases', ['$resource',
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 10/16/14.
+ * Created by ScrumTools on 10/16/14.
  */
 'use strict';
 
@@ -616,11 +630,11 @@ angular.module('projects').run(['Menus',
         // Set top bar menu items
         Menus.addMenuItem('sidebar', 'Proyectos', 'proyectos', 'dropdown', '/projects(/create)?');
         Menus.addSubMenuItem('sidebar', 'proyectos', 'Listar Proyectos', 'projects');
-        Menus.addSubMenuItem('sidebar', 'proyectos', 'Nuevo Project', 'projects/create');
+        Menus.addSubMenuItem('sidebar', 'proyectos', 'Nuevo Proyecto', 'projects/create');
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 10/16/14.
+ * Created by ScrumTools on 10/16/14.
  */
 'use strict';
 
@@ -681,7 +695,7 @@ angular.module('projects').config(['$stateProvider',
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 10/19/14.
+ * Created by ScrumTools on 10/19/14.
  */
 'use strict';
 
@@ -703,15 +717,16 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
     }
 ]);
 
-projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Authentication', 'Projects', 'Sprints','$modal', '$log', '$http', '$location','Menus',
-    function($scope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
+projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stateParams', 'Authentication', 'Projects', 'Sprints','$modal', '$log', '$http', '$location','Menus',
+    function($scope, $rootScope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
         $scope.authentication = Authentication;
 
+        Menus.addMenuItem('sidebar', 'Panel principal', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio');
         Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
         Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
         Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
         Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
-        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'burndown', 'item', 'projects/'+$stateParams.projectId+'/burndown');
+        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio',null,null,0,{EventSend:'sprintBurnDownChartGeneral'});
         Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
@@ -849,6 +864,12 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$stateParams', 'Aut
                 }
             });
         };
+
+
+        $rootScope.$on('sprintBurnDownChartGeneral', function(event, mass){
+            $scope.sprintBurnDownChart('lg',$scope.project);
+        });
+
 
         var ProjectBurnDownChartController = ["$scope", "$modalInstance", "project", "stories", function ($scope, $modalInstance, project, stories) {
             $scope.authentication = Authentication;
@@ -1113,7 +1134,7 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 10/19/14.
+ * Created by ScrumTools on 10/19/14.
  */
 'use strict';
 
@@ -1139,7 +1160,7 @@ angular.module('projects').factory('Projects', ['$resource', '$http',
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 10/16/14.
+ * Created by ScrumTools on 10/16/14.
  */
 'use strict';
 
@@ -1155,7 +1176,7 @@ angular.module('sprints').config(['$stateProvider',
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/16/14.
+ * Created by ScrumTools on 11/16/14.
  */
 'use strict';
 
@@ -1463,6 +1484,18 @@ sprintsApp.controller('SprintsViewController', ['$scope', '$stateParams', 'Authe
 
 sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', 'Authentication', 'Sprints', 'Phases', 'Tasks', 'Stories', '$http', '$location', '$modal', 'SocketSprint', '$log',
     function ($scope, $stateParams, Authentication, Sprints, Phases, Tasks, Stories, $http, $location, $modal, SocketSprint, $log) {
+
+        var div = angular.element('.page-content-wrapper'),
+            wrapScreenWidth = div.width(),
+            wrapWidth = div.outerWidth(),
+            listWidth = div.find('.innerwrap').outerWidth()+900;
+            
+        div.on('mousemove', function(e) {
+            var cPointX = e.pageX,
+                dP = ((cPointX / wrapWidth));
+            div.scrollLeft((listWidth * dP) - wrapScreenWidth);
+
+        });
 
         $scope.authentication = Authentication;
 
@@ -1802,7 +1835,7 @@ sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', '
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/10/14.
+ * Created by ScrumTools on 11/10/14.
  */
 'use strict';
 
@@ -1842,7 +1875,7 @@ angular.module('sprints').factory('SocketSprint', ["$rootScope", function($rootS
     };
 }]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/16/14.
+ * Created by ScrumTools on 11/16/14.
  */
 'use strict';
 
@@ -1857,7 +1890,7 @@ angular.module('sprints').factory('Sprints', ['$resource',
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/9/14.
+ * Created by ScrumTools on 11/9/14.
  */
 'use strict';
 
@@ -2111,7 +2144,7 @@ storiesApp.controller('StoriesEditController', ['$scope', '$stateParams', 'Authe
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/10/14.
+ * Created by ScrumTools on 11/10/14.
  */
 'use strict';
 
@@ -2151,7 +2184,7 @@ angular.module('stories').factory('SocketPB', ["$rootScope", function($rootScope
     };
 }]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/8/14.
+ * Created by ScrumTools on 11/8/14.
  */
 'use strict';
 
@@ -2166,7 +2199,7 @@ angular.module('stories').factory('Stories', ['$resource',
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/21/14.
+ * Created by ScrumTools on 11/21/14.
  */
 'use strict';
 
@@ -2223,7 +2256,7 @@ tasksApp.controller('TasksCreateUpdateController', ['$scope', '$stateParams', 'A
     }
 ]);
 /**
- * Created by J. Ricardo de Juan Cajide on 11/18/14.
+ * Created by ScrumTools on 11/18/14.
  */
 'use strict';
 

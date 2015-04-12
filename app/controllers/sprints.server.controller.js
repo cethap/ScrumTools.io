@@ -1,5 +1,5 @@
 /**
- * Created by J. Ricardo de Juan Cajide on 10/8/14.
+ * Created by ScrumTools on 10/8/14.
  */
 'use strict';
 
@@ -33,8 +33,8 @@ exports.create = function(req, res) {
             });
         } else {
             var phase = new Phase({
-                phaseName: 'Tasks',
-                position: -1,
+                phaseName: 'Tareas',
+                position: 0,
                 sprintId: doc._id
             });
 
