@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
 
 
 /**
- * Create a DailyScrum
+ * Crea un diario de scrum
  */
 exports.create = function(req, res) {
     var data = { did: req.body.did,
@@ -39,7 +39,7 @@ exports.create = function(req, res) {
 
 
 /**
- * List of DailyScrum
+ * Lista diarios de scrum
  */
 exports.list = function(req, res) {
     var query = { 'sprintId': req.params.sprintId };
@@ -58,7 +58,7 @@ exports.list = function(req, res) {
 
 
 /*
- * Load a DailyScrum
+ * carga diarios de scrum
  */
 exports.load = function (req, res) {
     var query = { _id: req.params.dailyId };
@@ -75,7 +75,7 @@ exports.load = function (req, res) {
 };
 
 /*
- * Update a DailyScrum
+ * Actualiza diarios de scrum
  */
 exports.update = function (req, res) {
     var query = { _id: req.params.dailyId };
@@ -107,7 +107,7 @@ exports.update = function (req, res) {
 };
 
 /*
- * Delete a DailyScrum
+ * Elimina diarios de scrum
  */
 exports.delete = function (req, res) {
     var query = { _id: req.params.dailyId };

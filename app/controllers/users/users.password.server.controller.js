@@ -37,7 +37,7 @@ exports.forgot = function(req, res, next) {
 						});
 					} else if (user.provider !== 'local') {
 						return res.status(400).send({
-							message: 'Se a suscritoel uso de su cuenta de ' + user.provider
+							message: 'Se a suscrito el uso de su cuenta de ' + user.provider
 						});
 					} else {
 						user.resetPasswordToken = token;
@@ -147,7 +147,7 @@ exports.reset = function(req, res, next) {
 						});
 					} else {
 						return res.status(400).send({
-							message: 'Passwords no coinciden'
+							message: 'los campos de password no coinciden'
 						});
 					}
 				} else {

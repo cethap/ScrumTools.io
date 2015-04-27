@@ -123,7 +123,7 @@ exports.join = function (req, res) {
                     if (err) {
                         return res.status(400).send({message: err.message});
                     } else if (!err && --usersToGo === 0){
-                        res.send({message: 'Users have been joined to the project'});
+                        res.send({message: 'Usuarios han sido unidos al proyecto'});
                     }
                 });
             });
@@ -147,7 +147,7 @@ exports.leave = function (req, res) {
                 if (err) {
                     return res.status(400).send({message: err.message});
                 } else {
-                    res.send({message: 'You have been left the project'});
+                    res.send({message: 'Tu has salido del proyecto'});
                 }
             });
         }
@@ -200,7 +200,7 @@ exports.projectByID = function(req, res, next, id) {
 
     Project.findOne(query).exec(function(err, project) {
         if (err) return next(err);
-        if (!project) return next(new Error('Failed to load project ' + id));
+        if (!project) return next(new Error('Fallo al cargar el proyecto' + id));
         req.project = project;
         next();
     });
@@ -217,7 +217,7 @@ exports.hasAuthorization = function(req, res, next) {
         next();
     } else {
         return res.status(403).send({
-            message: 'User is not authorized'
+            message: 'Usuario no esta autorizado'
         });
     }
 };

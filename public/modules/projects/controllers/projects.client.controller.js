@@ -5,6 +5,19 @@
 
 var projectsApp = angular.module('projects');
 
+projectsApp.value('initSideMenu', function(Menus,$stateParams){
+        Menus.addMenuItem('sidebar', 'Panel principal', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio');
+        Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
+        Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
+        Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
+        Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
+        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio',null,null,0,{EventSend:'sprintBurnDownChartGeneral'});
+        Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');    
+});
+
 projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location',
     function($scope, Authentication, Projects, $location) {
         $scope.authentication = Authentication;
@@ -21,22 +34,11 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
     }
 ]);
 
-projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stateParams', 'Authentication', 'Projects', 'Sprints','$modal', '$log', '$http', '$location','Menus',
-    function($scope, $rootScope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus) {
+projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stateParams', 'Authentication', 'Projects', 'Sprints','$modal', '$log', '$http', '$location','Menus','initSideMenu',
+    function($scope, $rootScope, $stateParams, Authentication, Projects, Sprints, $modal, $log, $http, $location,Menus,initSideMenu) {
         $scope.authentication = Authentication;
 
-        Menus.addMenuItem('sidebar', 'Panel principal', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio');
-        Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
-        Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
-        Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
-        Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
-        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio',null,null,0,{EventSend:'sprintBurnDownChartGeneral'});
-        Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
-        Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
-        Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
-        Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');
-
-
+        initSideMenu(Menus,$stateParams);
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
@@ -268,11 +270,11 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
     }
 ]);
 
-projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams', 'Authentication', 'ProjectsNonMembers', '$timeout', '$log', '$http', '$location',
-    function($scope, $stateParams, Authentication, ProjectsNonMembers, $timeout, $log, $http, $location) {
+projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams', 'Authentication', 'ProjectsNonMembers', '$timeout', '$log', '$http', '$location','Menus','initSideMenu',
+    function($scope, $stateParams, Authentication, ProjectsNonMembers, $timeout, $log, $http, $location, Menus, initSideMenu) {
         $scope.authentication = Authentication;
 
-
+        initSideMenu(Menus,$stateParams);
 
         $scope.project = $stateParams.projectId;
 
@@ -292,24 +294,27 @@ projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams'
         ];
 
         var timeout;
+        //Genera Error javascript TypeError: fn is not a function
         $scope.$watch('username', function(newVal) {
             if (newVal) {
                 if (timeout) $timeout.cancel(timeout);
                 timeout = $timeout(
                     ProjectsNonMembers.nonMembers($stateParams.projectId, newVal)
-                        .success(function (response) {
-                            // the success function wraps the response in data
-                            // so we need to call data.data to fetch the raw data
-                            $scope.users = response;
-                        }), 350);
+                    .success(function (response) {
+                        // the success function wraps the response in data
+                        // so we need to call data.data to fetch the raw data
+                        $scope.users = response;
+                    }
+                ), 350);
             }
         });
 
         // Add member to project
         $scope.addMember = function(selectedProject, user, role) {
             user.role = role;
-            $http.put('/projects/' + selectedProject._id + '/join', {'users': [user]}).success(function(response) {
+            $http.put('/projects/' + selectedProject + '/join', {'users': [user]}).success(function(response) {
                 $scope.users = null;
+                $location.path('/projects/'+selectedProject+'/miembros');
             }).error(function(response) {
                 $scope.error = response.message;
             });
@@ -318,10 +323,12 @@ projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams'
 ]);
 
 
-projectsApp.controller('MembersController', ['$scope', 'Projects', 'Authentication', '$location','$modal','$http', '$stateParams',
-    function($scope, Projects, Authentication, $location, $modal, $http,$stateParams) {
+projectsApp.controller('MembersController', ['$scope', 'Projects', 'Authentication', '$location','$modal','$http', '$stateParams','Menus','initSideMenu',
+    function($scope, Projects, Authentication, $location, $modal, $http,$stateParams,Menus,initSideMenu) {
 
             var members = $http.get('/projects/'+$stateParams.projectId+'/members');
+
+            initSideMenu(Menus,$stateParams);
 
             members.then(function (response) {
                 $scope.users = response.data;

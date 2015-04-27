@@ -29,7 +29,8 @@ dailiesApp.controller('DailyScrumController', ['$scope', '$stateParams', 'Authen
             });
         };
 
-        $scope.editDaily = function (size, selectedDaily) {
+        $scope.editDaily = function ($event,size, selectedDaily) {
+            $event.preventDefault();
             $modal.open({
                 templateUrl: 'modules/dailies/views/view-daily.client.view.html',
                 controller: function ($scope, $modalInstance, daily) {

@@ -128,7 +128,7 @@ exports.delete = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.send({message: 'Sprint has been removed.'});
+            res.send({message: 'Sprint ha sido eliminado.'});
         }
     });
 };
@@ -179,7 +179,7 @@ exports.hasAuthorization = function (req, res, next) {
     Project.findOne(query).count().exec(function(err, amount) {
         if (err) return next(err);
         if (!amount) return res.status(403).send({
-            message: 'User is not authorized'
+            message: 'Usuarios no esta autorizado'
         });
         next();
     });

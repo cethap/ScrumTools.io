@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Module dependencies.
+ * Dependecias del Modulo.
  */
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
@@ -13,10 +13,10 @@ var _ = require('lodash'),
  * Signup
  */
 exports.signup = function(req, res) {
-	// For security measurement we remove the roles from the req.body object
+	// Por seguridad nos aseguramos de remover desde objeto req.body
 	delete req.body.roles;
 
-	// Init Variables
+	// Si inicializan variables
 	var user = new User(req.body);
 	var message = null;
 
@@ -24,7 +24,7 @@ exports.signup = function(req, res) {
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 
-	// Then save the user 
+	// Se guearda el usuario
 	user.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -47,7 +47,7 @@ exports.signup = function(req, res) {
 };
 
 /**
- * Signin after passport authentication
+ * autenticacion con passport 
  */
 exports.signin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
@@ -166,7 +166,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 				return done(err, user, '/#!/settings/accounts');
 			});
 		} else {
-			return done(new Error('El suuario realmente esta conectado usndo este proveedor'), user);
+			return done(new Error('El usuario realmente esta conectado usando este proveedor'), user);
 		}
 	}
 };

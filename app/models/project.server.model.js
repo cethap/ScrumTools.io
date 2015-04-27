@@ -23,7 +23,7 @@ var validateProperty = function(property) {
 var ProjectSchema = new Schema({
     projectName: {
         type: String,
-        required: [true, 'Title is required'],
+        required: [true, 'El titulo es requerido'],
         trim: true,
         validate: [validateProperty, 'El nombre del rpoyecto debe tener entre 1 y 16 caracteres']
     },
@@ -87,7 +87,7 @@ ProjectSchema.methods = {
                     _this.save(callback);
                 }
             } else {
-                callback(new Error('User is already joined'));
+                callback(new Error('Usuario actualmente esta unido'));
             }
         });
     },
@@ -100,7 +100,7 @@ ProjectSchema.methods = {
             _this.users.splice(index, 1);
             _this.save(callback);
         } else {
-            callback(new Error('UserId does not match'));
+            callback(new Error('UserId no coincide'));
         }
     }
 

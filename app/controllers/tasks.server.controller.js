@@ -124,7 +124,7 @@ exports.delete = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.send({message: 'Task has been removed.'});
+            res.send({message: 'Tarea ha sido eliminada.'});
         }
     });
 };
@@ -140,7 +140,7 @@ exports.hasAuthorization = function (req, res, next) {
     Story.findOne(query).count().exec(function(err, amount) {
         if (err) return next(err);
         if (!amount) return res.status(403).send({
-            message: 'User is not authorized'
+            message: 'Usuario no esta autorizado'
         });
         next();
     });

@@ -21,7 +21,7 @@ var TaskSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        validate: [validateProperty, 'Please fill in Task Name']
+        validate: [validateProperty, 'porfavor llene el nombre de la tarea']
     },
     taskDescription: {
         type: String,

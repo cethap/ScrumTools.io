@@ -57,14 +57,14 @@ var UserSchema = new Schema({
 	password: {
 		type: String,
 		default: '',
-		validate: [validateLocalStrategyPassword, 'Password should be longer']
+		validate: [validateLocalStrategyPassword, 'La contraseña debe ser larga']
 	},
 	salt: {
 		type: String
 	},
 	provider: {
-		type: String,
-		required: 'Proveedor es requerido'
+		type: String//,
+		//required: 'Proveedor es requerido'
 	},
 	providerData: {},
 	additionalProvidersData: {},

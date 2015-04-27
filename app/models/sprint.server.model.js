@@ -21,7 +21,7 @@ var SprintSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        validate: [validateProperty, 'Sprint Title must be between 0 and 21 characters']
+        validate: [validateProperty, 'El titulo del sprint debe estar entre 0 y 21 caracteres']
     },
     sprintDescription: {
         type: String,

@@ -21,7 +21,7 @@ var StorySchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        validate: [validateProperty, 'Story Title must be between 1 and 20 characters']
+        validate: [validateProperty, 'El titulo de la historia debe estar entre 0 y 21 caracteres']
     },
     storyDescription: {
         type: String,
