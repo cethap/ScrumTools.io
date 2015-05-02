@@ -1,13 +1,13 @@
 <section data-ng-controller="SprintsCreateUpdateController">
     <div class="page-header">
-        <h3>Crear Sprint</h3>
+        <h3>Crear Sprint <i class="icon-flash-electric-2"></i></h3>
     </div>
 
     <div class="col-md-12">
         <form name="sprintCreateForm" class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <div data-ng-show="error" class="text-center text-danger">
                                 <div class="alert alert-danger" role="alert">
@@ -18,19 +18,21 @@
                         <div class="form-group">
                             <label class="control-label" for="sprintName">Titulo</label>
                             <div class="controls">
-                                <input name="sprintName" type="text" data-ng-model="sprintName" id="sprintName" class="form-control" placeholder="Titulo" required>
+                                <input name="sprintName" type="text" data-ng-model="sprintName" id="sprintName" class="form-control" placeholder="Titulo del sprint" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="sprintDescription">Descripción</label>
                             <div class="controls">
-                                <textarea name="sprintDescription" data-ng-model="sprintDescription" id="sprintDescription" class="form-control" cols="30" rows="5" placeholder="Descripción"></textarea>
+                                <textarea name="sprintDescription" data-ng-model="sprintDescription" id="sprintDescription" class="form-control" cols="30" rows="5" placeholder="Descripción del sprint"></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6  col-md-offset-1">
                         <div class="form-group">
                             <label class="control-label" for="sprintStartTime">Inicio de tiempo</label>
                             <p class="input-group">
-                                <input name="sprintStartTime" type="text" id="sprintStartTime" class="form-control" datepicker-popup="{{format}}" ng-model="sprintStartTime" is-open="openedStartDT" datepicker-options="dateOptions" required close-text="Close" />
+                                <input name="sprintStartTime" type="text" id="sprintStartTime" class="form-control" datepicker-popup="{{format}}" current-text="Hoy" clear-text="limpiar" close-text="Cerrar" ng-model="sprintStartTime" is-open="openedStartDT" datepicker-options="dateOptions" required close-text="Close" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="openStartDT($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
@@ -39,14 +41,14 @@
                         <div class="form-group">
                             <label class="control-label" for="sprintEndTime">Fin del tiempo</label>
                             <p class="input-group">
-                                <input name="sprintEndTime" type="text" id="sprintEndTime" class="form-control" datepicker-popup="{{format}}" ng-model="sprintEndTime" is-open="openedEndDT" datepicker-options="dateOptions" required close-text="Close" />
+                                <input name="sprintEndTime" type="text" id="sprintEndTime" class="form-control" datepicker-popup="{{format}}" current-text="Hoy" clear-text="limpiar" close-text="Cerrar" ng-model="sprintEndTime" is-open="openedEndDT" datepicker-options="dateOptions" required close-text="Close" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="openEndDT($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
                             </p>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-group btn-success">Crear</button>
+                            <button type="submit" class="btn btn-group btn-success"><i class="icon-paperplane"></i> Crear</button>
                         </div>
                     </div>
                 </div>

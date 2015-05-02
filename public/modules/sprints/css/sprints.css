@@ -48,4 +48,12 @@
     background-color: #fff;
 }
 
+#ListSprints .icon-flash-electric-2{
+    position: relative;
+    top: 8px;
+    font-size: 30px;
+}
 
+#ListSprints .panel-heading:hover{
+    cursor: pointer;
+}

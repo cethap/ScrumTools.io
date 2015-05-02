@@ -118,7 +118,7 @@ exports.delete = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.send({message: 'DailyScrum has been removed.'});
+            res.send({message: 'Diario de scrum ha sido eliminado.'});
         }
     });
 };
@@ -133,7 +133,7 @@ exports.hasAuthorization = function (req, res, next) {
     Sprint.findOne(query).count().exec(function(err, amount) {
         if (err) return next(err);
         if (!amount) return res.status(403).send({
-            message: 'User is not authorized'
+            message: 'Este usuario no esta autorizado'
         });
         next();
     });

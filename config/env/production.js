@@ -28,6 +28,7 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
 				'public/lib/Bootflat/bootflat/css/bootflat.min.css',
 				'public/lib/angular-xeditable/dist/css/xeditable.css',
+				'public/lib/angular-notify/dist/angular-notify.min.css',
 				'public/icons/styles.css',
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],
@@ -48,6 +49,7 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
 
 				'public/lib/angular-socket-io/socket.min.js',
+				'public/lib/angular-notify/dist/angular-notify.min.js',
 				'public/lib/socket.io-client/socket.io.js',
 				'public/lib/angular-xeditable/dist/js/xeditable.min.js',
 				'public/lib/checklist-model/checklist-model.js',

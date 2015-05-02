@@ -4,7 +4,7 @@ module.exports = {
 	app: {
 		title: 'ScrumTools.io',
 		description: 'Esta aplicación gestiona proyectos de software con la metodologia scrum',
-		keywords: 'scrum ,MEAN, tesis'
+		keywords: 'scrum ,MEAN, tesis, scrumtools,IDE'
 	},
 	port: process.env.PORT || 3000,
 	templateEngine: 'swig',
@@ -45,6 +45,7 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/Bootflat/bootflat/css/bootflat.css',
 				'public/lib/angular-xeditable/dist/css/xeditable.css',
+				'public/lib/angular-notify/angular-notify.css',
 				'public/icons/styles.css',
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.css',
 			],
@@ -54,6 +55,7 @@ module.exports = {
                 'public/lib/bootstrap/dist/js/bootstrap.js',
                 			
 				'public/lib/angular/angular.js',
+				'public/i18n/angular-locale_es.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-cookies/angular-cookies.js', 
 				'public/lib/angular-animate/angular-animate.js', 
@@ -64,6 +66,7 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 
 				'public/lib/angular-socket-io/socket.min.js',
+				'public/lib/angular-notify/angular-notify.js',
 				'public/lib/socket.io-client/socket.io.js',
 				'public/lib/angular-xeditable/dist/js/xeditable.js',
 				'public/lib/checklist-model/checklist-model.js',

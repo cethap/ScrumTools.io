@@ -6,7 +6,7 @@
         <form name="projectCreateForm" class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <div data-ng-show="error" class="text-center text-danger">
                                 <div class="alert alert-danger" role="alert">
@@ -26,10 +26,12 @@
                                 <textarea name="descriptionName" data-ng-model="descriptionName" id="descriptionName" class="form-control" cols="30" rows="10" placeholder="Descripción"></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6  col-md-offset-1">
                         <div class="form-group">
                             <label class="control-label" for="startTime">Inicio Tiempo</label>
                             <p class="input-group">
-                                <input name="startTime" type="text" id="startTime" class="form-control" datepicker-popup="{{format}}" ng-model="startTime" is-open="openedStartDT" datepicker-options="dateOptions" required close-text="Close" />
+                                <input name="startTime" type="text" id="startTime" class="form-control" datepicker-popup="{{format}}" current-text="Hoy" clear-text="limpiar" close-text="Cerrar" ng-model="startTime" is-open="openedStartDT" datepicker-options="dateOptions" required close-text="Close" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="openStartDT($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
@@ -38,14 +40,14 @@
                        <div class="form-group">
                             <label class="control-label" for="endTime">Fin Tiempo</label>
                             <p class="input-group">
-                                <input name="endTime" type="text" id="endTime" class="form-control" datepicker-popup="{{format}}" ng-model="endTime" is-open="openedEndDT" datepicker-options="dateOptions" required close-text="Close" />
+                                <input name="endTime" type="text" id="endTime" class="form-control" datepicker-popup="{{format}}" current-text="Hoy" clear-text="limpiar" close-text="Cerrar" ng-model="endTime" is-open="openedEndDT" datepicker-options="dateOptions" required close-text="Close" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="openEndDT($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
                             </p>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-group btn-success">Create</button>
+                            <button type="submit" class="btn btn-group btn-success"><i class="icon-paperplane"></i> Crear</button>
                         </div>
                     </div>
                 </div>

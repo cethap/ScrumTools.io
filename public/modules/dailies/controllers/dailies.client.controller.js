@@ -6,14 +6,19 @@
 
 var dailiesApp = angular.module('dailies');
 
-dailiesApp.controller('DailyScrumController', ['$scope', '$stateParams', 'Authentication', '$location', 'Dailies', '$modal',
-    function ($scope, $stateParams, Authentication, $location, Dailies, $modal) {
+dailiesApp.controller('DailyScrumController', ['$scope', '$stateParams', 'Authentication', '$location', 'Dailies', '$modal','notify',
+    function ($scope, $stateParams, Authentication, $location, Dailies, $modal, notify) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
-        $scope.dailies = Dailies.query({ sprintId: $stateParams.sprintId});
+        $scope.dailies = Dailies.query({ sprintId: $stateParams.sprintId},
+            function(){},
+            function(errorResponse){
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
+            }
+        );
 
         $scope.createDaily = function () {
             var ds = new Dailies({
@@ -26,6 +31,8 @@ dailiesApp.controller('DailyScrumController', ['$scope', '$stateParams', 'Authen
 
             ds.$save({ sprintId: $stateParams.sprintId }, function(daily) {
                 $scope.dailies.push(daily);
+            },function(errorResponse){
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
 

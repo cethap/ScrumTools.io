@@ -3,8 +3,8 @@
 }
 
 .extra-space {
-    padding-bottom: 15px;
-    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .project-name {
@@ -31,6 +31,31 @@
 .IconModulo i{
     font-size: 13em;
     line-height: .5em;
+}
+
+#ListProjects .icon-repo{
+    position: relative;
+    top: 8px;
+    font-size: 25px;
+}
+
+#ListProjects .panel-heading:hover{
+    cursor: pointer;
+}
+
+.iconosProyecto{
+    position: relative;
+    top: 12px;
+}
+
+.iconosProyecto i{
+    position: relative;
+    left: 2px;
+}
+
+.iconosProyecto a{
+    position: relative;
+    left: 12px;
 }
 
 /*.TblPryctos tbody tr{

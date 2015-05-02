@@ -25,7 +25,7 @@ var ProjectSchema = new Schema({
         type: String,
         required: [true, 'El titulo es requerido'],
         trim: true,
-        validate: [validateProperty, 'El nombre del rpoyecto debe tener entre 1 y 16 caracteres']
+        validate: [validateProperty, 'El titulo del proyecto debe tener entre 1 y 16 caracteres']
     },
     descriptionName: {
         type: String,
@@ -34,11 +34,11 @@ var ProjectSchema = new Schema({
     },
     startTime: {
         type: Date,
-        required: true
+        required: [true, 'El inicio de tiempo del proyecto es requerido']
     },
     endTime: {
         type: Date,
-        required: true
+        required: [true, 'El fin de tiempo del proyecto es requerido']
     },
     users: [{
         userId: {
@@ -87,7 +87,7 @@ ProjectSchema.methods = {
                     _this.save(callback);
                 }
             } else {
-                callback(new Error('Usuario actualmente esta unido'));
+                callback(new Error('Usuario actualmente esta se encuentra en el proyecto'));
             }
         });
     },

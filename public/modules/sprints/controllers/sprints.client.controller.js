@@ -6,8 +6,8 @@
 
 var sprintsApp = angular.module('sprints');
 
-sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams', 'Authentication', 'Sprints', '$http', '$location', 'SocketSprint',
-    function ($scope, $stateParams, Authentication, Sprints, $http, $location, SocketSprint) {
+sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams', 'Authentication', 'Sprints', '$http', '$location', 'SocketSprint','notify',
+    function ($scope, $stateParams, Authentication, Sprints, $http, $location, SocketSprint, notify) {
 
         $scope.authentication = Authentication;
 
@@ -23,7 +23,7 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
             });
 
             s.$save({ projectId: $stateParams.projectId }, function(sprint) {
-                $location.path('projects/' + $stateParams.projectId + '/sprints/' + sprint._id);
+                $location.path('projects/' + $stateParams.projectId + '/sprints/' + sprint._id + '/dashboard');
 
                 $scope.sprintName = '';
                 $scope.sprintDescription = '';
@@ -31,7 +31,8 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
                 $scope.sprintEndTime = '';
 
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                //$scope.error = errorResponse.data.message;
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
 
@@ -67,7 +68,8 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
 
         $scope.dateOptions = {
             formatYear: 'yy',
-            startingDay: 1
+            startingDay: 1,
+            showWeeks:false
         };
 
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -79,7 +81,8 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
             sprint.$update({ sprintId: updatedSprint._id }, function(response) {
                 SocketSprint.emit('sprint.updated', {sprint: response, room: $stateParams.sprintId});
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                //$scope.error = errorResponse.data.message;
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
     }

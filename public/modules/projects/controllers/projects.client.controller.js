@@ -78,7 +78,7 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                $log.info('Modal cerrado a las: ' + new Date());
             });
         };
 
@@ -367,8 +367,8 @@ projectsApp.controller('MembersController', ['$scope', 'Projects', 'Authenticati
 
 
 
-projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authentication', '$location',
-    function($scope, Projects, Authentication, $location) {
+projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authentication', '$location','notify',
+    function($scope, Projects, Authentication, $location, notify) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
@@ -382,7 +382,7 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
                 endTime: this.endTime
             });
             project.$save(function(response) {
-                $location.path('projects/' + response._id);
+                $location.path('projects/' + response._id + '/escritorio');
 
                 $scope.projectName = '';
                 $scope.descriptionName = '';
@@ -390,7 +390,8 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
                 $scope.endTime = '';
 
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
+                //$scope.error = errorResponse.data.message;
             });
         };
 
@@ -426,7 +427,8 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
 
         $scope.dateOptions = {
             formatYear: 'yy',
-            startingDay: 1
+            startingDay: 1,
+            showWeeks:false
         };
 
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -438,7 +440,8 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
             project.$update(function(response) {
 
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
+                //$scope.error = errorResponse.data.message;
             });
         };
 

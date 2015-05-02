@@ -1,8 +1,8 @@
 <section data-ng-controller="SprintslistController">
 
 
-    <table class="table col-xs-12 table-hover TblPryctos">
-      <h3>Sprints <i class="icon-flash-electric-2"></i></h3>
+    <h3>Sprints <i class="icon-flash-electric-2"></i></h3>
+    <!--table class="table col-xs-12 table-hover TblPryctos">
       <thead>
         <tr>
           <th>Nombre</th>
@@ -13,8 +13,22 @@
           <td><span><i class="icon-flash-electric-2"></i></span> {{sprint.sprintName}}</td>
         </tr>
       </tbody>
-    </table>
+    </table-->
 
+
+    <div class="list-group" id="ListSprints">
+        <div class="col-xs-6 col-sm-3 extra-space" data-ng-repeat="sprint in sprints| filter:searchText">
+            <span class="list-group-item" ui-sref="viewProject.viewSprint.dashboard({sprintId: sprint._id})">
+                <div class="panel panel-default clickable">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <p><i class="icon-flash-electric-2"></i> {{sprint.sprintName}}</p>
+                        </h3>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
 
 
     <!--div class="list-group">

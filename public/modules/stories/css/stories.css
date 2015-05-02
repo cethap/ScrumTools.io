@@ -30,3 +30,7 @@
     border: none;
     background-color: transparent !important;
 }
+
+#listStries tbody tr td span i{
+    font-size: 30px;
+}

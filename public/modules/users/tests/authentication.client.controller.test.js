@@ -61,14 +61,14 @@
 		it('$scope.signin() deberia fallar al loguearse sin ningun dato', function() {
 			// Test expected POST request
 			$httpBackend.expectPOST('/auth/signin').respond(400, {
-				'message': 'Missing credentials'
+				'message': 'Falta de datos de logueo'
 			});
 
 			scope.signin();
 			$httpBackend.flush();
 
 			// Test scope value
-			expect(scope.error).toEqual('Missing credentials');
+			expect(scope.error).toEqual('Falta de datos de logueo');
 		});
 
 

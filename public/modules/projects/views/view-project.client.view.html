@@ -29,11 +29,13 @@
 
     <div class="col-md-12 wrapper">
         <h2 class="project-name">
-            <i class="icon-repo"></i>
+            <span class="iconosProyecto">
+                <a href="" ng-click="modal('', project)">
+                    <i popover="{{project.descriptionName}}" popover-placement="bottom" popover-title="Descripción" popover-trigger="mouseenter" class="icon-information-circle"></i>
+                </a>
+                <i class="icon-repo"></i>
+            </span>
             {{project.projectName}}
-            <a href="" ng-click="modal('', project)">
-                <i popover="{{project.descriptionName}}" popover-placement="bottom" popover-title="Descripción" popover-trigger="mouseenter" class="icon-information-circle"></i>
-            </a>
         </h2>
         <div ui-view></div>
 

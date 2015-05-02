@@ -19,7 +19,7 @@ var validateProperty = function(property) {
 var SprintSchema = new Schema({
     sprintName: {
         type: String,
-        required: true,
+        required: [true, 'El titulo del sprint es requerido'],
         trim: true,
         validate: [validateProperty, 'El titulo del sprint debe estar entre 0 y 21 caracteres']
     },
@@ -29,11 +29,11 @@ var SprintSchema = new Schema({
     },
     sprintStartTime: {
         type: Date,
-        required: true
+        required: [true, 'El inicio de tiempo del sprint es requerido']
     },
     sprintEndTime: {
         type: Date,
-        required: true
+        required: [true, 'El fin de tiempo del sprint es requerido']
     },
     sprintFinished: {
         type: Boolean,
