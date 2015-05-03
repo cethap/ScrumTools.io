@@ -8,9 +8,9 @@ var projectsApp = angular.module('projects');
 projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addMenuItem('sidebar', 'Panel principal', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio');
         Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
-        Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
-        Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
-        Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
+        Menus.addMenuItem('sidebar', 'Sprints', 'projects/'+$stateParams.projectId+'/sprints');
+        // Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
+        // Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
         Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio',null,null,0,{EventSend:'sprintBurnDownChartGeneral'});
         Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
@@ -18,8 +18,8 @@ projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');    
 });
 
-projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location',
-    function($scope, Authentication, Projects, $location) {
+projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location','$modal',
+    function($scope, Authentication, Projects, $location, $modal) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
@@ -29,6 +29,39 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
         $scope.projects = Projects.query();
         $scope.goToProject = function(p){
             $location.path('/projects/'+p+'/escritorio');
+        };
+
+        // Open a modal window
+        $scope.modal = function (size, selectedProject) {
+            console.log(selectedProject);
+            var modalInstance = $modal.open({
+                templateUrl: 'modules/projects/views/edit-project.client.view.html',
+                controller: function ($scope, $modalInstance, project) {
+                    $scope.project = project;
+
+                    $scope.ok = function () {
+                        //if (updateProjectForm.$valid) {
+                            $modalInstance.close(selectedProject);
+                        //}
+                    };
+
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
+                size: size,
+                resolve: {
+                    project: function () {
+                        return selectedProject;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                //$log.info('Modal cerrado a las: ' + new Date());
+            });
         };
 
     }

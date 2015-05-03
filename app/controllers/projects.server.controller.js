@@ -56,9 +56,8 @@ exports.create = function(req, res) {
  */
 exports.list = function(req, res) {
     var query = { 'users.userId': req.user._id };
-    var projection = { projectName: 1 };
-
-    Project.find(query, projection).exec(function(err, projects) {
+    var projection = { projectName: 1, descriptionName:1, startTime:1, endTime:1 };
+    Project.find(query,projection).exec(function(err, projects) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)

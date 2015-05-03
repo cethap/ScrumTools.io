@@ -316,12 +316,12 @@ sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', '
             wrapWidth = div.outerWidth(),
             listWidth = div.find('.innerwrap').outerWidth()+900;
             
-        div.on('mousemove', function(e) {
-            var cPointX = e.pageX,
-                dP = ((cPointX / wrapWidth));
-            div.scrollLeft((listWidth * dP) - wrapScreenWidth);
+        // div.on('mousemove', function(e) {
+        //     var cPointX = e.pageX,
+        //         dP = ((cPointX / wrapWidth));
+        //     div.scrollLeft((listWidth * dP) - wrapScreenWidth);
 
-        });
+        // });
 
         $scope.authentication = Authentication;
 

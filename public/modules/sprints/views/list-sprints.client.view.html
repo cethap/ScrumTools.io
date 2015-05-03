@@ -2,6 +2,24 @@
 
 
     <h3>Sprints <i class="icon-flash-electric-2"></i></h3>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" ng-model="searchText.sprintName" placeholder="Buscar...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <span ui-sref="viewProject.createSprint()" class="btn btn-success btn-lg"><i class="icon-paperplane"></i> Crear Sprint</span>
+        </div>
+
+    </div>
+    </br>
+
     <!--table class="table col-xs-12 table-hover TblPryctos">
       <thead>
         <tr>

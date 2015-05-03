@@ -1,16 +1,20 @@
 
 <section data-ng-controller="ProjectsController">
     <div class="page-header">
-        <h3>Proyectos</h3>
+        <h2><i class="icon-repo"></i> Proyectos</h2>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control" ng-model="searchText.projectName" placeholder="Buscar...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
                 </span>
             </div>
+        </div>
+
+        <div class="col-md-2">
+            <a href="#!/projects/create" class="btn btn-success btn-lg"><i class="icon-paperplane"></i> Crear Proyecto</a>
         </div>
     </div>
     </br>
@@ -49,8 +53,9 @@
           <div class="caption">
             <h3><i class="icon-repo"></i> {{project.projectName}}</h3>
             <p>
-                <a href="#" class="btn btn-primary" role="button" ng-click="goToProject(project._id)">Examinar</a> 
-                <a href="#" class="btn btn-danger disabled" role="button">Eliminar</a>
+                <a href="#" class="btn btn-primary" role="button" ng-click="goToProject(project._id)"><i class="icon-arrow-up"></i> Examinar</a> 
+                <button type="button" class="btn btn-default" ng-click="modal('', project)"><span class="btn-xs glyphicon glyphicon-pencil"></span></button>
+                <a href="#" class="btn btn-danger disabled" role="button"><i class="icon-trashcan"></i></a>
             </p>
           </div>
         </div>
