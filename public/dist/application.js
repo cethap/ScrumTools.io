@@ -5,7 +5,7 @@ var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'scrumtoolsio';
 	//var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils'];
-	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils', 'btford.socket-io', 'xeditable', 'checklist-model', 'ngDragDrop', 'highcharts-ng'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils', 'btford.socket-io', 'xeditable', 'checklist-model', 'ngDragDrop', 'highcharts-ng', 'cgNotify'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
@@ -234,7 +234,7 @@ angular.module('core').service('Menus', [
 				if (this.menus[menuId]) {
 					return true;
 				} else {
-					throw new Error('Menu does not exists');
+					throw new Error('Menu no existe');
 				}
 			} else {
 				throw new Error('MenuId was not provided');
@@ -399,14 +399,19 @@ angular.module('core').service('Menus', [
 
 var dailiesApp = angular.module('dailies');
 
-dailiesApp.controller('DailyScrumController', ['$scope', '$stateParams', 'Authentication', '$location', 'Dailies', '$modal',
-    function ($scope, $stateParams, Authentication, $location, Dailies, $modal) {
+dailiesApp.controller('DailyScrumController', ['$scope', '$stateParams', 'Authentication', '$location', 'Dailies', '$modal','notify',
+    function ($scope, $stateParams, Authentication, $location, Dailies, $modal, notify) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
-        $scope.dailies = Dailies.query({ sprintId: $stateParams.sprintId});
+        $scope.dailies = Dailies.query({ sprintId: $stateParams.sprintId},
+            function(){},
+            function(errorResponse){
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
+            }
+        );
 
         $scope.createDaily = function () {
             var ds = new Dailies({
@@ -419,6 +424,8 @@ dailiesApp.controller('DailyScrumController', ['$scope', '$stateParams', 'Authen
 
             ds.$save({ sprintId: $stateParams.sprintId }, function(daily) {
                 $scope.dailies.push(daily);
+            },function(errorResponse){
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
 
@@ -629,7 +636,7 @@ angular.module('phases').factory('Phases', ['$resource',
 angular.module('projects').run(['Menus',
     function(Menus) {
         // Set top bar menu items
-        Menus.addMenuItem('sidebar', 'Proyectos', 'proyectos', 'item', '/projects');
+        Menus.addMenuItem('sidebar', 'Proyectos', 'projects');
         // Menus.addSubMenuItem('sidebar', 'proyectos', 'Listar Proyectos', 'projects');
         // Menus.addSubMenuItem('sidebar', 'proyectos', 'Nuevo Proyecto', 'projects/create');
     }
@@ -705,9 +712,9 @@ var projectsApp = angular.module('projects');
 projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addMenuItem('sidebar', 'Panel principal', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio');
         Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
-        Menus.addMenuItem('sidebar', 'Sprints', 'sprints', 'dropdown', '/sprints');
-        Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
-        Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
+        Menus.addMenuItem('sidebar', 'Sprints', 'projects/'+$stateParams.projectId+'/sprints');
+        // Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
+        // Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
         Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio',null,null,0,{EventSend:'sprintBurnDownChartGeneral'});
         Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
@@ -715,8 +722,8 @@ projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');    
 });
 
-projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location',
-    function($scope, Authentication, Projects, $location) {
+projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location','$modal',
+    function($scope, Authentication, Projects, $location, $modal) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
@@ -726,6 +733,39 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
         $scope.projects = Projects.query();
         $scope.goToProject = function(p){
             $location.path('/projects/'+p+'/escritorio');
+        };
+
+        // Open a modal window
+        $scope.modal = function (size, selectedProject) {
+            console.log(selectedProject);
+            var modalInstance = $modal.open({
+                templateUrl: 'modules/projects/views/edit-project.client.view.html',
+                controller: ["$scope", "$modalInstance", "project", function ($scope, $modalInstance, project) {
+                    $scope.project = project;
+
+                    $scope.ok = function () {
+                        //if (updateProjectForm.$valid) {
+                            $modalInstance.close(selectedProject);
+                        //}
+                    };
+
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }],
+                size: size,
+                resolve: {
+                    project: function () {
+                        return selectedProject;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                //$log.info('Modal cerrado a las: ' + new Date());
+            });
         };
 
     }
@@ -775,7 +815,7 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                $log.info('Modal cerrado a las: ' + new Date());
             });
         };
 
@@ -1064,8 +1104,8 @@ projectsApp.controller('MembersController', ['$scope', 'Projects', 'Authenticati
 
 
 
-projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authentication', '$location',
-    function($scope, Projects, Authentication, $location) {
+projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authentication', '$location','notify',
+    function($scope, Projects, Authentication, $location, notify) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
@@ -1079,7 +1119,7 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
                 endTime: this.endTime
             });
             project.$save(function(response) {
-                $location.path('projects/' + response._id);
+                $location.path('projects/' + response._id + '/escritorio');
 
                 $scope.projectName = '';
                 $scope.descriptionName = '';
@@ -1087,7 +1127,8 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
                 $scope.endTime = '';
 
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
+                //$scope.error = errorResponse.data.message;
             });
         };
 
@@ -1123,7 +1164,8 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
 
         $scope.dateOptions = {
             formatYear: 'yy',
-            startingDay: 1
+            startingDay: 1,
+            showWeeks:false
         };
 
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -1135,7 +1177,8 @@ projectsApp.controller('ProjectsCrUpController', ['$scope', 'Projects', 'Authent
             project.$update(function(response) {
 
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
+                //$scope.error = errorResponse.data.message;
             });
         };
 
@@ -1191,8 +1234,8 @@ angular.module('sprints').config(['$stateProvider',
 
 var sprintsApp = angular.module('sprints');
 
-sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams', 'Authentication', 'Sprints', '$http', '$location', 'SocketSprint',
-    function ($scope, $stateParams, Authentication, Sprints, $http, $location, SocketSprint) {
+sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams', 'Authentication', 'Sprints', '$http', '$location', 'SocketSprint','notify',
+    function ($scope, $stateParams, Authentication, Sprints, $http, $location, SocketSprint, notify) {
 
         $scope.authentication = Authentication;
 
@@ -1208,7 +1251,7 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
             });
 
             s.$save({ projectId: $stateParams.projectId }, function(sprint) {
-                $location.path('projects/' + $stateParams.projectId + '/sprints/' + sprint._id);
+                $location.path('projects/' + $stateParams.projectId + '/sprints/' + sprint._id + '/dashboard');
 
                 $scope.sprintName = '';
                 $scope.sprintDescription = '';
@@ -1216,7 +1259,8 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
                 $scope.sprintEndTime = '';
 
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                //$scope.error = errorResponse.data.message;
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
 
@@ -1252,7 +1296,8 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
 
         $scope.dateOptions = {
             formatYear: 'yy',
-            startingDay: 1
+            startingDay: 1,
+            showWeeks:false
         };
 
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -1264,7 +1309,8 @@ sprintsApp.controller('SprintsCreateUpdateController', ['$scope', '$stateParams'
             sprint.$update({ sprintId: updatedSprint._id }, function(response) {
                 SocketSprint.emit('sprint.updated', {sprint: response, room: $stateParams.sprintId});
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                //$scope.error = errorResponse.data.message;
+                notify({message:errorResponse.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
     }
@@ -1498,12 +1544,12 @@ sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', '
             wrapWidth = div.outerWidth(),
             listWidth = div.find('.innerwrap').outerWidth()+900;
             
-        div.on('mousemove', function(e) {
-            var cPointX = e.pageX,
-                dP = ((cPointX / wrapWidth));
-            div.scrollLeft((listWidth * dP) - wrapScreenWidth);
+        // div.on('mousemove', function(e) {
+        //     var cPointX = e.pageX,
+        //         dP = ((cPointX / wrapWidth));
+        //     div.scrollLeft((listWidth * dP) - wrapScreenWidth);
 
-        });
+        // });
 
         $scope.authentication = Authentication;
 
@@ -2355,13 +2401,12 @@ angular.module('users').config(['$stateProvider',
 ]);
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
-	function($scope, $http, $location, Authentication) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication','notify',
+	function($scope, $http, $location, Authentication, notify) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
 		if ($scope.authentication.user) $location.path('/');
-
 		$scope.signup = function() {
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
@@ -2370,7 +2415,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// And redirect to the index page
 				$location.path('/');
 			}).error(function(response) {
-				$scope.error = response.message;
+				notify({message:response.message, templateUrl:'my_template.html'});
+				//$scope.error = response.message;
 			});
 		};
 
@@ -2382,7 +2428,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// And redirect to the index page
 				$location.path('/');
 			}).error(function(response) {
-				$scope.error = response.message;
+				notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
+				//$scope.error = response.message;
 			});
 		};
 	}
