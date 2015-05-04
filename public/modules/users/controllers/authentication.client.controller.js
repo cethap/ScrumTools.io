@@ -12,9 +12,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/');
+				$location.path('/escritorio');
 			}).error(function(response) {
-				notify({message:response.message, templateUrl:'my_template.html'});
+				console.log(response);
+				notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
 				//$scope.error = response.message;
 			});
 		};
@@ -25,7 +26,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/');
+				$location.path('/escritorio');
 			}).error(function(response) {
 				notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
 				//$scope.error = response.message;
