@@ -16,6 +16,9 @@ module.exports = function(app) {
         .get(users.requiresLogin, stories.hasAuthorization, stories.list)
         .post(users.requiresLogin, stories.hasAuthorization, stories.create);
 
+    app.route('/projects/:projectId/stories/:storyId/pokerscrum')
+        .get(users.requiresLogin, stories.hasAuthorization, stories.pokerScrum);
+
     app.route('/projects/:projectId/stories/:storyId')
         .get(users.requiresLogin, stories.hasAuthorization, stories.load)
         .put(users.requiresLogin, stories.hasAuthorization, stories.update)

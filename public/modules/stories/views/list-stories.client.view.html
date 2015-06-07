@@ -40,6 +40,7 @@
             <!--input ng-model="story.storyDescription" ng-change="updateStory(story)" type="text" class="sinBordes" -->
           </td>
           <td style="padding-top: 22px;">
+            <button type="button" class="btn btn-default btn-xs" ng-click="letsPoker('', story)"><span class="btn-xs glyphicon glyphicon-question-sign"></span></button>
             <button type="button" class="btn btn-default btn-xs" ng-click="editStory('', story)"><span class="btn-xs glyphicon glyphicon-pencil"></span></button>
             <button type="button" class="btn btn-danger btn-xs" ng-click="deleteStory(story)"><span class="btn-xs glyphicon glyphicon-trash"></span></button>
             <button type="button" class="btn btn-primary btn-xs" ng-click="moveToSprint('sm',story)"><span class="btn-xs glyphicon glyphicon-share-alt"></span></button>

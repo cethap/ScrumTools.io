@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>PokerScrum</title>
+    <link href="/colaboracion/poker/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="/colaboracion/poker/css/style.css">
+    <link rel="stylesheet" href="/colaboracion/poker/css/custom.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <h1 style="margin:18px 0px">PokerScrum</h1>
+    <span>
+        Nombre de historia de Usuario: 
+        <span class="nombreHistoria"></span>
+    </span>
+    </br>
+    </br>
+    <div class="hide" id="initVota">
+        <button class="btn btn-primary btn-lg">Iniciar Votación</button>
+        <div class="clearfix"></div>
+        <hr>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Voto final!</button>
+              </span>
+              <input type="text" class="form-control" placeholder="Inserte voto final">
+            </div><!-- /input-group -->
+        </div>    
+
+    </div>
+
+    <div class="row" id="cardsHide">
+        <div class="cardset of-11">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+    </div>
+
+    <div class="row hide"  id="cardsShow">
+        <div class="cardset of-11">
+            <div class="card spades" data-value="1♠">1♠</div>
+            <div class="card clubs" data-value="2♣">2♣</div>
+            <div class="card diamonds" data-value="3♦">3♦</div>
+            <div class="card hearts" data-value="5♥">5♥</div>
+            <div class="card spades" data-value="8♠">8♠</div>
+            <div class="card clubs" data-value="13♣">13♣</div>
+            <div class="card clubs" data-value="20♣">20♣</div>
+            <div class="card diamonds" data-value="40♦">40♦</div>
+            <div class="card hearts" data-value="100♥">100♥</div>
+            <div class="card spades" data-value="♠?">♠?</div>
+        </div>
+    </div>
+
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="/colaboracion/poker/js/jquery-1.10.2.min.js"></script>
+    <!-- togetherjs -->
+    <script>
+
+        var ParseUrlT = {};
+        var MainProyecto = false;
+        if(location.hash.trim().length > 0){
+            var slh = location.hash.split("#")[1].split("&");
+            for (var i = 0; i < slh.length; i++) {
+                var sslh = slh[i].split("=");
+                ParseUrlT[sslh[0]] = sslh[1];
+            }
+        }
+
+        TogetherJSConfig_findRoom = {prefix: "stJoin", max: 5};
+        TogetherJSConfig_storagePrefix = "tjs_scrumtools1";
+
+        if(ParseUrlT.proyecto){        
+            if(ParseUrlT.proyecto.trim() !== ""){
+                TogetherJSConfig_findRoom.prefix = "stJoin"+ParseUrlT.proyecto;
+                TogetherJSConfig_storagePrefix = "tjs_scrumtools"+ParseUrlT.proyecto;
+            }
+            if(ParseUrlT.maxUsers){
+                TogetherJSConfig_findRoom.max = ParseUrlT.maxUsers;
+            }
+            location.hash = "#";
+            MainProyecto = true;
+        }
+        
+        if(ParseUrlT.nombre){
+            $(".nombreHistoria").text(ParseUrlT.nombre);
+        }
+
+        // var locHost = location.host.split(":");
+        // var portHub = "3030";
+        // locHost = locHost[0]+":"+portHub;
+
+        TogetherJSConfig_autoStart = true;
+        TogetherJSConfig_siteName = "ScrumTools Colaboración";
+        TogetherJSConfig_toolName = "ScrumColaboración";
+        TogetherJSConfig_suppressJoinConfirmation = true;
+        //TogetherJSConfig_hubBase = "http://"+locHost;
+        TogetherJSConfig_hubBase = "http://hubscrumtools.herokuapp.com";
+        TogetherJSConfig_lang = "es-BO";
+        TowTruckConfig_enableAnalytics = false;
+    </script>
+    <!--script src="https://towtruck.mozillalabs.com/towtruck.js"></script-->
+    <script src="/togetherjs.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/colaboracion/poker/js/bootstrap.min.js"></script>
+    <script src="/colaboracion/poker/js/app.js"></script>
+    
+  </body>
+</html>

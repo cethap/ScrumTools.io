@@ -147,6 +147,38 @@ storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Au
             SocketPB.emit('story.updated', {story: story, room: $stateParams.projectId});
         };
 
+
+        $scope.letsPoker = function (size, selectedStory) {
+            console.log(selectedStory.storyTitle);
+            window.open('http://'+location.host+'/projects/'+selectedStory.projectId+'/stories/'+selectedStory._id+'/pokerscrum#proyecto='+selectedStory.projectId+'&nombre='+selectedStory.storyTitle);
+            // function updateStoryList(story) {
+            //     $scope.handleUpdatedStory(story);
+            // }
+
+            // $modal.open({
+            //     templateUrl: 'modules/stories/views/edit-story.client.view.html',
+            //     controller: function ($scope, $modalInstance, story) {
+            //         $scope.story = story;
+
+            //         $scope.ok = function () {
+            //             SocketPB.emit('story.updated', {story: $scope.story, room: $stateParams.projectId});
+            //             updateStoryList($scope.story);
+            //             $modalInstance.close();
+            //         };
+
+            //         $scope.cancel = function () {
+            //             $modalInstance.dismiss('cancel');
+            //         };
+            //     },
+            //     size: size,
+            //     resolve: {
+            //         story: function () {
+            //             return selectedStory;
+            //         }
+            //     }
+            // });
+        };
+
         $scope.editStory = function (size, selectedStory) {
 
             function updateStoryList(story) {

@@ -96,6 +96,45 @@ exports.load = function (req, res) {
 };
 
 /*
+ * Load a Story
+ */
+exports.pokerScrum = function (req, res) {
+    var query = { _id: req.params.storyId };
+
+    Story.findOne(query).exec(function (err, story) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+
+              var options = {
+                root: 'public/colaboracion/poker/',
+                dotfiles: 'deny',
+                headers: {
+                    'x-timestamp': Date.now(),
+                    'x-sent': true
+                }
+              };
+
+              var fileName = 'index.html';
+              res.sendFile(fileName, options, function (err) {
+                if (err) {
+                  console.log(err);
+                  res.status(err.status).end();
+                }
+                else {
+                  console.log('Sent:', fileName);
+                }
+              });
+
+            // story.poker = 'Yeaaaaah!';
+            // res.jsonp(story);
+        }
+    });
+};
+
+/*
  * Update a Story
  */
 exports.update = function (req, res) {
