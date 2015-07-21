@@ -191,7 +191,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		if(Authentication.user){
-			$location.path('/escritorio');
+			$location.path('/projects');
 		}
 	}
 ]);
@@ -518,7 +518,7 @@ angular.module('dailies').factory('Dailies', ['$resource',
 // Escritorio module config
 angular.module('escritorio').run(['Menus',
 	function(Menus) {
-		Menus.addMenuItem('sidebar', 'Escritorio', 'escritorio', 'item', '/');
+		//Menus.addMenuItem('sidebar', 'Escritorio', 'escritorio', 'item', '/');
 	}
 ]);
 'use strict';
@@ -683,19 +683,14 @@ angular.module('projects').config(['$stateProvider',
                 url: '/dashboard',
                 templateUrl: 'modules/sprints/views/sprint-dashboard.client.view.html'
             }).
-
             state('miembros', {
                 url: '/projects/:projectId/miembros',
                 templateUrl: 'modules/projects/views/members-project.client.view.html'
             }).
-
-
             state('addMiembros', {
                 url: '/projects/:projectId/addMiembros',
                 templateUrl: 'modules/projects/views/add-members-project.client.view.html'
             }).
-
-
             state('viewProject.viewSprint.listDailies', {
                 url: '/dailies',
                 templateUrl: 'modules/dailies/views/list-dailies.client.view.html'
@@ -719,7 +714,8 @@ projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
-        Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');    
+                           //menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute,                  isPublic, roles, position, opts
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects',null,null,null,0,{EventSend:'leaveProject'});    
 });
 
 projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location','$modal',
@@ -819,9 +815,9 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
             });
         };
 
-        // Leave project
-        $scope.leave = function(selectedProject) {
-            $http.put('/projects/' + selectedProject._id + '/leave').success(function(response) {
+        $rootScope.$on('leaveProject', function(event, mass){
+            //$scope.sprintBurnDownChart('lg',$scope.project);
+            $http.put('/projects/' + $scope.project._id + '/leave').success(function(response) {
                 // If successful project is removed of session
                 $scope.project = null;
 
@@ -830,7 +826,11 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
             }).error(function(response) {
                 $scope.error = response.message;
             });
-        };
+        });
+
+        // Leave project
+        // $scope.leave = function(selectedProject) {
+        // };
 
         // Open a modal window to view members
         $scope.modalViewMembers = function (size, selectedProject) {
@@ -984,13 +984,13 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
                 series: [{
                     data: currentData, name: 'Actual', color: '#FF0000'
                 }, {
-                    data: estimateData, name: 'Estimated', color: '#66CCFF'
+                    data: estimateData, name: 'Estimado', color: '#66CCFF'
                 }],
                 title: {
                     text: ''
                 },
-                xAxis: {currentMin: 0, currentMax: totalDays, minRange: 1, title: { text: 'Days' }},
-                yAxis: {currentMin: 0, currentMax: totalStoryPoints, minRange: 2, title: { text: 'Story Points' }},
+                xAxis: {currentMin: 0, currentMax: totalDays, minRange: 1, title: { text: 'Dias' }},
+                yAxis: {currentMin: 0, currentMax: totalStoryPoints, minRange: 2, title: { text: 'Puntos de usuario' }},
                 loading: false,
                 plotOptions: {
                     line: {
@@ -1007,8 +1007,8 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
     }
 ]);
 
-projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams', 'Authentication', 'ProjectsNonMembers', '$timeout', '$log', '$http', '$location','Menus','initSideMenu',
-    function($scope, $stateParams, Authentication, ProjectsNonMembers, $timeout, $log, $http, $location, Menus, initSideMenu) {
+projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams', 'Authentication', 'ProjectsNonMembers', '$timeout', '$log', '$http', '$location','Menus','initSideMenu','notify',
+    function($scope, $stateParams, Authentication, ProjectsNonMembers, $timeout, $log, $http, $location, Menus, initSideMenu,notify) {
         $scope.authentication = Authentication;
 
         initSideMenu(Menus,$stateParams);
@@ -1051,9 +1051,11 @@ projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams'
             user.role = role;
             $http.put('/projects/' + selectedProject + '/join', {'users': [user]}).success(function(response) {
                 $scope.users = null;
+                notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
                 $location.path('/projects/'+selectedProject+'/miembros');
             }).error(function(response) {
                 $scope.error = response.message;
+                notify({message:$scope.error, templateUrl:'modules/error/angular-notify.html'});
             });
         };
     }
@@ -1463,7 +1465,7 @@ sprintsApp.controller('SprintsViewController', ['$scope', '$stateParams', 'Authe
                 series: [{
                     data: currentData, name: 'Actual', color: '#FF0000'
                 }, {
-                    data: estimateData, name: 'Estimated', color: '#66CCFF'
+                    data: estimateData, name: 'Estimado', color: '#66CCFF'
                 }],
                 title: {
                     text: ''
@@ -1536,8 +1538,8 @@ sprintsApp.controller('SprintsViewController', ['$scope', '$stateParams', 'Authe
     }
 ]);
 
-sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', 'Authentication', 'Sprints', 'Phases', 'Tasks', 'Stories', '$http', '$location', '$modal', 'SocketSprint', '$log',
-    function ($scope, $stateParams, Authentication, Sprints, Phases, Tasks, Stories, $http, $location, $modal, SocketSprint, $log) {
+sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', 'Authentication', 'Sprints', 'Phases', 'Tasks', 'Stories', '$http', '$location', '$modal', 'SocketSprint', '$log','notify',
+    function ($scope, $stateParams, Authentication, Sprints, Phases, Tasks, Stories, $http, $location, $modal, SocketSprint, $log, notify) {
 
         var div = angular.element('.page-content-wrapper'),
             wrapScreenWidth = div.width(),
@@ -1600,12 +1602,16 @@ sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', '
             p.$save({ sprintId: $stateParams.sprintId }, function (phase) {
                 $scope.phases.push(phase);
                 SocketSprint.emit('phase.created', {phase: phase, room: $stateParams.sprintId});
+            },function(err){
+                notify({message:err.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
 
         $scope.editPhase = function (phase) {
             phase.$update({ phaseId: phase._id } ,function (response) {
                 SocketSprint.emit('phase.updated', {phase: response, room: $stateParams.sprintId});
+            },function(err){
+                notify({message:err.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
 
@@ -2445,7 +2451,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/escritorio');
+				//$location.path('/projects');
+				location.reload();
 			}).error(function(response) {
 				console.log(response);
 				notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
@@ -2459,7 +2466,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/escritorio');
+				//$location.path('/projects');
+				location.reload();
 			}).error(function(response) {
 				notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
 				//$scope.error = response.message;

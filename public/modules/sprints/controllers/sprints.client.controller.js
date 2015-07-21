@@ -235,7 +235,7 @@ sprintsApp.controller('SprintsViewController', ['$scope', '$stateParams', 'Authe
                 series: [{
                     data: currentData, name: 'Actual', color: '#FF0000'
                 }, {
-                    data: estimateData, name: 'Estimated', color: '#66CCFF'
+                    data: estimateData, name: 'Estimado', color: '#66CCFF'
                 }],
                 title: {
                     text: ''
@@ -308,8 +308,8 @@ sprintsApp.controller('SprintsViewController', ['$scope', '$stateParams', 'Authe
     }
 ]);
 
-sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', 'Authentication', 'Sprints', 'Phases', 'Tasks', 'Stories', '$http', '$location', '$modal', 'SocketSprint', '$log',
-    function ($scope, $stateParams, Authentication, Sprints, Phases, Tasks, Stories, $http, $location, $modal, SocketSprint, $log) {
+sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', 'Authentication', 'Sprints', 'Phases', 'Tasks', 'Stories', '$http', '$location', '$modal', 'SocketSprint', '$log','notify',
+    function ($scope, $stateParams, Authentication, Sprints, Phases, Tasks, Stories, $http, $location, $modal, SocketSprint, $log, notify) {
 
         var div = angular.element('.page-content-wrapper'),
             wrapScreenWidth = div.width(),
@@ -372,12 +372,16 @@ sprintsApp.controller('SprintsDashboardController', ['$scope', '$stateParams', '
             p.$save({ sprintId: $stateParams.sprintId }, function (phase) {
                 $scope.phases.push(phase);
                 SocketSprint.emit('phase.created', {phase: phase, room: $stateParams.sprintId});
+            },function(err){
+                notify({message:err.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
 
         $scope.editPhase = function (phase) {
             phase.$update({ phaseId: phase._id } ,function (response) {
                 SocketSprint.emit('phase.updated', {phase: response, room: $stateParams.sprintId});
+            },function(err){
+                notify({message:err.data.message, templateUrl:'modules/error/angular-notify.html'});
             });
         };
 

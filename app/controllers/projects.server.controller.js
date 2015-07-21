@@ -120,7 +120,7 @@ exports.join = function (req, res) {
                     if (err) {
                         return res.status(400).send({message: err.message});
                     } else if (!err && --usersToGo === 0){
-                        res.send({message: 'Usuarios han sido unidos al proyecto'});
+                        res.send({message: 'El usuario seleccionado ha sido unido al proyecto'});
                     }
                 });
             });

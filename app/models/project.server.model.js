@@ -17,7 +17,7 @@ var ObjectId = mongoose.Types.ObjectId;
  * A Validation function for properties
  */
 var validateProperty = function(property) {
-    return (property && property.length < 17);
+    return (property && property.length < 31);
 };
 
 var ProjectSchema = new Schema({
@@ -25,7 +25,7 @@ var ProjectSchema = new Schema({
         type: String,
         required: [true, 'El titulo es requerido'],
         trim: true,
-        validate: [validateProperty, 'El titulo del proyecto debe tener entre 1 y 16 caracteres']
+        validate: [validateProperty, 'El titulo del proyecto debe tener entre 1 y 30 caracteres']
     },
     descriptionName: {
         type: String,

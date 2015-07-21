@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	crypto = require('crypto');
+	crypto = require('crypto'),
+	_ = require('lodash');
 
 /**
  * A Validation function for local strategy properties
@@ -124,6 +125,23 @@ UserSchema.methods.hashPassword = function(password) {
 UserSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
+
+/*
+ * Delete project
+ */
+UserSchema.methods.deleteProject = function (projectId, callback) {
+    var _this = this;
+
+    var index = _.findIndex(_this.projects, projectId);
+
+    if (~index) {
+        _this.projects.splice(index, 1);
+        _this.save(callback);
+    } else {
+        callback(new Error('Project does not exist'));
+    }
+};
+
 
 /**
  * Find possible not used username

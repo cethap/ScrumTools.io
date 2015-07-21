@@ -12,7 +12,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/escritorio');
+				//$location.path('/projects');
+				location.reload();
 			}).error(function(response) {
 				console.log(response);
 				notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
@@ -26,7 +27,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/escritorio');
+				//$location.path('/projects');
+				location.reload();
 			}).error(function(response) {
 				notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
 				//$scope.error = response.message;

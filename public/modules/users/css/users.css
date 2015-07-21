@@ -12,3 +12,7 @@
 	right: 10px;
 	position: absolute;
 }
+
+.iconsOauth img{
+	border-radius: 65px;
+}

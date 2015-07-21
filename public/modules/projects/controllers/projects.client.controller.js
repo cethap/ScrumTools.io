@@ -15,7 +15,8 @@ projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
-        Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects/'+$stateParams.projectId+'/purge');    
+                           //menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute,                  isPublic, roles, position, opts
+        Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects',null,null,null,0,{EventSend:'leaveProject'});    
 });
 
 projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location','$modal',
@@ -115,9 +116,9 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
             });
         };
 
-        // Leave project
-        $scope.leave = function(selectedProject) {
-            $http.put('/projects/' + selectedProject._id + '/leave').success(function(response) {
+        $rootScope.$on('leaveProject', function(event, mass){
+            //$scope.sprintBurnDownChart('lg',$scope.project);
+            $http.put('/projects/' + $scope.project._id + '/leave').success(function(response) {
                 // If successful project is removed of session
                 $scope.project = null;
 
@@ -126,7 +127,11 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
             }).error(function(response) {
                 $scope.error = response.message;
             });
-        };
+        });
+
+        // Leave project
+        // $scope.leave = function(selectedProject) {
+        // };
 
         // Open a modal window to view members
         $scope.modalViewMembers = function (size, selectedProject) {
@@ -280,13 +285,13 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
                 series: [{
                     data: currentData, name: 'Actual', color: '#FF0000'
                 }, {
-                    data: estimateData, name: 'Estimated', color: '#66CCFF'
+                    data: estimateData, name: 'Estimado', color: '#66CCFF'
                 }],
                 title: {
                     text: ''
                 },
-                xAxis: {currentMin: 0, currentMax: totalDays, minRange: 1, title: { text: 'Days' }},
-                yAxis: {currentMin: 0, currentMax: totalStoryPoints, minRange: 2, title: { text: 'Story Points' }},
+                xAxis: {currentMin: 0, currentMax: totalDays, minRange: 1, title: { text: 'Dias' }},
+                yAxis: {currentMin: 0, currentMax: totalStoryPoints, minRange: 2, title: { text: 'Puntos de usuario' }},
                 loading: false,
                 plotOptions: {
                     line: {
@@ -303,8 +308,8 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
     }
 ]);
 
-projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams', 'Authentication', 'ProjectsNonMembers', '$timeout', '$log', '$http', '$location','Menus','initSideMenu',
-    function($scope, $stateParams, Authentication, ProjectsNonMembers, $timeout, $log, $http, $location, Menus, initSideMenu) {
+projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams', 'Authentication', 'ProjectsNonMembers', '$timeout', '$log', '$http', '$location','Menus','initSideMenu','notify',
+    function($scope, $stateParams, Authentication, ProjectsNonMembers, $timeout, $log, $http, $location, Menus, initSideMenu,notify) {
         $scope.authentication = Authentication;
 
         initSideMenu(Menus,$stateParams);
@@ -347,9 +352,11 @@ projectsApp.controller('ProjectsAddMembersController', ['$scope', '$stateParams'
             user.role = role;
             $http.put('/projects/' + selectedProject + '/join', {'users': [user]}).success(function(response) {
                 $scope.users = null;
+                notify({message:response.message, templateUrl:'modules/error/angular-notify.html'});
                 $location.path('/projects/'+selectedProject+'/miembros');
             }).error(function(response) {
                 $scope.error = response.message;
+                notify({message:$scope.error, templateUrl:'modules/error/angular-notify.html'});
             });
         };
     }
