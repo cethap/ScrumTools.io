@@ -2021,8 +2021,8 @@ storiesApp.directive('stickyNote', ['SocketPB', '$stateParams', function(SocketP
     };
 }]);
 
-storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Authentication', '$location', '$stateParams', '$modal', '$http', 'Tasks',
-    function($scope, SocketPB, Stories, Authentication, $location, $stateParams, $modal, $http, Tasks) {
+storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Authentication', '$location', '$stateParams', '$modal', '$http', 'Tasks','notify',
+    function($scope, SocketPB, Stories, Authentication, $location, $stateParams, $modal, $http, Tasks, notify) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
@@ -2094,40 +2094,20 @@ storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Au
 
         // Outgoing
         $scope.updateStory = function(story) {
-            story.$update({ storyId: story._id });
+            story.$update({ storyId: story._id },
+                function(){
+                    //$modalInstance.close();
+                },function(e){
+                    notify({message:e.data.message, templateUrl:'modules/error/angular-notify.html'});
+                }
+            );
             SocketPB.emit('story.updated', {story: story, room: $stateParams.projectId});
         };
 
 
         $scope.letsPoker = function (size, selectedStory) {
-            console.log(selectedStory.storyTitle);
+            //console.log(selectedStory.storyTitle);
             window.open('http://'+location.host+'/projects/'+selectedStory.projectId+'/stories/'+selectedStory._id+'/pokerscrum#proyecto='+selectedStory.projectId+'&nombre='+selectedStory.storyTitle);
-            // function updateStoryList(story) {
-            //     $scope.handleUpdatedStory(story);
-            // }
-
-            // $modal.open({
-            //     templateUrl: 'modules/stories/views/edit-story.client.view.html',
-            //     controller: function ($scope, $modalInstance, story) {
-            //         $scope.story = story;
-
-            //         $scope.ok = function () {
-            //             SocketPB.emit('story.updated', {story: $scope.story, room: $stateParams.projectId});
-            //             updateStoryList($scope.story);
-            //             $modalInstance.close();
-            //         };
-
-            //         $scope.cancel = function () {
-            //             $modalInstance.dismiss('cancel');
-            //         };
-            //     },
-            //     size: size,
-            //     resolve: {
-            //         story: function () {
-            //             return selectedStory;
-            //         }
-            //     }
-            // });
         };
 
         $scope.editStory = function (size, selectedStory) {
@@ -2144,7 +2124,6 @@ storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Au
                     $scope.ok = function () {
                         SocketPB.emit('story.updated', {story: $scope.story, room: $stateParams.projectId});
                         updateStoryList($scope.story);
-                        $modalInstance.close();
                     };
 
                     $scope.cancel = function () {
@@ -2200,8 +2179,8 @@ storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Au
     }
 ]);
 
-storiesApp.controller('StoriesEditController', ['$scope', '$stateParams', 'Authentication', '$location', '$http', '$log',
-    function ($scope, $stateParams, Authentication, $location, $http, $log) {
+storiesApp.controller('StoriesEditController', ['$scope', '$stateParams', 'Authentication', '$location', '$http', '$log','notify',
+    function ($scope, $stateParams, Authentication, $location, $http, $log,notify) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
@@ -2230,7 +2209,13 @@ storiesApp.controller('StoriesEditController', ['$scope', '$stateParams', 'Authe
 
         $scope.update = function (updatedStory) {
             var story = updatedStory;
-            story.$update({ storyId: story._id });
+            story.$update({ storyId: story._id },
+                function(){
+                    //$modalInstance.close();
+                },function(e){
+                    notify({message:e.data.message, templateUrl:'modules/error/angular-notify.html'});
+                }
+            );
         };
 
     }
