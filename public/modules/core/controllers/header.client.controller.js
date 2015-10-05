@@ -49,8 +49,9 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 
 		var Menu = Menus.getMenu('sidebar');
 		function showSideBar (){
-			$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
-			$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';	
+			//$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
+			//$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';	
+			$scope.ClassCntent = 'content-wrapper';	
 		}
 
 		$scope.$on('FullInitSession', showSideBar);

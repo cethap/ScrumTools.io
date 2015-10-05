@@ -46,14 +46,19 @@ module.exports = {
 				'public/lib/Bootflat/bootflat/css/bootflat.css',
 				'public/lib/angular-xeditable/dist/css/xeditable.css',
 				'public/lib/angular-notify/angular-notify.css',
-				'public/icons/styles.css',
+				'public/icons/styles.css',			
+				'public/sidefiles/css/reset.css',
+				'public/sidefiles/css/style.css',	
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.css',
 			],
 			js: [
                 'public/lib/jquery/dist/jquery.min.js',
                 'public/lib/jquery-ui/jquery-ui.js',
                 'public/lib/bootstrap/dist/js/bootstrap.js',
-                			
+                'public/sidefiles/js/modernizr.js',
+                'public/sidefiles/js/jquery.menu-aim.js',
+                //'public/sidefiles/js/main.js',
+
 				'public/lib/angular/angular.js',
 				'public/i18n/angular-locale_es.js',
 				'public/lib/angular-resource/angular-resource.js', 

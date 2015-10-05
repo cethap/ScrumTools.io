@@ -168,8 +168,9 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 
 		var Menu = Menus.getMenu('sidebar');
 		function showSideBar (){
-			$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
-			$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';	
+			//$scope.ClassSdebar = 'totalH col-md-2 col-sm-3 hidden-xs';
+			//$scope.ClassCntent = 'col-md-10 col-sm-9 realContent';	
+			$scope.ClassCntent = 'content-wrapper';	
 		}
 
 		$scope.$on('FullInitSession', showSideBar);
@@ -710,7 +711,7 @@ projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addMenuItem('sidebar', 'Sprints', 'projects/'+$stateParams.projectId+'/sprints');
         // Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
         // Menus.addSubMenuItem('sidebar', 'sprints', 'Nuevo sprint', 'projects/'+$stateParams.projectId+'/createSprint');
-        Menus.addMenuItem('sidebar', 'Estadistica Burndown', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio',null,null,0,{EventSend:'sprintBurnDownChartGeneral'});
+        Menus.addMenuItem('sidebar', 'Burndown', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio',null,null,0,{EventSend:'sprintBurnDownChartGeneral'});
         Menus.addMenuItem('sidebar', 'Opciones', 'opciones', 'dropdown', 'projects/'+$stateParams.projectId+'/opciones');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Ver miembros', 'projects/'+$stateParams.projectId+'/miembros');
         Menus.addSubMenuItem('sidebar', 'opciones', 'Añadir miembros', 'projects/'+$stateParams.projectId+'/addMiembros');
@@ -890,7 +891,6 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
         $scope.sprintBurnDownChart = function (size, selectedProject) {
 
             var stories = $http.get('/projects/' + selectedProject._id + '/allStories');
-
             $modal.open({
                 templateUrl: 'modules/projects/views/project-burndownchart.client.view.html',
                 controller: ProjectBurnDownChartController,

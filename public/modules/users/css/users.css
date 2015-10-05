@@ -14,5 +14,9 @@
 }
 
 .iconsOauth img{
-	border-radius: 65px;
+	border-radius: 28px;
+}
+
+.titlelighter{
+	font-weight: lighter !important;
 }

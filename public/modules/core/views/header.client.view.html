@@ -1,4 +1,57 @@
 <div class="container" data-ng-controller="HeaderController">
+	<header class="cd-main-header" >
+		<a href="#0" class="cd-logo">ScrumTools.io</a>
+		
+		<div class="cd-search is-hidden" data-ng-if="menu.shouldRender(authentication.user);">
+			<form action="#0">
+				<input type="search" placeholder="Buscar...">
+			</form>
+		</div> <!-- cd-search -->
+
+		<a href="#0" class="cd-nav-trigger"><span></span></a>
+
+		<nav class="cd-nav" data-ng-if="!authentication.user">
+			<ul class="cd-top-nav marg_rig_menu">
+				<li class="">
+					<a href="/#!/signup">Registrarse</a>
+				</li>
+				<li class="">
+					<a href="/#!/signin">Iniciar sesión</a>
+				</li>
+			</ul>			
+		</nav>
+
+		<nav class="cd-nav" data-ng-if="menu.shouldRender(authentication.user);">
+			<ul class="cd-top-nav">
+				<li class="has-children account">
+					<a href="Javascript:void(0)">
+						<i class="icon-user-circle userOption"></i>
+						<!--img src="sidefiles/img/cd-avatar.png" alt="avatar"-->
+						Cuenta
+					</a>
+
+					<ul>
+
+						<li>
+							<a href="/#!/settings/profile">Editar Perfil</a>
+						</li>
+						<li>
+							<a href="/#!/settings/accounts">Cuentas sociales</a>
+						</li>
+						<li>
+							<a href="/#!/settings/password">Cambiar Password</a>
+						</li>
+						<li>
+							<a href="/auth/signout">Cerrar Sesión</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	</header>
+</div>
+	 <!-- .cd-main-header -->
+<!--div class="container" data-ng-controller="HeaderController">
 	<div class="navbar-header">
 		<button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
 			<span class="sr-only">Nav</span>
@@ -37,7 +90,6 @@
 			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{realClass(item)}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
 				<a ng-switch-when="dropdown" class="dropdown-toggle visible-xs">
 					<span data-ng-bind="item.title"></span>
-					<!--b class="caret"></b-->
 				</a>
 				<ul ng-switch-when="dropdown" class="dropdown-menu">
 					<li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
@@ -49,7 +101,7 @@
 			
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<span>Perfil -----> [<i class="icon-user"></i> {{authentication.user.displayName}}]</span> <b class="caret"></b>
+					<span>Perfil -> [<i class="icon-user"></i> {{authentication.user.displayName}}]</span> <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
 					<li>
@@ -69,4 +121,4 @@
 			</li>
 		</ul>
 	</nav>
-</div>
+</div-->

@@ -1,11 +1,10 @@
 
-<div data-ng-controller="SideBarController" class="totalH">
+<!--div data-ng-controller="SideBarController" class="totalH">
 	<section class="sidebar" role="navigation" data-ng-if="menu.shouldRender(authentication.user);">
 		<ul class="nav">
 			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{realClass(item)}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
 				<a ng-switch-when="dropdown" class="dropdown-toggle">
 					<span data-ng-bind="item.title"></span>
-					<!--b class="caret"></b-->
 				</a>
 				<ul ng-switch-when="dropdown" class="dropdown-menu">
 					<li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
@@ -16,4 +15,53 @@
 			</li>
 		</ul>
 	</section>
+</div-->
+
+<div data-ng-controller="SideBarController">
+
+
+	
+		<nav class="cd-side-nav" data-ng-if="menu.shouldRender(authentication.user);">
+			<ul>
+				<li class="cd-label">Principal</li>
+				<li class="has-children overview {{realClass(item)}}" data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
+					<a ng-switch-when="dropdown">
+						<span data-ng-bind="item.title"></span>
+					</a>
+					<ul ng-switch-when="dropdown">
+						<li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
+							<a href="/#!/{{subitem.link}}" ng-click="EmitEventFromMenu(subitem.EventSend)" data-ng-bind="subitem.title"></a>
+						</li>
+					</ul>
+					<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title" ng-click="EmitEventFromMenu(item.EventSend)"></a>
+				</li>			
+			</ul>
+			<ul>
+				<li class="cd-label">Secundario</li>
+				<li class="has-children notifications">
+					<a href="#0">Notificaciones<span class="count">0</span></a>
+					
+					<ul>
+						<li><a href="#0">Todas las notificaciones</a></li>
+						<li><a href="#0">Amigos</a></li>
+						<li><a href="#0">Otros</a></li>
+					</ul>
+				</li>
+				<!--li class="has-children users">
+					<a href="#0">Usuarios</a>
+					
+					<ul>
+						<li><a href="#0">Todos los Usuarios</a></li>
+						<li><a href="#0">Editar Usuario</a></li>
+						<li><a href="#0">Añadir Usuario</a></li>
+					</ul>
+				</li-->
+			</ul>
+
+			<!--ul>
+				<li class="cd-label">Action</li>
+				<li class="action-btn"><a href="#0">+ Button</a></li>
+			</ul-->
+		</nav>
 </div>
+<script type="text/javascript" src="sidefiles/js/main.js"></script>

@@ -30,12 +30,17 @@ module.exports = {
 				'public/lib/angular-xeditable/dist/css/xeditable.css',
 				'public/lib/angular-notify/dist/angular-notify.min.css',
 				'public/icons/styles.css',
+				'public/sidefiles/css/reset.css',
+				'public/sidefiles/css/style.css',
 				//'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],
 			js: [
                 'public/lib/jquery/dist/jquery.min.js',
                 'public/lib/jquery-ui/jquery-ui.min.js',
                 'public/lib/bootstrap/dist/js/bootstrap.min.js',
+                'public/sidefiles/js/modernizr.js',
+                'public/sidefiles/js/jquery.menu-aim.js',
+                //'public/sidefiles/js/main.js',
 
 
 				'public/lib/angular/angular.min.js',

@@ -45,14 +45,14 @@
 
 <body class="ng-cloak" data-ng-controller="offCnvas">
 
-	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-inverse"></header>
+	<header data-ng-include="'/modules/core/views/header.client.view.html'"></header>
 
-	<section class="content">
-		<div data-ng-include="'/modules/core/views/sidebar.client.view.html'" ng-class="ClassSdebar"></div>
+	<main class="cd-main-content">
+		<div data-ng-include="'/modules/core/views/sidebar.client.view.html'"></div>
 		<section ng-class="ClassCntent">
 			{% block content %}{% endblock %}
 		</section>
-	</section>
+	</main>
 
 	<!--Embedding The User Object-->
 	<script type="text/javascript">
