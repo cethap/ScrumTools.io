@@ -30,7 +30,7 @@ var TaskSchema = new Schema({
     },
     taskPriority: {
         type: String,
-        enum: ['VERY HIGH', 'HIGH', 'MEDIUM', 'LOW', 'VERY LOW']
+        enum: ['Muy Alta', 'Alta', 'Media', 'Baja', 'Muy Baja']
     },
     taskHours: {
         type: Number,

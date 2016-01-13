@@ -12,13 +12,13 @@
                         <div class="form-group">
                             <label class="control-label" for="taskName">Titulo</label>
                             <div class="controls">
-                                <input name="taskName" type="text" data-ng-model="taskName" id="taskName" class="form-control" placeholder="Title" required>
+                                <input name="taskName" type="text" data-ng-model="taskName" id="taskName" class="form-control" placeholder="Titulo" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="taskDescription">Descripción</label>
                             <div class="controls">
-                                <textarea name="taskDescription" data-ng-model="taskDescription" id="taskDescription" class="form-control" cols="30" rows="4" placeholder="Description"></textarea>
+                                <textarea name="taskDescription" data-ng-model="taskDescription" id="taskDescription" class="form-control" cols="30" rows="4" placeholder="Descripción"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -30,19 +30,19 @@
                         <div class="form-group">
                             <label class="control-label" for="taskHours">Horas</label>
                             <div class="controls">
-                                <input name="input" type="number" data-ng-model="taskHours" id="taskHours" class="form-control" min="0" max="100" required>
+                                <input name="input" type="number" placeholder="Horas" data-ng-model="taskHours" id="taskHours" class="form-control" min="0" max="100" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="taskRemark">Comentario de la tarea: </label>
                             <div class="controls">
-                                <textarea name="taskRemark" data-ng-model="taskRemark" id="taskRemark" class="form-control" cols="30" rows="4" placeholder="Remarks"></textarea>
+                                <textarea name="taskRemark" data-ng-model="taskRemark" id="taskRemark" class="form-control" cols="30" rows="4" placeholder="Comentario de la tarea"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="taskRuleValidation">Validaciones de la tarea: </label>
                             <div class="controls">
-                                <textarea name="taskRuleValidation" data-ng-model="taskRuleValidation" id="taskRuleValidation" class="form-control" cols="30" rows="4" placeholder="Rule validations"></textarea>
+                                <textarea name="taskRuleValidation" data-ng-model="taskRuleValidation" id="taskRuleValidation" class="form-control" cols="30" rows="4" placeholder="Validaciones de la tarea"></textarea>
                             </div>
                         </div>
                     </div>
@@ -51,9 +51,7 @@
         </form>
         <div class="form-group">
             <button class="btn btn-info" ng-click="createTask(story);" ng-disabled="taskForm.$invalid">Crear</button>
+            <button class="btn btn-default" ng-click="ok()">Cerrar</button>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-default" ng-click="ok()">Cerrar</button>
     </div>
 </section>

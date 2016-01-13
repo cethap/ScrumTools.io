@@ -1,7 +1,7 @@
 <section data-ng-controller="ProjectsCrUpController">
 
     <div class="modal-header">
-        <h3 class="modal-title">{{project.projectName}}</h3>
+        <h3 class="modal-title"><div class="projectName">{{project.projectName}}</div></h3>
     </div>
 
     <div class="modal-body">
@@ -54,7 +54,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="update(project); ok()" ng-disabled="updateProjectForm.$invalid">Actualizar</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+        <button class="btn btn-primary" ng-click="update(project); ok()" ng-disabled="updateProjectForm.$invalid">Actualizar</button>
+        <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
     </div>
 </section>

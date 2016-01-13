@@ -63,6 +63,12 @@
     left: 12px;
 }
 
+.projectName{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /*.TblPryctos tbody tr{
     -webkit-touch-callout: none;
     -webkit-user-select: none;

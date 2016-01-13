@@ -7,6 +7,7 @@ var projectsApp = angular.module('projects');
 
 projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addMenuItem('sidebar', 'Panel principal', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio');
+        //Menus.addMenuItem('sidebar', 'Tablero Producto', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
         Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
         Menus.addMenuItem('sidebar', 'Sprints', 'projects/'+$stateParams.projectId+'/sprints');
         // Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
@@ -19,8 +20,8 @@ projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects',null,null,null,0,{EventSend:'leaveProject'});    
 });
 
-projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location','$modal',
-    function($scope, Authentication, Projects, $location, $modal) {
+projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location','$modal','$http',
+    function($scope, Authentication, Projects, $location, $modal,$http) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
@@ -34,7 +35,6 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
 
         // Open a modal window
         $scope.modal = function (size, selectedProject) {
-            console.log(selectedProject);
             var modalInstance = $modal.open({
                 templateUrl: 'modules/projects/views/edit-project.client.view.html',
                 controller: function ($scope, $modalInstance, project) {
@@ -63,6 +63,17 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
             }, function () {
                 //$log.info('Modal cerrado a las: ' + new Date());
             });
+        };
+
+        $scope.leaveProject = function(prjct){
+            $http.put('/projects/' + prjct._id + '/leave').success(function(response) {
+                // If successful project is removed of session
+                prjct = null;
+                // And redirect to the index page
+                $location.path('/');
+            }).error(function(response) {
+                $scope.error = response.message;
+            });            
         };
 
     }
@@ -117,7 +128,6 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
         };
 
         $rootScope.$on('leaveProject', function(event, mass){
-            //$scope.sprintBurnDownChart('lg',$scope.project);
             $http.put('/projects/' + $scope.project._id + '/leave').success(function(response) {
                 // If successful project is removed of session
                 $scope.project = null;

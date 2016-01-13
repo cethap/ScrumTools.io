@@ -1,9 +1,9 @@
 <section data-ng-controller="StoriesController">
     <table class="table col-xs-12 table-hover TblPryctos" id="listStries">
-      <h3>Historias de usuario <i class="icon-speech-streamline-talk-user"></i></h3>
+      <h3>Historias de usuario <i class="icon-gist-secret"></i></h3>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8" ng-show="stories.length">
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control" ng-model="searchText.storyTitle" placeholder="Buscar...">
                 <span class="input-group-btn">
@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2" ng-show="stories.length">
             <span ng-click="createStory()" class="btn btn-success btn-lg"><i class="icon-paperplane"></i> Crear Historia de Usuario</span>
         </div>
     </div>
@@ -28,10 +28,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="story in stories | filter:searchText">
+        <tr ng-repeat="story in stories | filter:searchText" ng-class="story.sprintId?'SprintOcupado':SprintLibre" ng-dblclick="editStory('', story)">
           <td>
             <span>
-              <i class="icon-speech-streamline-talk-user"></i></span> 
+              <i class="icon-gist-secret"></i></span> 
               <span>{{story.storyTitle}}</span>
             <!--input ng-model="story.storyTitle" ng-change="updateStory(story)" type="text" class="sinBordes" -->
           </td>
@@ -40,15 +40,17 @@
             <!--input ng-model="story.storyDescription" ng-change="updateStory(story)" type="text" class="sinBordes" -->
           </td>
           <td style="padding-top: 22px;">
-            <button type="button" class="btn btn-default btn-xs" ng-click="letsPoker('', story)"><span class="btn-xs glyphicon icon-call"></span></button>
+            <button type="button" class="btn btn-default btn-xs" ng-click="letsPoker('', story)"><span class="btn-xs glyphicon icon-speech-streamline-talk-user"></span></button>
             <button type="button" class="btn btn-default btn-xs" ng-click="editStory('', story)"><span class="btn-xs glyphicon glyphicon-pencil"></span></button>
             <button type="button" class="btn btn-danger btn-xs" ng-click="deleteStory(story)"><span class="btn-xs glyphicon glyphicon-trash"></span></button>
             <button type="button" class="btn btn-primary btn-xs" ng-click="moveToSprint('sm',story)"><span class="btn-xs glyphicon glyphicon-share-alt"></span></button>
           </td>
         </tr>
+        <tr ng-show="!stories.length">
+            <td align="center"colspan="3" >No hay Historias de usuario disponibles, intenta creando una nueva <span ng-click="createStory()" class="btn btn-success"><i class="icon-paperplane"></i></span></td>
+        </tr>        
       </tbody>
     </table>
-
     <!--div class="containment-wrapper">
         <!--button ng-click="createStory()" class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span></button>
 

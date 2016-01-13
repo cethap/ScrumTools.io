@@ -146,6 +146,7 @@ storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Au
             story.$update({ storyId: story._id },
                 function(){
                     //$modalInstance.close();
+                    notify({message:'Historia de usuario creada satisfactoriamente!', templateUrl:'modules/error/angular-notify.html'});
                 },function(e){
                     notify({message:e.data.message, templateUrl:'modules/error/angular-notify.html'});
                 }
@@ -236,10 +237,10 @@ storiesApp.controller('StoriesEditController', ['$scope', '$stateParams', 'Authe
         if (!$scope.authentication.user) $location.path('/');
 
         $scope.priorities = [
-            'MUST',
-            'SHOULD',
-            'COULD',
-            'WON\'T'
+            'Imprescindible',
+            'Importante',
+            'Buena',
+            'Excluida'
         ];
 
         $http.get('/projects/' + $stateParams.projectId + '/members').then(function (response) {

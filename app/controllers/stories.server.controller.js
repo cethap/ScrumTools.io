@@ -47,7 +47,8 @@ exports.create = function(req, res) {
  * List of Stories
  */
 exports.list = function(req, res) {
-    var query = { 'projectId': req.params.projectId, 'sprintId': { $exists: false } };
+    //var query = { 'projectId': req.params.projectId, 'sprintId': { $exists: false } };
+    var query = { 'projectId': req.params.projectId };
 
     Story.find(query).exec(function(err, stories) {
         if (err) {

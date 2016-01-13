@@ -38,7 +38,7 @@ var StorySchema = new Schema({
     },
     storyPriority: {
         type: String,
-        enum: ['MUST', 'SHOULD', 'COULD', 'WON\'T']
+        enum: ['Imprescindible', 'Importante', 'Buena', 'Excluida']
         //enum: ['TENDRIA', 'DEBERIA', 'PODRIA', 'NO SERA']
     },
     storyRuleValidation: [{

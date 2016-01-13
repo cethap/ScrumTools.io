@@ -349,7 +349,7 @@ Top Navigation
   }
   .cd-top-nav a {
     display: block;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: #ffffff;
   }
   .cd-top-nav > li {
@@ -421,7 +421,7 @@ Sidebar
   text-transform: uppercase;
   font-weight: bold;
   color: #646a6f;
-  font-size: 1rem;
+  font-size: 1.2rem;
   letter-spacing: .1em;
 }
 .cd-side-nav a {
@@ -533,7 +533,7 @@ Sidebar
     display: none;
   }
   .cd-side-nav a {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     text-align: center;
   }
   .cd-side-nav > ul > li > a {

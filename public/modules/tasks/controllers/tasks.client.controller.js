@@ -7,19 +7,19 @@
 var tasksApp = angular.module('tasks');
 
 
-tasksApp.controller('TasksCreateUpdateController', ['$scope', '$stateParams', 'Authentication', '$location', 'Tasks', 'SocketSprint',
-    function ($scope, $stateParams, Authentication, $location, Tasks, SocketSprint) {
+tasksApp.controller('TasksCreateUpdateController', ['$scope', '$stateParams', 'Authentication', '$location', 'Tasks', 'SocketSprint','notify',
+    function ($scope, $stateParams, Authentication, $location, Tasks, SocketSprint,notify) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
         $scope.priorities = [
-            'VERY HIGH',
-            'HIGH',
-            'MEDIUM',
-            'LOW',
-            'VERY LOW'
+            'Muy Alta',
+            'Alta',
+            'Media',
+            'Baja',
+            'Muy Baja'
         ];
 
         $scope.createTask = function (story) {
@@ -34,13 +34,13 @@ tasksApp.controller('TasksCreateUpdateController', ['$scope', '$stateParams', 'A
 
             t.$save({ storyId: story._id }, function (task) {
                 SocketSprint.emit('task.created', {task: task, room: story.sprintId});
-
                 $scope.taskName = '';
                 $scope.taskDescription = '';
                 $scope.taskPriority = {};
                 $scope.taskHours = '';
                 $scope.taskRemark = '';
                 $scope.taskRuleValidation = '';
+                notify({message:'Tarea creada exitosamente!', templateUrl:'modules/error/angular-notify.html'});
             });
         };
         

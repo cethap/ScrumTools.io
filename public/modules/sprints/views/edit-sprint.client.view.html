@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <label class="control-label" for="sprintStartTime">Inicio de tiempo</label>
                             <p class="input-group">
-                                <input name="sprintStartTime" type="text" id="sprintStartTime" class="form-control" datepicker-popup="{{format}}" data-ng-model="sprint.sprintStartTime" is-open="openedStartDT" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                <input name="sprintStartTime" type="text" id="sprintStartTime" class="form-control" datepicker-popup="{{format}}" data-ng-model="sprint.sprintStartTime" is-open="openedStartDT" datepicker-options="dateOptions" ng-required="true" current-text="Hoy" clear-text="limpiar" close-text="Cerrar" close-text="Close" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="openStartDT($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label class="control-label" for="sprintEndTime">Fin del tiempo</label>
                             <p class="input-group">
-                                <input name="sprintEndTime" type="text" id="sprintEndTime" class="form-control" datepicker-popup="{{format}}" data-ng-model="sprint.sprintEndTime" is-open="openedEndDT" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                <input name="sprintEndTime" type="text" id="sprintEndTime" class="form-control" datepicker-popup="{{format}}" data-ng-model="sprint.sprintEndTime" is-open="openedEndDT" datepicker-options="dateOptions" ng-required="true" current-text="Hoy" clear-text="limpiar" close-text="Cerrar" close-text="Close" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="openEndDT($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
@@ -61,7 +61,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="update(sprint); ok()" ng-disabled="updateSprintForm.$invalid">Actualizar</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+        <button class="btn btn-primary" ng-click="update(sprint); ok()" ng-disabled="updateSprintForm.$invalid">Actualizar</button>
+        <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
     </div>
 </section>
