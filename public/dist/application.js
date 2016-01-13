@@ -707,6 +707,7 @@ var projectsApp = angular.module('projects');
 
 projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addMenuItem('sidebar', 'Panel principal', 'projects/'+$stateParams.projectId+'/escritorio', 'item', '/escritorio');
+        //Menus.addMenuItem('sidebar', 'Tablero Producto', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
         Menus.addMenuItem('sidebar', 'Historias de usuario', 'projects/'+$stateParams.projectId+'/stories', 'item', '/stories');
         Menus.addMenuItem('sidebar', 'Sprints', 'projects/'+$stateParams.projectId+'/sprints');
         // Menus.addSubMenuItem('sidebar', 'sprints', 'Listar sprints', 'projects/'+$stateParams.projectId+'/sprints');
@@ -719,8 +720,8 @@ projectsApp.value('initSideMenu', function(Menus,$stateParams){
         Menus.addSubMenuItem('sidebar', 'opciones', 'Rechazar proyecto', 'projects',null,null,null,0,{EventSend:'leaveProject'});    
 });
 
-projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location','$modal',
-    function($scope, Authentication, Projects, $location, $modal) {
+projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Projects', '$location','$modal','$http',
+    function($scope, Authentication, Projects, $location, $modal,$http) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
@@ -734,7 +735,6 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
 
         // Open a modal window
         $scope.modal = function (size, selectedProject) {
-            console.log(selectedProject);
             var modalInstance = $modal.open({
                 templateUrl: 'modules/projects/views/edit-project.client.view.html',
                 controller: ["$scope", "$modalInstance", "project", function ($scope, $modalInstance, project) {
@@ -763,6 +763,17 @@ projectsApp.controller('ProjectsController', ['$scope', 'Authentication', 'Proje
             }, function () {
                 //$log.info('Modal cerrado a las: ' + new Date());
             });
+        };
+
+        $scope.leaveProject = function(prjct){
+            $http.put('/projects/' + prjct._id + '/leave').success(function(response) {
+                // If successful project is removed of session
+                prjct = null;
+                // And redirect to the index page
+                $location.path('/');
+            }).error(function(response) {
+                $scope.error = response.message;
+            });            
         };
 
     }
@@ -817,7 +828,6 @@ projectsApp.controller('ProjectsViewController', ['$scope', '$rootScope', '$stat
         };
 
         $rootScope.$on('leaveProject', function(event, mass){
-            //$scope.sprintBurnDownChart('lg',$scope.project);
             $http.put('/projects/' + $scope.project._id + '/leave').success(function(response) {
                 // If successful project is removed of session
                 $scope.project = null;
@@ -2097,6 +2107,7 @@ storiesApp.controller('StoriesController', ['$scope', 'SocketPB', 'Stories', 'Au
             story.$update({ storyId: story._id },
                 function(){
                     //$modalInstance.close();
+                    notify({message:'Historia de usuario creada satisfactoriamente!', templateUrl:'modules/error/angular-notify.html'});
                 },function(e){
                     notify({message:e.data.message, templateUrl:'modules/error/angular-notify.html'});
                 }
@@ -2187,10 +2198,10 @@ storiesApp.controller('StoriesEditController', ['$scope', '$stateParams', 'Authe
         if (!$scope.authentication.user) $location.path('/');
 
         $scope.priorities = [
-            'MUST',
-            'SHOULD',
-            'COULD',
-            'WON\'T'
+            'Imprescindible',
+            'Importante',
+            'Buena',
+            'Excluida'
         ];
 
         $http.get('/projects/' + $stateParams.projectId + '/members').then(function (response) {
@@ -2284,19 +2295,19 @@ angular.module('stories').factory('Stories', ['$resource',
 var tasksApp = angular.module('tasks');
 
 
-tasksApp.controller('TasksCreateUpdateController', ['$scope', '$stateParams', 'Authentication', '$location', 'Tasks', 'SocketSprint',
-    function ($scope, $stateParams, Authentication, $location, Tasks, SocketSprint) {
+tasksApp.controller('TasksCreateUpdateController', ['$scope', '$stateParams', 'Authentication', '$location', 'Tasks', 'SocketSprint','notify',
+    function ($scope, $stateParams, Authentication, $location, Tasks, SocketSprint,notify) {
         $scope.authentication = Authentication;
 
         // If user is not signed in then redirect back home
         if (!$scope.authentication.user) $location.path('/');
 
         $scope.priorities = [
-            'VERY HIGH',
-            'HIGH',
-            'MEDIUM',
-            'LOW',
-            'VERY LOW'
+            'Muy Alta',
+            'Alta',
+            'Media',
+            'Baja',
+            'Muy Baja'
         ];
 
         $scope.createTask = function (story) {
@@ -2311,13 +2322,13 @@ tasksApp.controller('TasksCreateUpdateController', ['$scope', '$stateParams', 'A
 
             t.$save({ storyId: story._id }, function (task) {
                 SocketSprint.emit('task.created', {task: task, room: story.sprintId});
-
                 $scope.taskName = '';
                 $scope.taskDescription = '';
                 $scope.taskPriority = {};
                 $scope.taskHours = '';
                 $scope.taskRemark = '';
                 $scope.taskRuleValidation = '';
+                notify({message:'Tarea creada exitosamente!', templateUrl:'modules/error/angular-notify.html'});
             });
         };
         

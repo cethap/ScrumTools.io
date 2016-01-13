@@ -10,6 +10,7 @@
   "scripts": {
     "start": "grunt",
     "test": "grunt test",
+    "build": "grunt build",
     "postinstall": "bower install --config.interactive=false"
   },
   "dependencies": {
