@@ -1,0 +1,241 @@
+{
+    "breakpoints": {
+        "json()": [
+            {
+                "path": "/app/controllers/phases.server.controller.js",
+                "line": 26,
+                "column": 8,
+                "text": "phases.server.controller.js",
+                "content": "        if (err) {",
+                "time": 1454793692846,
+                "enabled": true,
+                "id": 2,
+                "invalid": false
+            },
+            {
+                "path": "/app/controllers/phases.server.controller.js",
+                "line": 31,
+                "column": 12,
+                "text": "phases.server.controller.js",
+                "content": "            res.status(201).jsonp(doc);",
+                "time": 1454793703492,
+                "enabled": true,
+                "id": 3,
+                "invalid": false
+            }
+        ]
+    },
+    "console": {
+        "@expanded": true,
+        "@height": 271.3437805175781,
+        "@maximized": "false",
+        "json()": {
+            "meta": {
+                "accessList": [
+                    "tab1"
+                ]
+            },
+            "name": "pane1",
+            "nodes": [
+                {
+                    "type": "tab",
+                    "name": "tab1",
+                    "path": "",
+                    "className": [
+                        "tab1",
+                        "focus"
+                    ],
+                    "document": {
+                        "changed": false,
+                        "meta": {
+                            "timestamp": 1454791169955
+                        },
+                        "filter": true,
+                        "title": "Immediate (Debugger)",
+                        "tooltip": "Immediate (Debugger)",
+                        "immediate": {
+                            "type": "debugger",
+                            "history": [
+                                "doc._doc.phaseName = \" laura\"",
+                                "doc._doc.phaseName += \" ds\"",
+                                "doc._doc.phaseName",
+                                "res.status(404).jsonp(doc);",
+                                "doc._doc.phaseName = \"Editado desde Debug2\"",
+                                "doc._doc.phaseName = \"Editado desde Debug\"",
+                                "doc._doc",
+                                "doc"
+                            ],
+                            "pos": -1
+                        }
+                    },
+                    "editorType": "immediate",
+                    "active": true
+                }
+            ],
+            "skin": "editor_tab",
+            "skinset": "default",
+            "type": "pane"
+        }
+    },
+    "experiments": {
+        "@@enabled": true,
+        "@autosave": 0,
+        "@flat-dark": 0,
+        "@git": 1,
+        "@go_completion": 0,
+        "@mount": 0,
+        "@plugin-manager": 1,
+        "@plugins": 0,
+        "@sdk": 0,
+        "@test": 0
+    },
+    "ext": {
+        "counters": {
+            "@ace": 2,
+            "@ace.repl": 1,
+            "@acestatus": 1,
+            "@datagrid": 1,
+            "@divider": 5,
+            "@document": 8,
+            "@form": 5,
+            "@immediate": 1,
+            "@menu": 10,
+            "@menuitem": 23,
+            "@pane": 2,
+            "@preferences": 1,
+            "@session": 8,
+            "@tab": 3,
+            "@tree": 2,
+            "@undoManager": 8
+        }
+    },
+    "findinfiles": {
+        "@console": "true",
+        "@matchcase": "false",
+        "@regex": "false",
+        "@wholeword": "false"
+    },
+    "menus": {
+        "@minimized": "false"
+    },
+    "nak": {
+        "@installed": true
+    },
+    "panecycle": {
+        "json()": [
+            "tab1",
+            "tab2"
+        ]
+    },
+    "panels": {
+        "@active-left": "tree",
+        "@active-right": "none",
+        "@width-left": 313,
+        "commands.panel": {
+            "@enabled": "true",
+            "@name": "commands.panel"
+        },
+        "debugger": {
+            "@enabled": "true",
+            "@name": "debugger"
+        },
+        "navigate": {
+            "@enabled": "true",
+            "@name": "navigate"
+        },
+        "outline": {
+            "@enabled": "true",
+            "@name": "outline"
+        },
+        "scm": {
+            "@enabled": "true",
+            "@name": "scm"
+        },
+        "tree": {
+            "@enabled": "true",
+            "@name": "tree"
+        }
+    },
+    "projecttree": {
+        "@scrollpos": -10,
+        "@showfs": true,
+        "expanded": {
+            "json()": [
+                "/",
+                "/public/modules/escritorio",
+                "/app/controllers",
+                "/config/env"
+            ]
+        }
+    },
+    "recentfiles": {
+        "json()": []
+    },
+    "tabs": {
+        "json()": {
+            "focus": "tab1",
+            "meta": {
+                "accessList": [
+                    "tab2",
+                    "tab0"
+                ]
+            },
+            "name": "pane0",
+            "nodes": [
+                {
+                    "type": "tab",
+                    "name": "tab0",
+                    "path": "/app/controllers/phases.server.controller.js",
+                    "className": [
+                        "tab0"
+                    ],
+                    "document": {
+                        "changed": false,
+                        "meta": {
+                            "ignoreState": 0
+                        },
+                        "filter": true,
+                        "title": "phases.server.controller.js",
+                        "tooltip": "/app/controllers/phases.server.controller.js",
+                        "ace": {}
+                    },
+                    "editorType": "ace",
+                    "active": false
+                },
+                {
+                    "type": "tab",
+                    "name": "tab2",
+                    "path": "",
+                    "className": [
+                        "tab2"
+                    ],
+                    "document": {
+                        "changed": false,
+                        "meta": {
+                            "timestamp": 1454827425035
+                        },
+                        "filter": true,
+                        "title": "Compare project.server.model.js",
+                        "diffview": {
+                            "oldPath": "7d4de02:app/models/project.server.model.js",
+                            "newPath": "2435aee:app/models/project.server.model.js"
+                        }
+                    },
+                    "editorType": "diffview",
+                    "active": true
+                }
+            ],
+            "skin": "editor_tab",
+            "skinset": "default",
+            "type": "pane"
+        }
+    },
+    "tree_selection": {
+        "json()": [
+            "/generate-ssl-certs.sh"
+        ]
+    },
+    "watches": {
+        "json()": []
+    }
+}
